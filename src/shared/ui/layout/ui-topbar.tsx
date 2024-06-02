@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export const Topbar = ({
+export const UiTopbar = ({
   logo,
   theme,
   auth,
