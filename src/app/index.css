@@ -4,6 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  overscroll-behavior: none;
+}
+
+@layer components {
+  .container {
+    @apply mx-auto px-2 md:px-4 lg:px-6;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
