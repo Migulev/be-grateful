@@ -5,7 +5,7 @@ import { cn } from '@/shared/utils'
 export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
-const UiTextarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, ...props }, ref) => {
     return (
       <textarea
@@ -20,6 +20,6 @@ const UiTextarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     )
   },
 )
-UiTextarea.displayName = 'Textarea'
+Textarea.displayName = 'Textarea'
 
-export { UiTextarea }
+export { Textarea }
