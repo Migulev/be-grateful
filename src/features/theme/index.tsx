@@ -1,2 +1,2 @@
-export { ThemeButton } from './theme-button'
-export { ThemeProvider } from './theme-context'
+export { ThemeButton } from './ui/theme-button'
+export { ThemeProvider } from './model/theme-context'
