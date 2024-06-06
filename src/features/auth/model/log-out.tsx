@@ -5,6 +5,7 @@ export const useLogOut = () => {
   const { loadSession } = useSession()
 
   const logOut = async () => {
+    // !todo: error handler
     const { error } = await supabase.auth.signOut()
     loadSession()
   }
