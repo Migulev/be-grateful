@@ -7,6 +7,7 @@ import { SingInModal } from './sign-in-modal'
 export const SignInButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  // !todo: receive ui component through props and render
   return (
     <>
       <Button onClick={() => setIsModalOpen(true)}>sign in</Button>

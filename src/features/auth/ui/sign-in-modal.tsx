@@ -102,7 +102,7 @@ export const SingInModal = ({
                     </FormItem>
                   )}
                 />
-
+                {/* !todo: implement loader or disable button */}
                 <Button
                   className=" mt-2 w-full bg-gray-300 text-gray-900 hover:bg-gray-100"
                   type="submit"
