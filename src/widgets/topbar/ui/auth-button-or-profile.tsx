@@ -1,18 +1,25 @@
-import { SignInButton } from '@/features/auth'
+import { useSession } from '@/entities/session'
+import { SignInButton, useLogOut } from '@/features/auth'
 
 import { ProfileAvatar } from './profile-avatar'
+import { UiProfileMenu } from './ui-profile-menu'
 
 export const AuthButtonOrProfile = () => {
-  // const session = useSession()
-  // if (!isAuthChecked) return null
+  const { logOut } = useLogOut()
 
-  // const session = {
-  //   email: 'mglv@ya.ru',
-  // }
+  const { session } = useSession()
 
-  // !todo: session check
-
-  const session = false
-
-  return <>{session ? <ProfileAvatar profile={session} /> : <SignInButton />}</>
+  return (
+    <>
+      {session ? (
+        <UiProfileMenu
+          trigger={<ProfileAvatar profile={session} />}
+          options={[{ label: 'настройки', onFunc: () => {} }]}
+          onLogOut={logOut}
+        />
+      ) : (
+        <SignInButton />
+      )}
+    </>
+  )
 }
