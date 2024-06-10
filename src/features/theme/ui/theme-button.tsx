@@ -2,7 +2,7 @@ import { Moon, Sun } from 'lucide-react'
 
 import { Button } from '@/shared/components/ui/button'
 
-import { useThemeContext } from '../model/use-theme-context'
+import { useThemeContext } from '../model/theme-context'
 
 export const ThemeButton = () => {
   const { theme, setTheme } = useThemeContext()
@@ -15,6 +15,7 @@ export const ThemeButton = () => {
     }
   }
 
+  // !idea: receive component as a prop
   return (
     <>
       <Button
