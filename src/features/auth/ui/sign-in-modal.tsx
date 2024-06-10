@@ -30,13 +30,9 @@ const formSchema = z.object({
 })
 type FormSchemaType = z.infer<typeof formSchema>
 
-export const SingInModal = ({
-  isOpen,
-  setIsOpen,
-}: {
-  isOpen: boolean
-  setIsOpen: (value: boolean) => void
-}) => {
+// !todo: separate logic and ui of modal. check paromov implementation
+
+export const SingInModal = ({ onClose }: { onClose: () => void }) => {
   const [checkEmailView, setCheckEmailView] = useState(false)
   const [emailProvidedByUser, setEmailProvidedByUser] = useState('')
 
@@ -50,7 +46,7 @@ export const SingInModal = ({
   const onSubmit = async (formValues: FormSchemaType) => {
     const { error } = await supabase.auth.signInWithOtp(formValues)
     if (error) {
-      // !todo: error implement
+      // !todo: toast handler
       //   console.error(error)
       //   toastError(
       //     'Что-то пошло не так. Возможно ссылка уже была отправлена на указанную почту',
@@ -64,9 +60,10 @@ export const SingInModal = ({
 
   return (
     <Dialog
-      open={isOpen}
-      onOpenChange={() => setIsOpen(false)}
+      open
+      onOpenChange={onClose}
     >
+      {/* !dev: hardcode color */}
       <DialogContent className="border-neutral-500 bg-gradient-to-r from-cyan-500/90 to-blue-500/90 px-10 py-6">
         <DialogHeader className="text-white">
           <DialogTitle>Вход</DialogTitle>
@@ -103,6 +100,8 @@ export const SingInModal = ({
                   )}
                 />
                 {/* !todo: implement loader or disable button */}
+                {/* !dev: hardcode color */}
+
                 <Button
                   className=" mt-2 w-full bg-gray-300 text-gray-900 hover:bg-gray-100"
                   type="submit"
@@ -115,6 +114,8 @@ export const SingInModal = ({
             <Separator />
 
             {/* !todo: google auth functionality  */}
+            {/* !dev: hardcode color */}
+
             <Button className=" flex gap-2 bg-gray-300 text-gray-900 hover:bg-gray-100">
               Войти через GOOGLE
               <GoogleIcon />

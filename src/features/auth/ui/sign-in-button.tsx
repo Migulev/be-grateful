@@ -1,20 +1,31 @@
 import { useState } from 'react'
 
-import { Button } from '@/shared/components/ui/button'
+import { Button, ButtonProps } from '@/shared/components/ui/button'
 
 import { SingInModal } from './sign-in-modal'
 
-export const SignInButton = () => {
+export const SignInButton = ({
+  className,
+  variant,
+  size,
+}: {
+  className?: string
+  variant?: ButtonProps['variant']
+  size?: ButtonProps['size']
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  // !todo: receive ui component through props and render
   return (
     <>
-      <Button onClick={() => setIsModalOpen(true)}>sign in</Button>
-      <SingInModal
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
-      />
+      <Button
+        className={className}
+        variant={variant}
+        size={size}
+        onClick={() => setIsModalOpen(true)}
+      >
+        вход
+      </Button>
+      {isModalOpen && <SingInModal onClose={() => setIsModalOpen(false)} />}
     </>
   )
 }
