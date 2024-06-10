@@ -5,13 +5,8 @@ import {
 } from '@/shared/components/ui/avatar'
 import { cn } from '@/shared/utils'
 
-import { getProfileLetters } from '../utils'
-
-export type Profile = {
-  email: string
-  name?: string | null
-  image?: string | null
-}
+import { Profile } from '../model/type'
+import { getProfileLetters } from '../model/utils'
 
 export const ProfileAvatar = ({
   profile,

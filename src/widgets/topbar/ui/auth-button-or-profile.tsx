@@ -5,15 +5,15 @@ import { ProfileAvatar } from './profile-avatar'
 import { UiProfileMenu } from './ui-profile-menu'
 
 export const AuthButtonOrProfile = () => {
-  const { logOut } = useLogOut()
-
-  const { session } = useSession()
+  const logOut = useLogOut()
+  const session = useSession()
 
   return (
     <>
       {session ? (
         <UiProfileMenu
           trigger={<ProfileAvatar profile={session} />}
+          // !dev: hardcode
           options={[{ label: 'настройки', onFunc: () => {} }]}
           onLogOut={logOut}
         />

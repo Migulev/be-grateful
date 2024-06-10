@@ -1,4 +1,4 @@
-import { Profile } from './ui/profile-avatar'
+import { Profile } from './type'
 
 const getProfileDisplayName = (profile: Profile) => {
   return profile.name ? profile.name : profile.email
