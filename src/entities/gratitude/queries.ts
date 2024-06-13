@@ -1,8 +1,8 @@
 import { gratitudeApi } from '@/shared/api/gratitude'
 
-const gratitude_query_key = 'gratitude'
+export const gratitude_query_key = 'gratitudeList'
 
-export const gratitudeQuery = () => ({
+export const gratitudeListQuery = () => ({
   queryKey: [gratitude_query_key],
   queryFn: gratitudeApi.getGratitudeList,
   refetchOnWindowFocus: false,
