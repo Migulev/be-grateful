@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { Button, ButtonProps } from '@/shared/components/ui/button'
 
+import { useLoginWithOtp } from '../model/use-log-in-with-otp'
 import { SingInModal } from './sign-in-modal'
 
 export const SignInButton = ({
@@ -14,6 +15,7 @@ export const SignInButton = ({
   size?: ButtonProps['size']
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { mutateAsync: logInWithOptAsync, isPending } = useLoginWithOtp()
 
   return (
     <>
@@ -25,7 +27,13 @@ export const SignInButton = ({
       >
         вход
       </Button>
-      {isModalOpen && <SingInModal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && (
+        <SingInModal
+          onClose={() => setIsModalOpen(false)}
+          onLogInWithOptAsync={logInWithOptAsync}
+          isLogging={isPending}
+        />
+      )}
     </>
   )
 }

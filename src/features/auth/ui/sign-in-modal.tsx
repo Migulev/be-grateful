@@ -20,7 +20,6 @@ import {
 } from '@/shared/components/ui/form'
 import { Input } from '@/shared/components/ui/input'
 import { Separator } from '@/shared/components/ui/separator'
-import { supabase } from '@/shared/libs/supabase'
 
 const formSchema = z.object({
   email: z
@@ -32,7 +31,15 @@ type FormSchemaType = z.infer<typeof formSchema>
 
 // !todo: separate logic and ui of modal. check paromov implementation
 
-export const SingInModal = ({ onClose }: { onClose: () => void }) => {
+export const SingInModal = ({
+  onClose,
+  onLogInWithOptAsync,
+  isLogging,
+}: {
+  onClose: () => void
+  onLogInWithOptAsync: (email: string) => Promise<void>
+  isLogging: boolean
+}) => {
   const [checkEmailView, setCheckEmailView] = useState(false)
   const [emailProvidedByUser, setEmailProvidedByUser] = useState('')
 
@@ -44,17 +51,17 @@ export const SingInModal = ({ onClose }: { onClose: () => void }) => {
   })
 
   const onSubmit = async (formValues: FormSchemaType) => {
-    const { error } = await supabase.auth.signInWithOtp(formValues)
-    if (error) {
+    try {
+      await onLogInWithOptAsync(formValues.email)
+      setCheckEmailView(true)
+      setEmailProvidedByUser(formValues.email)
+    } catch (error) {
       // !todo: toast handler
       //   console.error(error)
       //   toastError(
       //     'Что-то пошло не так. Возможно ссылка уже была отправлена на указанную почту',
       //     7000,
-      //   )
-    } else {
-      setCheckEmailView(true)
-      setEmailProvidedByUser(formValues.email)
+      //   )}
     }
   }
 
@@ -69,15 +76,7 @@ export const SingInModal = ({ onClose }: { onClose: () => void }) => {
           <DialogTitle>Вход</DialogTitle>
         </DialogHeader>
 
-        {checkEmailView ? (
-          <>
-            <div>
-              проверьте почту{' '}
-              <span className=" underline">{emailProvidedByUser}</span> вам
-              должна была прийти ссылка для подтверждения входа
-            </div>
-          </>
-        ) : (
+        {!checkEmailView ? (
           <>
             <Form {...form}>
               <form
@@ -99,12 +98,12 @@ export const SingInModal = ({ onClose }: { onClose: () => void }) => {
                     </FormItem>
                   )}
                 />
-                {/* !todo: implement loader or disable button */}
-                {/* !dev: hardcode color */}
 
+                {/* !dev: hardcode color */}
                 <Button
                   className=" mt-2 w-full bg-gray-300 text-gray-900 hover:bg-gray-100"
                   type="submit"
+                  disabled={isLogging}
                 >
                   Войти через Email
                 </Button>
@@ -116,10 +115,21 @@ export const SingInModal = ({ onClose }: { onClose: () => void }) => {
             {/* !todo: google auth functionality  */}
             {/* !dev: hardcode color */}
 
-            <Button className=" flex gap-2 bg-gray-300 text-gray-900 hover:bg-gray-100">
+            <Button
+              className=" flex gap-2 bg-gray-300 text-gray-900 hover:bg-gray-100"
+              disabled={isLogging}
+            >
               Войти через GOOGLE
               <GoogleIcon />
             </Button>
+          </>
+        ) : (
+          <>
+            <div>
+              проверьте почту{' '}
+              <span className=" underline">{emailProvidedByUser}</span> вам
+              должна прийти ссылка для входа
+            </div>
           </>
         )}
       </DialogContent>
