@@ -24,7 +24,7 @@ export const authApi = {
     return null
   },
 
-  logIn: async (email: string) => {
+  logInWithOtp: async (email: string) => {
     const { error } = await supabase.auth.signInWithOtp({ email: email })
     if (error) {
       //   throw new Error()
