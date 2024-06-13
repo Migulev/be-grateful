@@ -2,6 +2,8 @@ import { z } from 'zod'
 
 import { supabase } from '@/shared/libs/supabase'
 
+import { maxGratitudeTextLength } from '../config'
+
 const gratitudeDtoSchema = z.object({
   id: z.string(),
   text: z.string(),
@@ -36,6 +38,8 @@ export const gratitudeApi = {
 
   // !later: do we need to receive created gratitude?
   createGratitude: async (text: string): Promise<GratitudeDto | null> => {
+    if (text.length > maxGratitudeTextLength) throw new Error() // !todo: error handling
+
     const { data, error } = await supabase
       .from('gratitude')
       .insert([{ createdAt: new Date().toISOString(), text }])
