@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { supabase } from '@/shared/libs/supabase'
 
 import { maxGratitudeTextLength } from '../config'
+import { toastError } from '../libs/toast'
 
 const gratitudeDtoSchema = z.object({
   id: z.string(),
@@ -12,8 +13,6 @@ const gratitudeDtoSchema = z.object({
 const gratitudeDtoArraySchema = z.array(gratitudeDtoSchema)
 type GratitudeDto = z.infer<typeof gratitudeDtoSchema>
 
-// !later: error handler for all functions
-
 export const gratitudeApi = {
   getGratitudeList: async (): Promise<GratitudeDto[]> => {
     const { data, error } = await supabase
@@ -22,15 +21,13 @@ export const gratitudeApi = {
       .order('createdAt', { ascending: false })
 
     if (error) {
-      //   throw new Error()
+      throw new Error()
     }
 
     const parsedData = gratitudeDtoArraySchema.safeParse(data)
 
     if (parsedData.success) {
       return parsedData.data
-    } else {
-      // log error
     }
 
     return []
@@ -38,7 +35,8 @@ export const gratitudeApi = {
 
   // !later: do we need to receive created gratitude?
   createGratitude: async (text: string): Promise<GratitudeDto | null> => {
-    if (text.length > maxGratitudeTextLength) throw new Error() // !todo: error handling
+    if (text.length > maxGratitudeTextLength)
+      toastError('Слишком длинное сообщение')
 
     const { data, error } = await supabase
       .from('gratitude')
@@ -47,15 +45,13 @@ export const gratitudeApi = {
       .single()
 
     if (error) {
-      //   throw new Error()
+      throw new Error()
     }
 
     const parsedData = gratitudeDtoSchema.safeParse(data)
 
     if (parsedData.success) {
       return parsedData.data
-    } else {
-      // log error
     }
     return null
   },
@@ -64,7 +60,7 @@ export const gratitudeApi = {
     const { error } = await supabase.from('gratitude').delete().eq('id', id)
 
     if (error) {
-      //   throw new Error()
+      throw new Error()
     }
     return
   },

@@ -4,8 +4,6 @@ type SessionDto = {
   email: string
 }
 
-// !later: error handler for all functions
-
 export const authApi = {
   getSession: async () => {
     const {
@@ -13,13 +11,11 @@ export const authApi = {
       error,
     } = await supabase.auth.getUser()
     if (error) {
-      //   throw new Error()
+      throw new Error()
     }
 
     if (user?.email) {
       return { email: user?.email } as SessionDto
-    } else {
-      // log error
     }
     return null
   },
@@ -27,7 +23,7 @@ export const authApi = {
   logInWithOtp: async (email: string) => {
     const { error } = await supabase.auth.signInWithOtp({ email: email })
     if (error) {
-      //   throw new Error()
+      throw new Error()
     }
     return
   },
@@ -35,7 +31,7 @@ export const authApi = {
   logOut: async () => {
     const { error } = await supabase.auth.signOut()
     if (error) {
-      //   throw new Error()
+      throw new Error()
     }
     return
   },

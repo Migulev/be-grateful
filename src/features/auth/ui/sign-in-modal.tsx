@@ -20,6 +20,7 @@ import {
 } from '@/shared/components/ui/form'
 import { Input } from '@/shared/components/ui/input'
 import { Separator } from '@/shared/components/ui/separator'
+import { toastError } from '@/shared/libs/toast'
 
 const formSchema = z.object({
   email: z
@@ -56,12 +57,10 @@ export const SingInModal = ({
       setCheckEmailView(true)
       setEmailProvidedByUser(formValues.email)
     } catch (error) {
-      // !todo: toast handler
-      //   console.error(error)
-      //   toastError(
-      //     'Что-то пошло не так. Возможно ссылка уже была отправлена на указанную почту',
-      //     7000,
-      //   )}
+      toastError(
+        'Что-то пошло не так. Возможно ссылка уже была отправлена на указанную почту',
+        7000,
+      )
     }
   }
 

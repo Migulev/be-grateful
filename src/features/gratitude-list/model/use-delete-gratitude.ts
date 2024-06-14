@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { Gratitude, gratitude_query_key } from '@/entities/gratitude'
 import { gratitudeApi } from '@/shared/api/gratitude'
+import { toastError } from '@/shared/libs/toast'
 
 export const useDeleteGratitude = () => {
   const queryClient = useQueryClient()
@@ -26,13 +27,12 @@ export const useDeleteGratitude = () => {
       return { previousGratitudeList }
     },
 
-    onError: (error, __, context) => {
+    onError: (_, __, context) => {
       queryClient.setQueryData(
         [gratitude_query_key],
         context?.previousGratitudeList,
       )
-      //   !todo: toastError(error.message)
-      //   toastError(error.message)
+      toastError()
     },
   })
 }
