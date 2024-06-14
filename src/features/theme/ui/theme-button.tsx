@@ -2,10 +2,10 @@ import { Moon, Sun } from 'lucide-react'
 
 import { Button } from '@/shared/components/ui/button'
 
-import { useThemeContext } from '../model/theme-context'
+import { useTheme } from '../model/theme-context'
 
 export const ThemeButton = () => {
-  const { theme, setTheme } = useThemeContext()
+  const { theme, setTheme } = useTheme()
 
   const toggleTheme = () => {
     if (theme == 'dark') {

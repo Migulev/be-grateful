@@ -1,2 +1,6 @@
 export { ThemeButton } from './ui/theme-button'
-export { ThemeProvider } from './model/theme-context'
+export {
+  useTheme,
+  ThemeProviderContext,
+  type Theme,
+} from './model/theme-context'
