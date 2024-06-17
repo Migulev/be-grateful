@@ -26,10 +26,13 @@ export const useCreateGratitude = (optimisticDuration: number) => {
         gratitude_query_key,
       ])
 
-      queryClient.setQueryData([gratitude_query_key], (old: Gratitude[]) => [
-        optimisticGratitude,
-        ...old,
-      ])
+      queryClient.setQueryData(
+        [gratitude_query_key],
+        (cashedData: Gratitude[]) => {
+          if (cashedData === undefined) return [optimisticGratitude]
+          return [optimisticGratitude, ...cashedData]
+        },
+      )
 
       return { previousGratitudeList, optimisticGratitude }
     },
@@ -44,11 +47,15 @@ export const useCreateGratitude = (optimisticDuration: number) => {
 
     onSuccess: async (data, _, context) => {
       setTimeout(() => {
-        queryClient.setQueryData([gratitude_query_key], (old: Gratitude[]) =>
-          old.map(gratitude => {
-            if (gratitude.id === context.optimisticGratitude.id) return data
-            return gratitude
-          }),
+        queryClient.setQueryData(
+          [gratitude_query_key],
+          (cashedData: Gratitude[]) => {
+            if (cashedData === undefined) return [data]
+            cashedData.map(gratitude => {
+              if (gratitude.id === context.optimisticGratitude.id) return data
+              return gratitude
+            })
+          },
         )
       }, optimisticDuration)
     },
