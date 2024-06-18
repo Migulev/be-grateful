@@ -1,10 +1,13 @@
 import { ClassValue, clsx } from 'clsx'
 import {
   Children,
+  Context,
+  createContext,
   createElement,
   isValidElement,
   ReactNode,
   RefObject,
+  useContext,
   useEffect,
 } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -71,4 +74,14 @@ export const useResizeTextarea = (
       element.current.style.height = `${element.current.scrollHeight}px`
     }
   }, [dependency, element])
+}
+
+export function createStrictContext<T>() {
+  return createContext<T | null>(null)
+}
+
+export function useStrictContext<T>(context: Context<T | null>) {
+  const value = useContext(context)
+  if (value === null) throw new Error('Strict context not passed')
+  return value as T
 }
