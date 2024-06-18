@@ -39,6 +39,9 @@ export const GratitudeInput = ({
     <form
       onSubmit={handleSubmit}
       className={cn(className, 'flex w-full max-w-xl')}
+      onKeyDown={e => {
+        if (e.key === 'Enter') handleSubmit(e)
+      }}
     >
       <Textarea
         ref={textareaRef}
