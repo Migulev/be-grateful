@@ -3,8 +3,10 @@ import { useRef, useState } from 'react'
 
 import { Button } from '@/shared/components/ui/button'
 import { Textarea } from '@/shared/components/ui/textarea'
-import { maxGratitudeTextLength } from '@/shared/config'
+import { toastError } from '@/shared/libs/toast'
 import { cn, useResizeTextarea } from '@/shared/utils'
+
+import { maxGratitudeTextLength } from '../model/rules'
 
 export const GratitudeInput = ({
   className,
@@ -24,6 +26,8 @@ export const GratitudeInput = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length <= maxGratitudeTextLength) {
       setGratitude(e.target.value)
+    } else {
+      toastError('300 символов максимум')
     }
   }
 
