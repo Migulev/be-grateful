@@ -49,13 +49,11 @@ export const useCreateGratitude = (optimisticDuration: number) => {
       setTimeout(() => {
         queryClient.setQueryData(
           [gratitude_query_key],
-          (cashedData: Gratitude[]) => {
-            if (cashedData === undefined) return [data]
+          (cashedData: Gratitude[]) =>
             cashedData.map(gratitude => {
               if (gratitude.id === context.optimisticGratitude.id) return data
               return gratitude
-            })
-          },
+            }),
         )
       }, optimisticDuration)
     },
