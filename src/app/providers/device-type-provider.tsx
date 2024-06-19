@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import { DeviceTypeContext } from '@/shared/libs/device-type'
 
 export const DeviceTypeProvider = ({ children }: { children?: ReactNode }) => {
-  const [isTouchScreen, setIsTouchScreen] = useState<boolean>(false)
+  const [isTouchScreen, setIsTouchScreen] = useState<boolean | null>(null)
 
   const isTouchScreenDevice = () => {
     try {

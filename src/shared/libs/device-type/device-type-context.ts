@@ -1,7 +1,7 @@
 import { createStrictContext, useStrictContext } from '@/shared/utils'
 
 export type DeviceTypeContextType = {
-  isTouchScreen: boolean
+  isTouchScreen: boolean | null
 }
 
 export const DeviceTypeContext = createStrictContext<DeviceTypeContextType>()
