@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-  overscroll-behavior: none;
+  background-color: #47a7e9;
 }
 
 @layer components {

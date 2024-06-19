@@ -10,9 +10,9 @@ export const Home = () => {
   )
 
   return (
-    <main className=" container ">
+    <main className="container">
       <Hero />
-      <section className="flex w-full flex-col items-center gap-10">
+      <section className="flex flex-col items-center gap-10">
         <GratitudeInput
           placeholder="За что ты сегодня благодарен/а?"
           onCreateAsync={async (gratitudeText: string) => {
@@ -21,7 +21,7 @@ export const Home = () => {
           isPending={isPending}
         />
         <GratitudeList
-          isOptimistic={isPending}
+          optimisticInProgress={isPending}
           optimisticDuration={optimisticAnimationDuration}
         />
       </section>
