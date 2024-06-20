@@ -1,12 +1,14 @@
-import { useInvalidateSession } from '@/entities/session'
+import { useMutation } from '@tanstack/react-query'
+
+import { useResetSession } from '@/entities/session'
 import { authApi } from '@/shared/api/auth'
 
 export const useLogOut = () => {
-  const invalidateSession = useInvalidateSession()
+  const resetSession = useResetSession()
 
-  const logOut = async () => {
-    await authApi.logOut()
-    await invalidateSession()
-  }
-  return logOut
+  const mutation = useMutation({
+    mutationFn: authApi.logOut,
+    onSuccess: resetSession,
+  })
+  return mutation.mutate
 }

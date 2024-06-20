@@ -11,11 +11,10 @@ export const sessionQuery = () => ({
   staleTime: Infinity,
 })
 
-export const useInvalidateSession = () => {
+export const useResetSession = () => {
   const queryClient = useQueryClient()
-
   return () =>
-    queryClient.invalidateQueries({
+    queryClient.resetQueries({
       queryKey: [session_query_key],
     })
 }

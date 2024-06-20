@@ -17,7 +17,8 @@ export const authApi = {
     if (user?.email) {
       return { email: user?.email } as SessionDto
     }
-    return null
+
+    return
   },
 
   logInWithOtp: async (email: string) => {
@@ -33,6 +34,6 @@ export const authApi = {
     if (error) {
       throw new Error()
     }
-    return
+    return true
   },
 }
