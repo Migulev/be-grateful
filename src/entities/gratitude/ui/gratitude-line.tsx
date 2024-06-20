@@ -1,5 +1,5 @@
 import { DurationTW } from '@/shared/types'
-import { cn, convertDurationTW, formatDate } from '@/shared/utils'
+import { cn, convertDurationTW } from '@/shared/utils'
 
 export const GratitudeLine = ({
   date,
@@ -7,6 +7,7 @@ export const GratitudeLine = ({
   onDelete,
   isOptimistic = false,
   optimisticDuration = 0,
+  isMock = false,
 }: {
   date: string
   text: string
@@ -15,7 +16,7 @@ export const GratitudeLine = ({
   optimisticDuration?: DurationTW
   isMock?: boolean
 }) => {
-  const formattedDate = formatDate(date)
+  // !todo: what to do with date?
 
   return (
     <div
@@ -26,14 +27,18 @@ export const GratitudeLine = ({
       )}
     >
       {/* // !dev: color hardcoded */}
-      <div className="h-10 border-b border-stone-300 p-2 px-4">
-        <p
-          onClick={onDelete}
-          // !dev: color hardcoded
-          className="break-words text-lg text-stone-600"
-        >
-          {text}
-        </p>
+      <div className="border-b border-stone-300 p-2 px-4 text-lg">
+        {isMock ? (
+          <p className=" invisible block">Mock</p>
+        ) : (
+          <p
+            onClick={onDelete}
+            // !dev: color hardcoded
+            className="break-words  text-stone-600"
+          >
+            {`-  ${text}`}
+          </p>
+        )}
       </div>
     </div>
   )
