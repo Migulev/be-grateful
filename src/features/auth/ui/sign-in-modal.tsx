@@ -35,10 +35,12 @@ type FormSchemaType = z.infer<typeof formSchema>
 export const SingInModal = ({
   onClose,
   onLogInWithOptAsync,
+  onLogInWithGoogle,
   isLogging,
 }: {
   onClose: () => void
   onLogInWithOptAsync: (email: string) => Promise<void>
+  onLogInWithGoogle: () => void
   isLogging: boolean
 }) => {
   const [checkEmailView, setCheckEmailView] = useState(false)
@@ -117,6 +119,7 @@ export const SingInModal = ({
             <Button
               className=" flex gap-2 bg-gray-300 text-gray-900 hover:bg-gray-100"
               disabled={isLogging}
+              onClick={onLogInWithGoogle}
             >
               Войти через GOOGLE
               <GoogleIcon />
