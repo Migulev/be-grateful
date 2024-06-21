@@ -29,7 +29,6 @@ export const UiProfileMenu = ({
             {option.label}
           </Button>
         ))}
-        {/* !todo implement logout button */}
         <Button
           variant={'link'}
           // !dev: hardcode color
