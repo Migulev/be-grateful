@@ -7,16 +7,15 @@ export const GratitudeLine = ({
   onDelete,
   isOptimistic = false,
   optimisticDuration = 0,
-  isMock = false,
 }: {
   date: string
   text: string
   onDelete: () => void
   isOptimistic?: boolean
   optimisticDuration?: DurationTW
-  isMock?: boolean
 }) => {
   // !todo: what to do with date?
+  // !todo: create delete button
 
   return (
     <div
@@ -28,17 +27,13 @@ export const GratitudeLine = ({
     >
       {/* // !dev: color hardcoded */}
       <div className="border-b border-stone-300 p-2 px-4 text-lg">
-        {isMock ? (
-          <p className=" invisible block">Mock</p>
-        ) : (
-          <p
-            onClick={onDelete}
-            // !dev: color hardcoded
-            className="break-words  text-stone-600"
-          >
-            {`-  ${text}`}
-          </p>
-        )}
+        <p
+          onClick={onDelete}
+          // !dev: color hardcoded
+          className="break-words  text-stone-600"
+        >
+          {`-  ${text}`}
+        </p>
       </div>
     </div>
   )

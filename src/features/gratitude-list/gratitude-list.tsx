@@ -2,13 +2,16 @@ import { useQuery } from '@tanstack/react-query'
 
 import { GratitudeLine, gratitudeListQuery } from '@/entities/gratitude'
 import { DurationTW } from '@/shared/types'
+import { cn } from '@/shared/utils'
 
 import { useDeleteGratitude } from './model/use-delete-gratitude'
 
 export const GratitudeList = ({
+  className,
   optimisticInProgress = false,
   optimisticDuration,
 }: {
+  className?: string
   optimisticInProgress?: boolean // is a flag of a request in progress (isPending)
   optimisticDuration?: DurationTW
 }) => {
@@ -18,10 +21,10 @@ export const GratitudeList = ({
   const { mutate: deleteGratitude } = useDeleteGratitude()
 
   return (
-    <div className="flex w-full flex-col items-center gap-2">
+    <div className={cn(className, 'flex w-full flex-col items-center gap-2')}>
       <ul
         // !dev: color hardcoded
-        className="flex min-h-svh w-full flex-col gap-2 rounded-lg bg-yellow-200 p-6 sm:w-11/12 md:w-9/12"
+        className="flex min-h-svh w-full flex-col gap-2 rounded-lg bg-yellow-200 p-6 shadow sm:w-11/12 md:w-9/12"
       >
         {gratitudeList?.map((gratitude, index) => (
           <li key={gratitude.id}>
