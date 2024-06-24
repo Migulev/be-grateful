@@ -22,15 +22,13 @@ import { Input } from '@/shared/components/ui/input'
 import { Separator } from '@/shared/components/ui/separator'
 import { toastError } from '@/shared/libs/toast'
 
-const formSchema = z.object({
+const emailFormSchema = z.object({
   email: z
     .string()
     .min(1, { message: 'поле обязательно' })
     .email('неверный формат почты'),
 })
-type FormSchemaType = z.infer<typeof formSchema>
-
-// !todo: separate logic and ui of modal. check paromov implementation
+type EmailFormSchemaType = z.infer<typeof emailFormSchema>
 
 export const SingInModal = ({
   onClose,
@@ -46,14 +44,14 @@ export const SingInModal = ({
   const [checkEmailView, setCheckEmailView] = useState(false)
   const [emailProvidedByUser, setEmailProvidedByUser] = useState('')
 
-  const form = useForm<FormSchemaType>({
-    resolver: zodResolver(formSchema),
+  const mailForm = useForm<EmailFormSchemaType>({
+    resolver: zodResolver(emailFormSchema),
     defaultValues: {
       email: '',
     },
   })
 
-  const onSubmit = async (formValues: FormSchemaType) => {
+  const onEmailSubmit = async (formValues: EmailFormSchemaType) => {
     try {
       await onLogInWithOptAsync(formValues.email)
       setCheckEmailView(true)
@@ -79,13 +77,13 @@ export const SingInModal = ({
 
         {!checkEmailView ? (
           <>
-            <Form {...form}>
+            <Form {...mailForm}>
               <form
                 className="mt-2"
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={mailForm.handleSubmit(onEmailSubmit)}
               >
                 <FormField
-                  control={form.control}
+                  control={mailForm.control}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
@@ -113,9 +111,7 @@ export const SingInModal = ({
 
             <Separator />
 
-            {/* !todo: google auth functionality  */}
             {/* !dev: hardcode color */}
-
             <Button
               className=" flex gap-2 bg-gray-300 text-gray-900 hover:bg-gray-100"
               disabled={isLogging}
