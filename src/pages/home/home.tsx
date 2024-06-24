@@ -1,5 +1,5 @@
 import { GratitudeInput } from '@/entities/gratitude'
-import { GratitudeList, useCreateGratitude } from '@/features/gratitude-list'
+import { GratitudeList, useCreateGratitude } from '@/features/gratitude'
 
 import { Hero } from './ui/hero'
 
