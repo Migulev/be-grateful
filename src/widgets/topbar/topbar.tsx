@@ -1,5 +1,5 @@
 import { ThemeButton } from '@/features/theme'
-import { Logo } from '@/shared/components/Logo'
+import { Logo } from '@/shared/components/logo'
 
 import { AuthButtonOrProfile } from './auth-button-or-profile'
 
