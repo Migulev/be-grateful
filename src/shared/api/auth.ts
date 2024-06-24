@@ -1,9 +1,5 @@
 import { supabase } from '@/shared/libs/supabase'
 
-type SessionDto = {
-  email: string
-}
-
 export const authApi = {
   getSession: async () => {
     const {
@@ -14,11 +10,19 @@ export const authApi = {
       throw new Error()
     }
 
-    if (user?.email) {
-      return { email: user?.email } as SessionDto
+    if (user?.user_metadata) {
+      return user?.user_metadata
     }
 
     return
+  },
+
+  updateName: async (name: string) => {
+    await supabase.auth.updateUser({ data: { name } })
+  },
+
+  updateAvatarUrl: async (avatarUrl: string) => {
+    await supabase.auth.updateUser({ data: { avatarUrl } })
   },
 
   logInWithOtp: async (email: string) => {
