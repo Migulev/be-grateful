@@ -1,7 +1,7 @@
 import { ThemeButton } from '@/features/theme'
 import { Logo } from '@/shared/components/Logo'
 
-import { AuthButtonOrProfile } from './ui/auth-button-or-profile'
+import { AuthButtonOrProfile } from './auth-button-or-profile'
 
 export const Topbar = () => {
   return (
