@@ -10,11 +10,11 @@ import {
 export const UiProfileMenu = ({
   trigger,
   options,
-  onLogOut,
+  lastOption,
 }: {
   trigger: ReactNode
   options?: { label: string; onFunc: () => void }[]
-  onLogOut: () => void
+  lastOption?: { label: string; onFunc: () => void }
 }) => {
   return (
     <Popover>
@@ -29,14 +29,16 @@ export const UiProfileMenu = ({
             {option.label}
           </Button>
         ))}
-        <Button
-          variant={'link'}
-          // !dev: hardcode color
-          className="text-red-500"
-          onClick={onLogOut}
-        >
-          выход
-        </Button>
+        {lastOption && (
+          <Button
+            variant={'link'}
+            // !dev: hardcode color
+            className="text-red-500"
+            onClick={lastOption.onFunc}
+          >
+            {lastOption.label}
+          </Button>
+        )}
       </PopoverContent>
     </Popover>
   )
