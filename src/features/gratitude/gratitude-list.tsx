@@ -24,7 +24,7 @@ export const GratitudeList = ({
     <div className={cn(className, 'flex w-full flex-col items-center gap-2')}>
       <ul
         // !dev: color hardcoded
-        className="flex min-h-svh w-full flex-col gap-2 rounded-lg bg-yellow-200 p-6 shadow sm:w-11/12 md:w-9/12"
+        className="flex min-h-svh w-full flex-col gap-2 rounded-lg bg-yellow-200 p-6 shadow-lg sm:w-11/12 md:w-9/12"
       >
         {gratitudeList?.map((gratitude, index) => (
           <li key={gratitude.id}>
