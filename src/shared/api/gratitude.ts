@@ -30,7 +30,6 @@ export const gratitudeApi = {
     return []
   },
 
-  // !later: do we need to receive created gratitude?
   createGratitude: async (text: string): Promise<GratitudeDto | null> => {
     const { data, error } = await supabase
       .from('gratitude')
