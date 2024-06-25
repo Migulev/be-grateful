@@ -18,7 +18,11 @@ export const authApi = {
   },
 
   updateName: async (name: string) => {
-    await supabase.auth.updateUser({ data: { name } })
+    const { data, error } = await supabase.auth.updateUser({ data: { name } })
+    if (error) {
+      throw new Error()
+    }
+    return data
   },
 
   updateAvatarUrl: async (avatarUrl: string) => {
