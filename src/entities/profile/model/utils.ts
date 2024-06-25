@@ -1,4 +1,4 @@
-import { Profile } from './type'
+import { Profile } from './types'
 
 const getProfileDisplayName = (profile: Profile) => {
   return profile.name ? profile.name : profile.email
