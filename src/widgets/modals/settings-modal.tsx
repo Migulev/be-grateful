@@ -1,15 +1,19 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ReactNode } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { Button } from '@/shared/components/ui/button'
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/shared/components/ui/dialog'
+  Profile,
+  ProfileAvatar,
+  useUpdateProfileName,
+} from '@/entities/profile'
+import {
+  Credenza,
+  CredenzaContent,
+  CredenzaHeader,
+  CredenzaTitle,
+} from '@/shared/components/credenza'
+import { Button } from '@/shared/components/ui/button'
 import {
   Form,
   FormControl,
@@ -27,11 +31,11 @@ type NameFormSchemaType = z.infer<typeof nameFormSchema>
 
 export const SettingsModal = ({
   onClose,
-  profileAvatar,
+  profile,
   name,
 }: {
   onClose: () => void
-  profileAvatar: ReactNode
+  profile: Profile
   name: string
 }) => {
   const nameForm = useForm<NameFormSchemaType>({
@@ -39,27 +43,32 @@ export const SettingsModal = ({
     defaultValues: { name },
   })
 
+  const { mutate: updateName, isPending: isUpdatingName } =
+    useUpdateProfileName()
+
   const onNameSubmit = async (formValues: NameFormSchemaType) => {
     try {
-      // !todo: implement logic
-      console.log(formValues)
+      updateName(formValues.name)
     } catch (error) {
       toastError()
     }
   }
   return (
-    <Dialog
+    <Credenza
       open
       onOpenChange={onClose}
     >
       {/* !dev: color hardcoded */}
-      <DialogContent className="border-neutral-500 bg-gradient-to-r from-cyan-500/90 to-blue-500/90 px-2 sm:px-10 sm:py-6">
-        <DialogHeader>
-          <DialogTitle>Настройки</DialogTitle>
-        </DialogHeader>
+      <CredenzaContent className="border-neutral-500 bg-gradient-to-r from-cyan-500/90 to-blue-500/90 px-2 sm:px-10 sm:py-6">
+        <CredenzaHeader>
+          <CredenzaTitle>Настройки</CredenzaTitle>
+        </CredenzaHeader>
         <div className="mt-2 flex flex-col gap-6">
           <div className=" flex w-full items-center justify-center gap-2">
-            {profileAvatar}
+            <ProfileAvatar
+              className=" size-14"
+              profile={profile}
+            />
             {/* !dev: hardcode color */}
             <Button
               className=" text-sky-300"
@@ -93,13 +102,14 @@ export const SettingsModal = ({
               <Button
                 className=" mt-2 w-full bg-gray-300 text-gray-900 hover:bg-gray-100"
                 type="submit"
+                disabled={isUpdatingName}
               >
                 изменить имя
               </Button>
             </form>
           </Form>
         </div>
-      </DialogContent>
-    </Dialog>
+      </CredenzaContent>
+    </Credenza>
   )
 }

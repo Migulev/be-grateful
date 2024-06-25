@@ -3,14 +3,15 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { useLoginWithGoogle, useLoginWithOtp } from '@/features/auth'
+import {
+  Credenza,
+  CredenzaContent,
+  CredenzaHeader,
+  CredenzaTitle,
+} from '@/shared/components/credenza'
 import { GoogleIcon } from '@/shared/components/icons/google'
 import { Button } from '@/shared/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/shared/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -30,17 +31,7 @@ const emailFormSchema = z.object({
 })
 type EmailFormSchemaType = z.infer<typeof emailFormSchema>
 
-export const SingInModal = ({
-  onClose,
-  onLogInWithOptAsync,
-  onLogInWithGoogle,
-  isLogging,
-}: {
-  onClose: () => void
-  onLogInWithOptAsync: (email: string) => Promise<void>
-  onLogInWithGoogle: () => void
-  isLogging: boolean
-}) => {
+export const AuthModal = ({ onClose }: { onClose: () => void }) => {
   const [checkEmailView, setCheckEmailView] = useState(false)
   const [emailProvidedByUser, setEmailProvidedByUser] = useState('')
 
@@ -50,10 +41,16 @@ export const SingInModal = ({
       email: '',
     },
   })
+  const { mutate: logInWithGoogle, isPending: isPendingGoogle } =
+    useLoginWithGoogle()
+  const { mutateAsync: logInWithOptAsync, isPending: isPendingOtp } =
+    useLoginWithOtp()
+
+  const isLogging = isPendingGoogle || isPendingOtp
 
   const onEmailSubmit = async (formValues: EmailFormSchemaType) => {
     try {
-      await onLogInWithOptAsync(formValues.email)
+      await logInWithOptAsync(formValues.email)
       setCheckEmailView(true)
       setEmailProvidedByUser(formValues.email)
     } catch (error) {
@@ -65,15 +62,15 @@ export const SingInModal = ({
   }
 
   return (
-    <Dialog
+    <Credenza
       open
       onOpenChange={onClose}
     >
       {/* !dev: hardcode color */}
-      <DialogContent className="border-neutral-500 bg-gradient-to-r from-cyan-500/90 to-blue-500/90 px-2 sm:px-10 sm:py-6">
-        <DialogHeader className="text-white">
-          <DialogTitle>Вход</DialogTitle>
-        </DialogHeader>
+      <CredenzaContent className="border-neutral-500 bg-gradient-to-r from-cyan-500/90 to-blue-500/90 px-2 sm:px-10 sm:py-6">
+        <CredenzaHeader className="text-white">
+          <CredenzaTitle>Вход</CredenzaTitle>
+        </CredenzaHeader>
 
         {!checkEmailView ? (
           <>
@@ -115,7 +112,7 @@ export const SingInModal = ({
             <Button
               className=" flex gap-2 bg-gray-300 text-gray-900 hover:bg-gray-100"
               disabled={isLogging}
-              onClick={onLogInWithGoogle}
+              onClick={() => logInWithGoogle()}
             >
               Войти через GOOGLE
               <GoogleIcon />
@@ -130,7 +127,7 @@ export const SingInModal = ({
             </div>
           </>
         )}
-      </DialogContent>
-    </Dialog>
+      </CredenzaContent>
+    </Credenza>
   )
 }

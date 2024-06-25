@@ -1,10 +1,5 @@
-import { useState } from 'react'
-
 import { Button, ButtonProps } from '@/shared/components/ui/button'
-
-import { useLoginWithGoogle } from '../model/use-log-in-with-google'
-import { useLoginWithOtp } from '../model/use-log-in-with-otp'
-import { SingInModal } from './sign-in-modal'
+import { useAuthModal } from '@/shared/libs/modals/auth-modal-context'
 
 export const SignInButton = ({
   className,
@@ -15,30 +10,15 @@ export const SignInButton = ({
   variant?: ButtonProps['variant']
   size?: ButtonProps['size']
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const { mutateAsync: logInWithOptAsync, isPending: isPendingOtp } =
-    useLoginWithOtp()
-  const { mutate: logInWithGoogle, isPending: isPendingGoogle } =
-    useLoginWithGoogle()
-
+  const { setIsOpenAuthModal } = useAuthModal()
   return (
-    <>
-      <Button
-        className={className}
-        variant={variant}
-        size={size}
-        onClick={() => setIsModalOpen(true)}
-      >
-        вход
-      </Button>
-      {isModalOpen && (
-        <SingInModal
-          onClose={() => setIsModalOpen(false)}
-          onLogInWithOptAsync={logInWithOptAsync}
-          onLogInWithGoogle={logInWithGoogle}
-          isLogging={isPendingGoogle || isPendingOtp}
-        />
-      )}
-    </>
+    <Button
+      className={className}
+      variant={variant}
+      size={size}
+      onClick={() => setIsOpenAuthModal(true)}
+    >
+      вход
+    </Button>
   )
 }
