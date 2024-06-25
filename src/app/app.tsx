@@ -2,7 +2,7 @@ import { Home } from '@/pages/home'
 import { Topbar } from '@/widgets/topbar'
 
 import { AppLoader } from './app-loader'
-import { AppProviders } from './app-providers'
+import { AppProviders } from './providers/app-providers'
 
 function App() {
   return (
