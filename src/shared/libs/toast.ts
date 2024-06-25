@@ -6,3 +6,7 @@ export const toastError = (
 ) => {
   return toast.error(message, { duration })
 }
+
+export const toastSuccess = (message: string, duration?: number) => {
+  return toast.success(message, { duration })
+}
