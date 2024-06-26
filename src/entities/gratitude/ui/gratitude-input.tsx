@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 
 import { Button } from '@/shared/components/ui/button'
 import { Textarea } from '@/shared/components/ui/textarea'
+import { useAuthModal } from '@/shared/libs/modals/auth-modal-context'
 import { toastError } from '@/shared/libs/toast'
 import { cn, useResizeTextarea } from '@/shared/utils'
 
@@ -13,15 +14,18 @@ export const GratitudeInput = ({
   placeholder,
   onCreateAsync,
   isPending,
+  isAuth,
 }: {
   className?: string
   placeholder: string
   onCreateAsync: (gratitudeText: string) => Promise<void>
   isPending: boolean
+  isAuth: boolean
 }) => {
   const [gratitude, setGratitude] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   useResizeTextarea(textareaRef, gratitude)
+  const { setIsOpenAuthModal } = useAuthModal()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length <= maxGratitudeTextLength) {
@@ -33,6 +37,10 @@ export const GratitudeInput = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (!isAuth) {
+      setIsOpenAuthModal(true)
+      return
+    }
     if (gratitude) {
       await onCreateAsync(gratitude)
       setGratitude('')

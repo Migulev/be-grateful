@@ -1,4 +1,5 @@
 import { GratitudeInput } from '@/entities/gratitude'
+import { useSession } from '@/entities/session'
 import { GratitudeList, useCreateGratitude } from '@/features/gratitude'
 
 import { Hero } from './ui/hero'
@@ -8,6 +9,7 @@ export const Home = () => {
   const { mutateAsync: createGratitudeAsync, isPending } = useCreateGratitude(
     optimisticAnimationDuration,
   )
+  const session = useSession()
 
   return (
     <main className="container">
@@ -19,6 +21,7 @@ export const Home = () => {
             await createGratitudeAsync(gratitudeText)
           }}
           isPending={isPending}
+          isAuth={!!session}
         />
         <GratitudeList
           optimisticInProgress={isPending}
