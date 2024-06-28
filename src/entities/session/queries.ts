@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 
 import { authApi } from '@/shared/api/auth'
+
 import { sessionSchema } from './model/types'
 
 const session_query_key = 'session'
@@ -23,6 +24,14 @@ export const useResetSession = () => {
   const queryClient = useQueryClient()
   return () =>
     queryClient.resetQueries({
+      queryKey: [session_query_key],
+    })
+}
+
+export const useInvalidateSession = () => {
+  const queryClient = useQueryClient()
+  return () =>
+    queryClient.invalidateQueries({
       queryKey: [session_query_key],
     })
 }
