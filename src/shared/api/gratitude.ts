@@ -4,9 +4,10 @@ import { supabase } from '@/shared/libs/supabase'
 
 const gratitudeDtoSchema = z.object({
   id: z.string(),
-  text: z.string(),
-  createdAt: z.string(),
+  title: z.string(),
+  created_at: z.string(),
 })
+
 const gratitudeDtoArraySchema = z.array(gratitudeDtoSchema)
 type GratitudeDto = z.infer<typeof gratitudeDtoSchema>
 
@@ -15,7 +16,7 @@ export const gratitudeApi = {
     const { data, error } = await supabase
       .from('gratitude')
       .select('*')
-      .order('createdAt', { ascending: false })
+      .order('created_at', { ascending: false })
 
     if (error) {
       throw new Error()
@@ -30,10 +31,15 @@ export const gratitudeApi = {
     return []
   },
 
-  createGratitude: async (text: string): Promise<GratitudeDto | null> => {
+  createGratitude: async (title: string): Promise<GratitudeDto | null> => {
+    const newGratitude = {
+      created_at: new Date().toISOString(),
+      title,
+    } as GratitudeDto
+
     const { data, error } = await supabase
       .from('gratitude')
-      .insert([{ createdAt: new Date().toISOString(), text }])
+      .insert([newGratitude])
       .select()
       .single()
 

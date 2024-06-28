@@ -18,7 +18,7 @@ export const useCreateGratitude = (optimisticDuration: number) => {
     onMutate: variables => {
       const optimisticGratitude: Gratitude = {
         id: generateRandomId(),
-        text: variables,
+        title: variables,
         createdAt: new Date().toISOString(),
       }
 

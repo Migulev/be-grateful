@@ -1,5 +1,5 @@
 export type Gratitude = {
   id: string
-  text: string
+  title: string
   createdAt: string
 }

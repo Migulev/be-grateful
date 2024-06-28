@@ -1,7 +1,19 @@
+import { z } from 'zod'
+
 import { supabase } from '@/shared/libs/supabase'
 
+export const sessionDtoSchema = z
+  .object({
+    id: z.string(),
+    avatar_url: z.string().default(''),
+    email: z.string(),
+    name: z.string().default(''),
+  })
+  .transform(({ avatar_url, ...rest }) => ({ avatarUrl: avatar_url, ...rest }))
+type SessionDto = z.infer<typeof sessionDtoSchema>
+
 export const authApi = {
-  getSession: async () => {
+  getSession: async (): Promise<SessionDto | undefined> => {
     const {
       data: { user },
       error,
@@ -10,23 +22,36 @@ export const authApi = {
       throw new Error()
     }
 
-    if (user?.user_metadata) {
-      return user?.user_metadata
+    const validation = sessionDtoSchema.safeParse({
+      id: user?.id,
+      ...user?.user_metadata,
+    })
+
+    if (validation.error) {
+      throw new Error()
     }
 
-    return
+    return validation.data as SessionDto
   },
 
   updateName: async (name: string) => {
-    const { data, error } = await supabase.auth.updateUser({ data: { name } })
+    const { data: updatedUser, error } = await supabase.auth.updateUser({
+      data: { name },
+    })
     if (error) {
       throw new Error()
     }
-    return data
+    return updatedUser
   },
 
-  updateAvatarUrl: async (avatarUrl: string) => {
-    await supabase.auth.updateUser({ data: { avatarUrl } })
+  updateAvatarUrl: async (avatar_url: string) => {
+    const { data: updatedUser, error } = await supabase.auth.updateUser({
+      data: { avatar_url },
+    })
+    if (error) {
+      throw new Error()
+    }
+    return updatedUser
   },
 
   logInWithOtp: async (email: string) => {

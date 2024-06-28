@@ -3,19 +3,18 @@ import { cn, convertDurationTW } from '@/shared/utils'
 
 export const GratitudeLine = ({
   date,
-  text,
+  title,
   onDelete,
   isOptimistic = false,
   optimisticDuration = 0,
 }: {
   date: string
-  text: string
+  title: string
   onDelete: () => void
   isOptimistic?: boolean
   optimisticDuration?: DurationTW
 }) => {
   // !todo: what to do with date?
-  // !todo: create delete button
 
   return (
     <div
@@ -32,7 +31,7 @@ export const GratitudeLine = ({
           // !dev: color hardcoded
           className="break-words  text-stone-600"
         >
-          {`-  ${text}`}
+          {`-  ${title}`}
         </p>
       </div>
     </div>

@@ -31,7 +31,7 @@ export const GratitudeList = ({
             <GratitudeLine
               onDelete={() => deleteGratitude(gratitude.id)}
               date={gratitude.createdAt}
-              text={gratitude.text}
+              title={gratitude.title}
               isOptimistic={index === 0 && optimisticInProgress}
               optimisticDuration={optimisticDuration}
             />
