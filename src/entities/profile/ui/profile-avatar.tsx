@@ -22,7 +22,7 @@ export const ProfileAvatar = ({
   return (
     <Avatar className={cn(className)}>
       <AvatarImage
-        src={profile.avatar_url ?? ''}
+        src={profile.avatarUrl ?? ''}
         className="object-cover"
       />
       <AvatarFallback>{getProfileLetters(profile)}</AvatarFallback>
