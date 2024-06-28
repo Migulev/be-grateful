@@ -18,7 +18,6 @@ export const SettingModalProvider = ({
       {session && isOpenSettingsModal && (
         <SettingsModal
           profile={session}
-          name={session.name}
           onClose={() => setIsOpenSettingsModal(false)}
         />
       )}

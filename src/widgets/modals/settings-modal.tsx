@@ -1,12 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { Profile, ProfileAvatar } from '@/entities/profile'
 import {
-  Profile,
-  ProfileAvatar,
+  useUpdateProfileAvatar,
   useUpdateProfileName,
-} from '@/entities/profile'
+} from '@/features/profile'
 import {
   Credenza,
   CredenzaContent,
@@ -32,20 +33,17 @@ type NameFormSchemaType = z.infer<typeof nameFormSchema>
 export const SettingsModal = ({
   onClose,
   profile,
-  name,
 }: {
   onClose: () => void
   profile: Profile
-  name: string
 }) => {
   const nameForm = useForm<NameFormSchemaType>({
     resolver: zodResolver(nameFormSchema),
-    defaultValues: { name },
+    defaultValues: { name: profile.name ? profile.name : '' },
   })
 
   const { mutate: updateName, isPending: isUpdatingName } =
     useUpdateProfileName()
-
   const onNameSubmit = async (formValues: NameFormSchemaType) => {
     try {
       updateName(formValues.name)
@@ -53,6 +51,17 @@ export const SettingsModal = ({
       toastError()
     }
   }
+
+  const inputRef = useRef<HTMLInputElement>(null)
+  const { mutateAsync: updateProfileAvatar, isPending: isUpdatingAvatar } =
+    useUpdateProfileAvatar()
+  const onInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    inputRef.current!.value = ''
+    await updateProfileAvatar(file)
+  }
+
   return (
     <Credenza
       open
@@ -70,15 +79,15 @@ export const SettingsModal = ({
               profile={profile}
             />
             {/* !dev: hardcode color */}
-            <Button
+            {/* !todo: create ui for input and spinner */}
+            <Input
               className=" text-sky-300"
-              variant={'link'}
-              onClick={() => {
-                // !todo implement logic
-              }}
-            >
-              изменить
-            </Button>
+              ref={inputRef}
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={onInputChange}
+              disabled={isUpdatingAvatar}
+            />
           </div>
           <Form {...nameForm}>
             <form onSubmit={nameForm.handleSubmit(onNameSubmit)}>
