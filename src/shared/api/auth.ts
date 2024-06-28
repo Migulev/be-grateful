@@ -2,14 +2,12 @@ import { z } from 'zod'
 
 import { supabase } from '@/shared/libs/supabase'
 
-export const sessionDtoSchema = z
-  .object({
-    id: z.string(),
-    avatar_url: z.string().default(''),
-    email: z.string(),
-    name: z.string().default(''),
-  })
-  .transform(({ avatar_url, ...rest }) => ({ avatarUrl: avatar_url, ...rest }))
+const sessionDtoSchema = z.object({
+  id: z.string(),
+  avatar_url: z.string().default(''),
+  email: z.string(),
+  name: z.string().default(''),
+})
 type SessionDto = z.infer<typeof sessionDtoSchema>
 
 export const authApi = {
