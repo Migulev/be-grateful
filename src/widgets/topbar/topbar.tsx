@@ -1,12 +1,12 @@
 import { ThemeButton } from '@/features/theme'
+import { Logo } from '@/shared/components/logo'
 
-// import { Logo } from '@/shared/components/logo'
 import { AuthButtonOrProfile } from './auth-button-or-profile'
 
 export const Topbar = () => {
   return (
     <nav className="container flex items-center justify-between px-8 py-8 md:px-10 md:py-10 lg:px-16 lg:py-16">
-      {/* <Logo /> */}
+      <Logo />
       <div className="flex gap-4">
         <ThemeButton />
         <AuthButtonOrProfile />
