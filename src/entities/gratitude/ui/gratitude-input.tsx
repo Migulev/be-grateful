@@ -14,13 +14,13 @@ export const GratitudeInput = ({
   placeholder,
   onCreateAsync,
   isPending,
-  isAuth,
+  isAuthorized,
 }: {
   className?: string
   placeholder: string
   onCreateAsync: (gratitudeText: string) => Promise<void>
   isPending: boolean
-  isAuth: boolean
+  isAuthorized: boolean
 }) => {
   const [gratitude, setGratitude] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -37,7 +37,7 @@ export const GratitudeInput = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!isAuth) {
+    if (!isAuthorized) {
       setIsOpenAuthModal(true)
       return
     }

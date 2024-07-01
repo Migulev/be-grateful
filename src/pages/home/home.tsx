@@ -21,7 +21,7 @@ export const Home = () => {
             await createGratitudeAsync(gratitudeText)
           }}
           isPending={isPending}
-          isAuth={!!session}
+          isAuthorized={!!session}
         />
         <GratitudeList
           optimisticInProgress={isPending}
