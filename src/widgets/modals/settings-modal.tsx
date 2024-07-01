@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { Profile, ProfileAvatar } from '@/entities/profile'
+import { Profile, ProfileAvatar, UploadInputButton } from '@/entities/profile'
 import {
+  useDeleteAvatar,
   useUpdateProfileAvatar,
   useUpdateProfileName,
 } from '@/features/profile'
@@ -23,7 +23,6 @@ import {
   FormMessage,
 } from '@/shared/components/ui/form'
 import { Input } from '@/shared/components/ui/input'
-import { toastError } from '@/shared/libs/toast'
 
 const nameFormSchema = z.object({
   name: z.string().max(30, { message: 'максимум 30 символов' }),
@@ -44,23 +43,22 @@ export const SettingsModal = ({
 
   const { mutate: updateName, isPending: isUpdatingName } =
     useUpdateProfileName()
-  const onNameSubmit = async (formValues: NameFormSchemaType) => {
-    try {
-      updateName(formValues.name)
-    } catch (error) {
-      toastError()
-    }
+  const onNameSubmit = (formValues: NameFormSchemaType) => {
+    updateName(formValues.name)
   }
 
-  const inputRef = useRef<HTMLInputElement>(null)
-  const { mutateAsync: updateProfileAvatar, isPending: isUpdatingAvatar } =
+  const { mutate: updateProfileAvatar, isPending: isUpdatingAvatar } =
     useUpdateProfileAvatar()
   const onInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
-    inputRef.current!.value = ''
-    await updateProfileAvatar(file)
+    updateProfileAvatar(file)
   }
+
+  const { mutate: deleteAvatar, isPending: isDeletingAvatar } =
+    useDeleteAvatar()
+
+  const isUnderAvatarMutation = isUpdatingAvatar || isDeletingAvatar
 
   return (
     <Credenza
@@ -73,21 +71,30 @@ export const SettingsModal = ({
           <CredenzaTitle>Настройки</CredenzaTitle>
         </CredenzaHeader>
         <div className="mt-2 flex flex-col gap-6">
-          <div className=" flex w-full items-center justify-center gap-2">
+          <div className=" flex w-full items-center justify-center gap-6">
             <ProfileAvatar
               className=" size-14"
               profile={profile}
+              loading={isUnderAvatarMutation}
             />
-            {/* !dev: hardcode color */}
-            {/* !todo: create ui for input and spinner */}
-            <Input
-              className=" text-sky-300"
-              ref={inputRef}
-              type="file"
-              accept="image/png, image/jpeg"
-              onChange={onInputChange}
-              disabled={isUpdatingAvatar}
-            />
+            {/* !dev: color hardcoded */}
+            {/* !todo: add react hook form */}
+            <div className="flex gap-4">
+              <UploadInputButton
+                className=" p-0 text-sky-300"
+                onChange={onInputChange}
+                disabled={isUnderAvatarMutation}
+              />
+              {/* !dev: color hardcoded */}
+              <Button
+                variant={'link'}
+                className=" p-0 text-red-500"
+                onClick={() => deleteAvatar()}
+                disabled={isUnderAvatarMutation}
+              >
+                удалить
+              </Button>
+            </div>
           </div>
           <Form {...nameForm}>
             <form onSubmit={nameForm.handleSubmit(onNameSubmit)}>
