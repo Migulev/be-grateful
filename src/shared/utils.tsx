@@ -104,3 +104,26 @@ export function useMediaQuery(query: string) {
 
   return value
 }
+
+// Define the hook type with a generic parameter extending HTMLElement
+export const useOutsideClick = <T extends HTMLElement>(
+  ref: React.RefObject<T>,
+  callback: () => void,
+): void => {
+  useEffect(() => {
+    // Event listener to call the callback if clicked outside of the element
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        callback()
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener('mousedown', handleClickOutside)
+
+    // Remove the event listener on cleanup
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [ref, callback])
+}
