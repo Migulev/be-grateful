@@ -45,13 +45,13 @@ const BrowserViewDeleteButton = ({ onDelete }: { onDelete: () => void }) => {
       <div
         // !dev: color hardcode
         onClick={onDelete}
-        className="group/button absolute -left-5 flex size-10 cursor-pointer items-center justify-center rounded-md hover:bg-blue-300"
+        className="group/button absolute -left-5 flex size-10 cursor-pointer items-center justify-center rounded-md transition hover:bg-blue-300"
       >
         <X
           // !dev: color hardcode
           className="size-5 text-red-700 opacity-0 group-hover/button:opacity-100"
         />
-        <EllipsisVertical className="absolute size-5 text-stone-600 opacity-0 group-hover/button:invisible group-hover/line:opacity-70" />
+        <EllipsisVertical className="absolute size-5 text-stone-600 opacity-0 transition group-hover/button:invisible group-hover/line:opacity-70" />
       </div>
     </BrowserView>
   )
