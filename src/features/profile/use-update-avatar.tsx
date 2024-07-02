@@ -3,10 +3,10 @@ import { useMutation } from '@tanstack/react-query'
 import { useInvalidateSession, useSession } from '@/entities/session'
 import { authApi } from '@/shared/api/auth'
 import { profileApi } from '@/shared/api/profile'
+import { env } from '@/shared/env'
 import { toastError, toastSuccess } from '@/shared/libs/toast'
 
-// !todo: add avatarBaseUrl to .env checker
-const avatarBaseUrl = import.meta.env.VITE_SUPABASE_AVATAR_BASE_URL!
+const avatarBaseUrl = env.VITE_SUPABASE_AVATAR_BASE_URL
 
 export const useUpdateProfileAvatar = () => {
   const session = useSession()

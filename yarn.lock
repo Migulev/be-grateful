@@ -969,6 +969,11 @@
     "@supabase/realtime-js" "2.9.5"
     "@supabase/storage-js" "2.5.5"
 
+"@t3-oss/env-core@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@t3-oss/env-core/-/env-core-0.10.1.tgz#388da647053063f7d9a7b6830537939daf697fa2"
+  integrity sha512-GcKZiCfWks5CTxhezn9k5zWX3sMDIYf6Kaxy2Gx9YEQftFcz8hDRN56hcbylyAO3t4jQnQ5ifLawINsNgCDpOg==
+
 "@tanstack/query-core@5.40.0":
   version "5.40.0"
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.40.0.tgz#c74ae8303752ed4b5a0ab848ec71a0e6e8179f83"
