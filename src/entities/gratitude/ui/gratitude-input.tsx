@@ -7,7 +7,7 @@ import { useAuthModal } from '@/shared/libs/modals/auth-modal-context'
 import { toastError } from '@/shared/libs/toast'
 import { cn, useResizeTextarea } from '@/shared/utils'
 
-import { maxGratitudeTextLength } from '../model/rules'
+import { MAX_GRATITUDE_TEXT_LENGTH } from '../model/rules'
 
 export const GratitudeInput = ({
   className,
@@ -28,7 +28,7 @@ export const GratitudeInput = ({
   const { setIsOpenAuthModal } = useAuthModal()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length <= maxGratitudeTextLength) {
+    if (e.target.value.length <= MAX_GRATITUDE_TEXT_LENGTH) {
       setGratitude(e.target.value)
     } else {
       toastError('300 символов максимум')
