@@ -53,7 +53,10 @@ export const authApi = {
   },
 
   logInWithOtp: async (email: string) => {
-    const { error } = await supabase.auth.signInWithOtp({ email: email })
+    const { error } = await supabase.auth.signInWithOtp({
+      email: email,
+      options: { emailRedirectTo: window.location.origin },
+    })
     if (error) {
       throw new Error()
     }
@@ -63,6 +66,7 @@ export const authApi = {
   logInWithGoogle: async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
+      options: { redirectTo: window.location.origin },
     })
     if (error) {
       throw new Error()
