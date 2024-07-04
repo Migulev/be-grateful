@@ -25,7 +25,7 @@ export const GratitudeLine = ({
       )}
     >
       {/* // !dev: color hardcoded */}
-      <div className="flex items-center border-b border-stone-300 py-2 pl-8 pr-0 text-lg sm:pr-2">
+      <div className="flex items-center border-b border-stone-400/70 py-2 pl-8 pr-0 text-lg sm:pr-2">
         <p
           // !dev: color hardcoded
           className="break-all  text-stone-600"
@@ -38,6 +38,9 @@ export const GratitudeLine = ({
     </div>
   )
 }
+
+// !todo: add dropdown for delete function with conformation
+// !todo: hover effect check
 
 const BrowserViewDeleteButton = ({ onDelete }: { onDelete: () => void }) => {
   return (
