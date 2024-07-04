@@ -2,13 +2,22 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { Gratitude, gratitude_query_key } from '@/entities/gratitude'
 import { gratitudeApi } from '@/shared/api/gratitude'
-import { toastError } from '@/shared/libs/toast'
+import { useGetConfirmation } from '@/shared/libs/context/conformation-context'
+import { UserCancelationError } from '@/shared/libs/errors'
+import { toastError, toastSuccess } from '@/shared/libs/toast'
 
 export const useDeleteGratitude = () => {
   const queryClient = useQueryClient()
+  const { getConfirmation } = useGetConfirmation()
 
   return useMutation({
-    mutationFn: (gratitudeId: string) => {
+    mutationFn: async (gratitudeId: string) => {
+      const conformation = getConfirmation({
+        title: 'Удаление',
+        description: 'удалить благодарность',
+      })
+      if (!(await conformation)) throw new UserCancelationError()
+
       return gratitudeApi.deleteGratitude(gratitudeId)
     },
 
@@ -27,12 +36,17 @@ export const useDeleteGratitude = () => {
       return { previousGratitudeList }
     },
 
-    onError: (_, __, context) => {
+    onError: (error, __, context) => {
       queryClient.setQueryData(
         [gratitude_query_key],
         context?.previousGratitudeList,
       )
+      if (error instanceof UserCancelationError) return
       toastError()
+    },
+
+    onSuccess: () => {
+      toastSuccess('Благодарность удалена')
     },
   })
 }
