@@ -1,8 +1,8 @@
 import { ReactNode, useState } from 'react'
 
 import { useSession } from '@/entities/session'
-import { SettingsModalContext } from '@/shared/libs/modals/settings-modal-context'
-import { SettingsModal } from '@/widgets/modals'
+import { SettingsModalContext } from '@/shared/libs/context/settings-modal-context'
+import { SettingsModal } from '@/widgets/modals/settings-modal'
 
 export const SettingModalProvider = ({
   children,

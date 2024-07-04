@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Gratitude, gratitude_query_key } from '@/entities/gratitude'
 import { gratitudeApi } from '@/shared/api/gratitude'
 import { toastError } from '@/shared/libs/toast'
-import { generateRandomId } from '@/shared/utils'
+import { generateRandomId } from '@/shared/libs/utils'
 
 const create_gratitude_key = 'create_gratitude'
 

@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from '@/shared/components/ui/button'
-import { useAuthModal } from '@/shared/libs/modals/auth-modal-context'
+import { useAuthModal } from '@/shared/libs/context/auth-modal-context'
 
 export const SignInButton = ({
   className,

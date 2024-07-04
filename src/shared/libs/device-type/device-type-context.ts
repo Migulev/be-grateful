@@ -1,4 +1,4 @@
-import { createStrictContext, useStrictContext } from '@/shared/utils'
+import { createStrictContext, useStrictContext } from '../utils'
 
 export type DeviceTypeContextType = {
   isTouchScreen: boolean | null

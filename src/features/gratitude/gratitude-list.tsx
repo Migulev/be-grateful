@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { GratitudeLine, gratitudeListQuery } from '@/entities/gratitude'
-import { DurationTW } from '@/shared/types'
-import { cn } from '@/shared/utils'
+import { DurationTW } from '@/shared/global-types'
+import { cn } from '@/shared/libs/utils'
 
 import { useDeleteGratitude } from './model/use-delete-gratitude'
 

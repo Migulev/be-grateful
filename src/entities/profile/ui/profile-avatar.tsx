@@ -5,7 +5,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from '@/shared/components/ui/avatar'
-import { cn } from '@/shared/utils'
+import { cn } from '@/shared/libs/utils'
 
 import { Profile } from '../model/types'
 import { getProfileLetters } from '../model/utils'
@@ -36,7 +36,7 @@ export const ProfileAvatar = ({
       </AvatarFallback>
       {/* !dev: hardcoded color */}
       {loading && (
-        <Loader className="animate-spin-slow absolute text-gray-900" />
+        <Loader className="absolute animate-spin-slow text-gray-900" />
       )}
     </Avatar>
   )

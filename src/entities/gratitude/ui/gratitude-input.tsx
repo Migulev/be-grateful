@@ -3,9 +3,9 @@ import { useRef, useState } from 'react'
 
 import { Button } from '@/shared/components/ui/button'
 import { Textarea } from '@/shared/components/ui/textarea'
-import { useAuthModal } from '@/shared/libs/modals/auth-modal-context'
+import { useAuthModal } from '@/shared/libs/context/auth-modal-context'
 import { toastError } from '@/shared/libs/toast'
-import { cn, useResizeTextarea } from '@/shared/utils'
+import { cn, useResizeTextarea } from '@/shared/libs/utils'
 
 import { MAX_GRATITUDE_TEXT_LENGTH } from '../model/rules'
 

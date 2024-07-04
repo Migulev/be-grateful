@@ -1,4 +1,4 @@
-import { createStrictContext, useStrictContext } from '@/shared/utils'
+import { createStrictContext, useStrictContext } from '../utils'
 
 export type SettingsModalContextType = {
   setIsOpenSettingsModal: (isOpen: boolean) => void
