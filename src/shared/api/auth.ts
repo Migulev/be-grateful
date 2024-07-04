@@ -22,6 +22,8 @@ export const authApi = {
       throw new Error()
     }
 
+    console.log(user?.user_metadata)
+
     const validation = sessionDtoSchema.safeParse({
       id: user?.id,
       ...user?.user_metadata,
