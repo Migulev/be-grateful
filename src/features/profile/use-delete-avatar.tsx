@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 
 import { useInvalidateSession, useSession } from '@/entities/session'
-import { authApi } from '@/shared/api/auth'
 import { profileApi } from '@/shared/api/profile'
 import { toastError, toastSuccess } from '@/shared/libs/toast'
 
@@ -15,7 +14,7 @@ export const useDeleteAvatar = () => {
 
       const avatarsList = await profileApi.getAvatarStorageNameList(session.id)
       await profileApi.emptyAvatarStorage(avatarsList)
-      await authApi.updateAvatarUrl('')
+      await profileApi.updateAvatarUrl('')
       await invalidateSession()
     },
     onSuccess: () => toastSuccess('Аватар удален'),

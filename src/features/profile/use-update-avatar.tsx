@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 
 import { useInvalidateSession, useSession } from '@/entities/session'
-import { authApi } from '@/shared/api/auth'
 import { profileApi } from '@/shared/api/profile'
 import { env } from '@/shared/env'
 import { toastError, toastSuccess } from '@/shared/libs/toast'
@@ -20,7 +19,7 @@ export const useUpdateProfileAvatar = () => {
       await profileApi.emptyAvatarStorage(avatarsList)
       const uploadImage = await profileApi.uploadAvatar(session.id, file)
 
-      await authApi.updateAvatarUrl(avatarBaseUrl + uploadImage?.path)
+      await profileApi.updateAvatarUrl(avatarBaseUrl + uploadImage?.path)
       await invalidateSession()
     },
     onSuccess: () => toastSuccess('Аватар обновлен'),
