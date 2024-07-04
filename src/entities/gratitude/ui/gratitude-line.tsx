@@ -25,10 +25,10 @@ export const GratitudeLine = ({
       )}
     >
       {/* // !dev: color hardcoded */}
-      <div className="flex items-center border-b border-stone-400/70 py-2 pl-8 pr-0 text-lg sm:pr-2">
+      <div className="flex items-center border-b border-stone-400/70 py-4 pl-8 pr-0 text-lg sm:pr-2">
         <p
           // !dev: color hardcoded
-          className="break-all  text-stone-600"
+          className=" overflow-hidden break-words  text-stone-600"
         >
           {`-  ${title}`}
         </p>
@@ -39,22 +39,21 @@ export const GratitudeLine = ({
   )
 }
 
-// !todo: add dropdown for delete function with conformation
-// !todo: hover effect check
-
 const BrowserViewDeleteButton = ({ onDelete }: { onDelete: () => void }) => {
   return (
     <BrowserView>
-      <div
-        // !dev: color hardcode
-        onClick={onDelete}
-        className="group/button absolute -left-5 flex size-10 cursor-pointer items-center justify-center rounded-md transition hover:bg-blue-300"
-      >
-        <X
+      <div className="group/button absolute -left-5 flex h-full items-center justify-center">
+        <div
           // !dev: color hardcode
-          className="size-5 text-red-700 opacity-0 group-hover/button:opacity-100"
-        />
-        <EllipsisVertical className="absolute size-5 text-stone-600 opacity-0 transition group-hover/button:invisible group-hover/line:opacity-70" />
+          onClick={onDelete}
+          className="flex size-10 cursor-pointer items-center justify-center rounded-md group-hover/button:bg-blue-300"
+        >
+          <X
+            // !dev: color hardcode
+            className="size-5 text-red-700 opacity-0 group-hover/button:opacity-100"
+          />
+          <EllipsisVertical className="absolute size-5 text-stone-600 opacity-0 group-hover/button:invisible  group-hover/line:opacity-70" />
+        </div>
       </div>
     </BrowserView>
   )

@@ -21,22 +21,23 @@ export const GratitudeList = ({
   const { mutate: deleteGratitude } = useDeleteGratitude()
 
   return (
-    <div className={cn(className, 'flex w-full flex-col items-center gap-2')}>
-      <ul
-        // !dev: color hardcoded
-        className="flex min-h-svh w-full flex-col gap-2 rounded-lg border-r-[2.5px] border-t border-[#757154] bg-yellow-200 p-6 shadow-lg sm:w-11/12 md:w-9/12"
-      >
-        {gratitudeList?.map((gratitude, index) => (
-          <li key={gratitude.id}>
-            <GratitudeLine
-              onDelete={() => deleteGratitude(gratitude.id)}
-              title={gratitude.title}
-              isOptimistic={index === 0 && optimisticInProgress}
-              optimisticDuration={optimisticDuration}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul
+      // !dev: color hardcoded
+      className={cn(
+        className,
+        'flex min-h-svh w-full flex-col rounded-lg border-r-[2.5px] border-t border-[#757154] bg-yellow-200 p-6 shadow-lg sm:w-11/12 md:w-9/12',
+      )}
+    >
+      {gratitudeList?.map((gratitude, index) => (
+        <li key={gratitude.id}>
+          <GratitudeLine
+            onDelete={() => deleteGratitude(gratitude.id)}
+            title={gratitude.title}
+            isOptimistic={index === 0 && optimisticInProgress}
+            optimisticDuration={optimisticDuration}
+          />
+        </li>
+      ))}
+    </ul>
   )
 }
