@@ -1,7 +1,10 @@
 import { Profile } from './types'
 
 const getProfileDisplayName = (profile: Profile) => {
-  return profile.name ? profile.name : profile.email
+  if (profile.userName) return profile.userName
+  if (profile.userName === '') return profile.email
+  if (profile.name) return profile.name
+  return profile.email
 }
 
 export const getProfileLetters = (profile: Profile) => {

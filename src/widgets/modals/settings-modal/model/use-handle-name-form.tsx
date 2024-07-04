@@ -9,7 +9,7 @@ import { nameFormSchema, NameFormSchemaType } from './types'
 export const useHandleNameForm = ({ profile }: { profile: Profile }) => {
   const nameForm = useForm<NameFormSchemaType>({
     resolver: zodResolver(nameFormSchema),
-    defaultValues: { name: profile.name ? profile.name : '' },
+    defaultValues: { name: profile.userName ?? profile.name ?? '' },
   })
 
   const { mutate: updateName, isPending: isUpdatingName } =

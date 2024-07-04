@@ -1,5 +1,13 @@
 import { supabase } from '@/shared/libs/supabase'
 
+type ProfileDto = {
+  email: string
+  name?: string // this value can come from providers
+  avatarUrl?: string // this value can come from providers
+  userName?: string // this value user can set in the app
+  userAvatarURL?: string // this value user can set in the app
+}
+
 export const profileApi = {
   getAvatarStorageNameList: async (userId: string) => {
     const { data, error } = await supabase.storage
@@ -25,5 +33,25 @@ export const profileApi = {
     if (error) throw new Error()
 
     return data
+  },
+
+  updateName: async (userName: ProfileDto['userName']) => {
+    const { data: updatedUser, error } = await supabase.auth.updateUser({
+      data: { userName },
+    })
+    if (error) {
+      throw new Error()
+    }
+    return updatedUser
+  },
+
+  updateAvatarUrl: async (userAvatarUrl: ProfileDto['userAvatarURL']) => {
+    const { data: updatedUser, error } = await supabase.auth.updateUser({
+      data: { userAvatarUrl },
+    })
+    if (error) {
+      throw new Error()
+    }
+    return updatedUser
   },
 }

@@ -5,7 +5,9 @@ export const sessionSchema = z
     id: z.string(),
     avatar_url: z.string(),
     email: z.string(),
-    name: z.string(),
+    name: z.string().optional(),
+    userName: z.string().optional(),
+    userAvatarUrl: z.string().optional(),
   })
   .transform(({ avatar_url, ...rest }) => ({ avatarUrl: avatar_url, ...rest }))
 

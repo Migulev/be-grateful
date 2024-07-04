@@ -28,7 +28,7 @@ export const ProfileAvatar = ({
       className={cn('relative flex items-center justify-center', className)}
     >
       <AvatarImage
-        src={profile.avatarUrl ?? ''}
+        src={profile.userAvatarUrl ?? profile.avatarUrl ?? ''}
         className={cn('object-cover', { 'opacity-20': loading })}
       />
       <AvatarFallback className={cn({ 'opacity-20': loading })}>

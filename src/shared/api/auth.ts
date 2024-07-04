@@ -7,6 +7,8 @@ const sessionDtoSchema = z.object({
   avatar_url: z.string().default(''),
   email: z.string(),
   name: z.string().default(''),
+  userName: z.string().optional(),
+  userAvatarUrl: z.string().optional(),
 })
 type SessionDto = z.infer<typeof sessionDtoSchema>
 
@@ -20,6 +22,8 @@ export const authApi = {
       throw new Error()
     }
 
+    console.log(user?.user_metadata)
+
     const validation = sessionDtoSchema.safeParse({
       id: user?.id,
       ...user?.user_metadata,
@@ -30,26 +34,6 @@ export const authApi = {
     }
 
     return validation.data as SessionDto
-  },
-
-  updateName: async (name: string) => {
-    const { data: updatedUser, error } = await supabase.auth.updateUser({
-      data: { name },
-    })
-    if (error) {
-      throw new Error()
-    }
-    return updatedUser
-  },
-
-  updateAvatarUrl: async (avatar_url: string) => {
-    const { data: updatedUser, error } = await supabase.auth.updateUser({
-      data: { avatar_url },
-    })
-    if (error) {
-      throw new Error()
-    }
-    return updatedUser
   },
 
   logInWithOtp: async (email: string) => {
