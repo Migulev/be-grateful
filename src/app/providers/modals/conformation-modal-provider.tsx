@@ -22,7 +22,7 @@ export const ConformationModalProvider = ({
   }
 
   const getConfirmation = (params: ConfirmationParams) => {
-    return new Promise<boolean>((resolve, reject) => {
+    return new Promise<boolean>(resolve => {
       setModalParams({
         ...defaultConfirmationParams,
         ...params,
@@ -33,7 +33,7 @@ export const ConformationModalProvider = ({
         onClose: () => {
           closeConfirmation()
           setModalParams(undefined)
-          reject()
+          resolve(false)
         },
       })
     })
