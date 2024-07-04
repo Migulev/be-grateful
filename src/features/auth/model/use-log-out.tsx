@@ -14,18 +14,21 @@ export const useLogOut = () => {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      const conformation = getConfirmation({
+      const conformation = await getConfirmation({
         title: 'Выход',
         description: 'выйти из аккаунта',
       })
-      if (!(await conformation)) throw new UserCancelationError()
+      if (!conformation) throw new UserCancelationError()
+
       await authApi.logOut()
+    },
+    onSuccess: () => {
+      resetSession()
+      resetGratitude()
     },
     onError: error => {
       if (error instanceof UserCancelationError) return
       toastError()
-    },
-    onSettled: () => {
       resetSession()
       resetGratitude()
     },
