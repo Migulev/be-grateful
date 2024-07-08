@@ -1,3 +1,4 @@
+import { GreetingToast } from '@/features/greeting-toast'
 import { PoopUpToasts } from '@/features/poop-up-toasts'
 import { Home } from '@/pages/home'
 import { Topbar } from '@/widgets/topbar'
@@ -15,6 +16,7 @@ function App() {
           <Home />
         </div>
         <PoopUpToasts />
+        <GreetingToast />
       </AppLoader>
     </AppProviders>
   )

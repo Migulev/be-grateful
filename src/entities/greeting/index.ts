@@ -1,0 +1,1 @@
+export { greetingQuery } from './queries'
