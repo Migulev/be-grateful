@@ -14,7 +14,7 @@ type GratitudeDto = z.infer<typeof gratitudeDtoSchema>
 export const gratitudeApi = {
   getGratitudeList: async (): Promise<GratitudeDto[]> => {
     const { data, error } = await supabase
-      .from('gratitude')
+      .from('gratitudes')
       .select('*')
       .order('created_at', { ascending: false })
 
@@ -38,7 +38,7 @@ export const gratitudeApi = {
     } as GratitudeDto
 
     const { data, error } = await supabase
-      .from('gratitude')
+      .from('gratitudes')
       .insert([newGratitude])
       .select()
       .single()
@@ -56,7 +56,7 @@ export const gratitudeApi = {
   },
 
   deleteGratitude: async (id: string) => {
-    const { error } = await supabase.from('gratitude').delete().eq('id', id)
+    const { error } = await supabase.from('gratitudes').delete().eq('id', id)
 
     if (error) {
       throw new Error()
