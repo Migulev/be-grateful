@@ -5,7 +5,7 @@ import {
   poopUpPraseArraySchema,
 } from './model/types'
 
-const poop_up_list_query_key = 'poop_up_character_list'
+const poop_up_list_query_key = 'poop_up_list'
 
 export const poopUpListQuery = () => ({
   queryKey: [poop_up_list_query_key],

@@ -7,11 +7,16 @@ import { poopUpListQuery } from '../queries'
 import { PoopUpCharacter, PoopUpPhrase, PoopUpToast } from './types'
 
 export const usePoopUpToastList = () => {
+  const [poopUpToastList, setPoopUpToastList] = useState<PoopUpToast[]>()
   const { data } = useQuery({
     ...poopUpListQuery(),
   })
 
-  const [poopUpToastList, setPoopUpToastList] = useState<PoopUpToast[]>()
+  useEffect(() => {
+    if (data) {
+      prepareList(data.characterList, data.phrasesList)
+    }
+  }, [data])
 
   async function prepareList(
     characterList: PoopUpCharacter[],
@@ -41,12 +46,6 @@ export const usePoopUpToastList = () => {
 
     setPoopUpToastList(readyPoopUpToastList)
   }
-
-  useEffect(() => {
-    if (data) {
-      prepareList(data.characterList, data.phrasesList)
-    }
-  }, [data])
 
   return { poopUpToastList }
 }
