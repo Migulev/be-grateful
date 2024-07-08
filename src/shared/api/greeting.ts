@@ -1,3 +1,4 @@
+import { SupabaseError } from '../libs/errors'
 import { supabase } from '../libs/supabase'
 
 export const greetingApi = {
@@ -5,7 +6,7 @@ export const greetingApi = {
     const { data: greeting, error } = await supabase
       .from('greetings')
       .select('*')
-    if (error) throw new Error()
+    if (error) throw new SupabaseError()
 
     return greeting
   },

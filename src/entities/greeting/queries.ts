@@ -1,4 +1,5 @@
 import { greetingApi } from '@/shared/api/greeting'
+import { ValidationError } from '@/shared/libs/errors'
 import { getRandomNumber } from '@/shared/libs/utils'
 
 import { greetingSchema } from './types'
@@ -14,7 +15,7 @@ export const greetingQuery = (isEnabled: boolean) => ({
 
     const greeting = greetingsList[randomNumber]
     const validation = greetingSchema.safeParse(greeting)
-    if (validation.error) throw new Error()
+    if (validation.error) throw new ValidationError()
 
     return validation.data
   },

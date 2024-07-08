@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 
 import { gratitudeApi } from '@/shared/api/gratitude'
+import { ValidationError } from '@/shared/libs/errors'
 
 import { gratitudeArraySchema } from './model/types'
 
@@ -11,9 +12,7 @@ export const gratitudeListQuery = () => ({
   queryFn: async () => {
     const gratitudeList = await gratitudeApi.getGratitudeList()
     const validation = gratitudeArraySchema.safeParse(gratitudeList)
-    if (validation.error) {
-      throw new Error()
-    }
+    if (validation.error) throw new ValidationError()
     return validation.data
   },
   refetchOnWindowFocus: false,

@@ -1,4 +1,5 @@
 import { poopUpApi } from '@/shared/api/poop-up'
+import { ValidationError } from '@/shared/libs/errors'
 
 import {
   poopUpCharacterArraySchema,
@@ -18,7 +19,8 @@ export const poopUpListQuery = () => ({
     const characterValidation =
       poopUpCharacterArraySchema.safeParse(characterList)
     const phraseValidation = poopUpPraseArraySchema.safeParse(phrasesList)
-    if (characterValidation.error || phraseValidation.error) throw new Error()
+    if (characterValidation.error || phraseValidation.error)
+      throw new ValidationError()
 
     return {
       characterList: characterValidation.data,

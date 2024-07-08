@@ -11,3 +11,10 @@ export class UserCancelationError extends Error {
     this.name = 'UserCancelationError'
   }
 }
+
+export class ValidationError extends Error {
+  constructor(message = 'неверные данные') {
+    super(message)
+    this.name = 'ValidationError'
+  }
+}

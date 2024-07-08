@@ -2,6 +2,8 @@ import { z } from 'zod'
 
 import { supabase } from '@/shared/libs/supabase'
 
+import { SupabaseError, ValidationError } from '../libs/errors'
+
 const gratitudeDtoSchema = z.object({
   id: z.string(),
   title: z.string(),
@@ -18,17 +20,11 @@ export const gratitudeApi = {
       .select('*')
       .order('created_at', { ascending: false })
 
-    if (error) {
-      throw new Error()
-    }
+    if (error) throw new SupabaseError()
 
-    const parsedData = gratitudeDtoArraySchema.safeParse(data)
-
-    if (parsedData.success) {
-      return parsedData.data
-    }
-
-    return []
+    const validation = gratitudeDtoArraySchema.safeParse(data)
+    if (validation.error) throw new ValidationError()
+    return validation.data
   },
 
   createGratitude: async (title: string): Promise<GratitudeDto | null> => {
@@ -43,24 +39,18 @@ export const gratitudeApi = {
       .select()
       .single()
 
-    if (error) {
-      throw new Error()
-    }
+    if (error) throw new SupabaseError()
 
-    const parsedData = gratitudeDtoSchema.safeParse(data)
+    const validation = gratitudeDtoSchema.safeParse(data)
+    if (validation.error) throw new ValidationError()
 
-    if (parsedData.success) {
-      return parsedData.data
-    }
-    return null
+    return validation.data
   },
 
   deleteGratitude: async (id: string) => {
     const { error } = await supabase.from('gratitudes').delete().eq('id', id)
 
-    if (error) {
-      throw new Error()
-    }
+    if (error) throw new SupabaseError()
     return
   },
 }

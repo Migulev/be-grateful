@@ -2,6 +2,8 @@ import { z } from 'zod'
 
 import { supabase } from '@/shared/libs/supabase'
 
+import { SupabaseError, ValidationError } from '../libs/errors'
+
 const sessionDtoSchema = z.object({
   id: z.string(),
   avatar_url: z.string().default(''),
@@ -18,18 +20,13 @@ export const authApi = {
       data: { user },
       error,
     } = await supabase.auth.getUser()
-    if (error) {
-      throw new Error()
-    }
+    if (error) throw new SupabaseError()
 
     const validation = sessionDtoSchema.safeParse({
       id: user?.id,
       ...user?.user_metadata,
     })
-
-    if (validation.error) {
-      throw new Error()
-    }
+    if (validation.error) throw new ValidationError()
 
     return validation.data as SessionDto
   },
@@ -39,9 +36,7 @@ export const authApi = {
       email: email,
       options: { emailRedirectTo: window.location.origin },
     })
-    if (error) {
-      throw new Error()
-    }
+    if (error) throw new SupabaseError()
     return
   },
 
@@ -50,18 +45,14 @@ export const authApi = {
       provider: 'google',
       options: { redirectTo: window.location.origin },
     })
-    if (error) {
-      throw new Error()
-    }
+    if (error) throw new SupabaseError()
     return
   },
 
   logOut: async () => {
     const { error } = await supabase.auth.signOut({ scope: 'local' })
 
-    if (error) {
-      throw new Error()
-    }
+    if (error) throw new SupabaseError()
     return true
   },
 }
