@@ -5,9 +5,7 @@ import { usePoopUpToastList } from '@/entities/poop_up'
 import { PoopUpToast } from '@/entities/poop_up/model/types'
 import { useSession } from '@/entities/session'
 import { Avatar, AvatarImage } from '@/shared/components/ui/avatar'
-import { desktop } from '@/shared/libs/device-type/constants'
 import { ToastPosition } from '@/shared/libs/toast'
-import { useMediaQuery } from '@/shared/libs/utils'
 
 const TOAST_DURATION = 5000
 const FIRST_TOAST_TIMEOUT = 5000
@@ -17,8 +15,7 @@ const MIN_TOAST_TIMEOUT = 1000
 export const PoopUpToasts = () => {
   const session = useSession()
   const { poopUpToastList } = usePoopUpToastList()
-  const isDesktop = useMediaQuery(desktop)
-  const position = isDesktop ? 'top-left' : 'bottom-left'
+  const position = 'top-left'
 
   useEffect(() => {
     if (session || !poopUpToastList) return
