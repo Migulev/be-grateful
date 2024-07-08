@@ -13,6 +13,8 @@ import {
 } from 'react'
 import { twMerge } from 'tailwind-merge'
 
+import { WithImageUrl } from '../global-types'
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -126,4 +128,26 @@ export const useOutsideClick = <T extends HTMLElement>(
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [ref, callback])
+}
+
+export function shuffleArray<T>(array: T[]): T[] {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
+  return array
+}
+
+export function preloadImageInObject<T>(
+  obj: WithImageUrl<T>,
+): Promise<WithImageUrl<T>> {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    img.src = obj.avatarUrl
+    img.onload = () => {
+      obj.image = img
+      resolve(obj)
+    }
+    img.onerror = err => reject(err)
+  })
 }

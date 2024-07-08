@@ -1,6 +1,14 @@
 import { CircleAlert, CircleCheck } from 'lucide-react'
 import { toast } from 'sonner'
 
+export type ToastPosition =
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'top-center'
+  | 'bottom-center'
+
 // !dev: color hardcoded
 export const toastError = (
   message = 'что-то пошло не так',

@@ -1,3 +1,4 @@
+import { PoopUpToasts } from '@/features/poop-up-toasts'
 import { Home } from '@/pages/home'
 import { Topbar } from '@/widgets/topbar'
 
@@ -13,6 +14,7 @@ function App() {
           <Topbar />
           <Home />
         </div>
+        <PoopUpToasts />
       </AppLoader>
     </AppProviders>
   )
