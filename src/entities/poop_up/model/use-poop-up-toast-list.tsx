@@ -6,10 +6,10 @@ import { preloadImageInObject, shuffleArray } from '@/shared/libs/utils'
 import { poopUpListQuery } from '../queries'
 import { PoopUpCharacter, PoopUpPhrase, PoopUpToast } from './types'
 
-export const usePoopUpToastList = () => {
+export const usePoopUpToastList = (isEnabled: boolean) => {
   const [poopUpToastList, setPoopUpToastList] = useState<PoopUpToast[]>()
   const { data } = useQuery({
-    ...poopUpListQuery(),
+    ...poopUpListQuery(isEnabled),
   })
 
   useEffect(() => {

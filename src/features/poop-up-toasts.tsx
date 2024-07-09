@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 import { usePoopUpToastList } from '@/entities/poop_up'
@@ -6,6 +6,7 @@ import { PoopUpToast } from '@/entities/poop_up/model/types'
 import { useSession } from '@/entities/session'
 import { Avatar, AvatarImage } from '@/shared/components/ui/avatar'
 import { ToastPosition } from '@/shared/libs/toast'
+import { wait } from '@/shared/libs/utils'
 
 const TOAST_DURATION = 5000
 const FIRST_TOAST_TIMEOUT = 5000
@@ -14,7 +15,15 @@ const MIN_TOAST_TIMEOUT = 1000
 
 export const PoopUpToasts = () => {
   const session = useSession()
-  const { poopUpToastList } = usePoopUpToastList()
+  const [readyToFetch, setReadyToFetch] = useState(false)
+
+  useEffect(() => {
+    wait(FIRST_TOAST_TIMEOUT).then(() => {
+      setReadyToFetch(true)
+    })
+  }, [])
+
+  const { poopUpToastList } = usePoopUpToastList(readyToFetch && !session)
   const position = 'top-left'
 
   useEffect(() => {
@@ -28,11 +37,12 @@ function ToastsSequence(
   position: ToastPosition,
   poopUpToastList: PoopUpToast[],
 ) {
-  let timeout = FIRST_TOAST_TIMEOUT
+  let timeout = 0
 
   for (let i = 0; i < poopUpToastList.length; i++) {
     const poopUpToast = poopUpToastList[i]
     const image = poopUpToast.image
+    timeout += randomTimeout()
 
     setTimeout(() => {
       toast(
@@ -63,7 +73,6 @@ function ToastsSequence(
         },
       )
     }, timeout)
-    timeout += randomTimeout()
   }
 }
 

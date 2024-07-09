@@ -8,7 +8,7 @@ import {
 
 const poop_up_list_query_key = 'poop_up_list'
 
-export const poopUpListQuery = () => ({
+export const poopUpListQuery = (isEnabled: boolean) => ({
   queryKey: [poop_up_list_query_key],
   queryFn: async () => {
     const [characterList, phrasesList] = await Promise.all([
@@ -27,6 +27,7 @@ export const poopUpListQuery = () => ({
       phrasesList: phraseValidation.data,
     }
   },
+  enabled: isEnabled,
   refetchOnWindowFocus: false,
   staleTime: Infinity,
 })
