@@ -1,5 +1,6 @@
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -67,7 +68,7 @@ export const AuthModal = ({ onClose }: { onClose: () => void }) => {
       onOpenChange={onClose}
     >
       {/* !dev: hardcode color */}
-      <CredenzaContent className="border-neutral-500 bg-gradient-to-r from-cyan-500/90 to-blue-500/90 px-2 sm:px-10 sm:py-6">
+      <CredenzaContent className="border-neutral-500 from-cyan-500/90 to-blue-500/90 bg-gradient-to-r px-2 sm:px-10 sm:py-6">
         <CredenzaHeader className="text-white">
           <CredenzaTitle>Вход</CredenzaTitle>
         </CredenzaHeader>
@@ -97,7 +98,7 @@ export const AuthModal = ({ onClose }: { onClose: () => void }) => {
 
                 {/* !dev: hardcode color */}
                 <Button
-                  className=" mt-2 w-full bg-gray-300 text-gray-900 hover:bg-gray-100"
+                  className=" bg-gray-300 text-gray-900 hover:bg-gray-100 mt-2 w-full"
                   type="submit"
                   disabled={isLogging}
                 >
@@ -110,7 +111,7 @@ export const AuthModal = ({ onClose }: { onClose: () => void }) => {
 
             {/* !dev: hardcode color */}
             <Button
-              className=" flex gap-2 bg-gray-300 text-gray-900 hover:bg-gray-100"
+              className=" bg-gray-300 text-gray-900 hover:bg-gray-100 flex gap-2"
               disabled={isLogging}
               onClick={() => logInWithGoogle()}
             >

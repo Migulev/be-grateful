@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
-import { Profile } from '@/entities/profile'
 import { useUpdateProfileName } from '@/features/profile'
+import { Profile } from '@/entities/profile'
 
 import { nameFormSchema, NameFormSchemaType } from './types'
 

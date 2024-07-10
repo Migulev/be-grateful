@@ -1,5 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
+
+import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 import { greetingQuery } from '@/entities/greeting'
@@ -17,7 +18,7 @@ export const GreetingToast = () => {
         toast(
           <div className="flex w-full items-center justify-center ">
             {/* !dev: color hardcoded */}
-            <p className="text-center text-lg text-yellow-200 capitalize-first">
+            <p className="text-yellow-200 text-center text-lg capitalize-first">
               {greeting?.title}
             </p>
           </div>,

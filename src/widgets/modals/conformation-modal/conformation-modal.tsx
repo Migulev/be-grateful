@@ -29,7 +29,7 @@ export const ConformationModal = ({
         onOpenChange={onClose}
       >
         {/* !dev: color hardcoded */}
-        <CredenzaContent className="border-neutral-500 bg-gradient-to-r from-cyan-500/90 to-blue-500/90 px-2 sm:px-10 sm:py-6">
+        <CredenzaContent className="border-neutral-500 from-cyan-500/90 to-blue-500/90 bg-gradient-to-r px-2 sm:px-10 sm:py-6">
           <CredenzaHeader>
             <CredenzaTitle>{title}</CredenzaTitle>
           </CredenzaHeader>

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+
 import { Toaster } from 'sonner'
 
 import { useTheme } from '@/features/theme'

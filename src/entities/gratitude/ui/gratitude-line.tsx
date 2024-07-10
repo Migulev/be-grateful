@@ -1,7 +1,8 @@
-import { EllipsisVertical, X } from 'lucide-react'
 import { useRef, useState } from 'react'
 
-import { DurationTW } from '@/shared/global-types'
+import { EllipsisVertical, X } from 'lucide-react'
+
+import { type DurationTW } from '@/shared/global-types'
 import { BrowserView, MobileView } from '@/shared/libs/device-type'
 import { cn, convertDurationTW, useOutsideClick } from '@/shared/libs/utils'
 
@@ -47,13 +48,13 @@ const BrowserViewDeleteButton = ({ onDelete }: { onDelete: () => void }) => {
         <div
           // !dev: color hardcode
           onClick={onDelete}
-          className="flex size-10 cursor-pointer items-center justify-center rounded-md group-hover/button:bg-blue-300"
+          className="group-hover/button:bg-blue-300 flex size-10 cursor-pointer items-center justify-center rounded-md"
         >
           <X
             // !dev: color hardcode
-            className="size-5 text-red-700 opacity-0 group-hover/button:opacity-100"
+            className="text-red-700 size-5 opacity-0 group-hover/button:opacity-100"
           />
-          <EllipsisVertical className="absolute size-5 text-stone-600 opacity-0 group-hover/button:invisible  group-hover/line:opacity-70" />
+          <EllipsisVertical className="text-stone-600 absolute size-5 opacity-0 group-hover/button:invisible  group-hover/line:opacity-70" />
         </div>
       </div>
     </BrowserView>
@@ -69,7 +70,7 @@ const MobileViewDeleteButton = ({ onDelete }: { onDelete: () => void }) => {
       {!isOpenDelete && (
         <EllipsisVertical
           onClick={() => setIsOpenDelete(true)}
-          className="absolute -left-5 size-5 cursor-pointer text-stone-600 opacity-70"
+          className="text-stone-600 absolute -left-5 size-5 cursor-pointer opacity-70"
         />
       )}
       {isOpenDelete && (
@@ -77,11 +78,11 @@ const MobileViewDeleteButton = ({ onDelete }: { onDelete: () => void }) => {
           // !dev: color hardcode
           onClick={onDelete}
           ref={refDiv}
-          className="absolute -left-5 flex size-10 cursor-pointer items-center justify-center rounded-md bg-blue-300"
+          className="bg-blue-300 absolute -left-5 flex size-10 cursor-pointer items-center justify-center rounded-md"
         >
           <X
             // !dev: color hardcode
-            className="size-5 text-red-700"
+            className="text-red-700 size-5"
           />
         </div>
       )}

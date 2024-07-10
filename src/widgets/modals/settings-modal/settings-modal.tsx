@@ -1,5 +1,5 @@
-import { Profile, ProfileAvatar, UploadInputButton } from '@/entities/profile'
 import { useDeleteAvatar } from '@/features/profile'
+import { Profile, ProfileAvatar, UploadInputButton } from '@/entities/profile'
 import {
   Credenza,
   CredenzaContent,
@@ -34,7 +34,7 @@ export const SettingsModal = ({
       onOpenChange={onClose}
     >
       {/* !dev: color hardcoded */}
-      <CredenzaContent className="border-neutral-500 bg-gradient-to-r from-cyan-500/90 to-blue-500/90 px-2 sm:px-10 sm:py-6">
+      <CredenzaContent className="border-neutral-500 from-cyan-500/90 to-blue-500/90 bg-gradient-to-r px-2 sm:px-10 sm:py-6">
         <CredenzaHeader>
           <CredenzaTitle>Настройки</CredenzaTitle>
         </CredenzaHeader>
@@ -48,14 +48,14 @@ export const SettingsModal = ({
             {/* !dev: color hardcoded */}
             <div className="flex gap-4">
               <UploadInputButton
-                className=" p-0 text-sky-300"
+                className=" text-sky-300 p-0"
                 onChange={handleAvatarUpdate}
                 disabled={isUnderAvatarMutation}
               />
               {/* !dev: color hardcoded */}
               <Button
                 variant={'link'}
-                className=" p-0 text-red-500"
+                className=" text-red-500 p-0"
                 onClick={() => deleteAvatar()}
                 disabled={isUnderAvatarMutation}
               >

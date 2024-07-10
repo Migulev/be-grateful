@@ -1,5 +1,6 @@
-import { Plus } from 'lucide-react'
 import { useRef, useState } from 'react'
+
+import { Plus } from 'lucide-react'
 
 import { Button } from '@/shared/components/ui/button'
 import { Textarea } from '@/shared/components/ui/textarea'

@@ -16,7 +16,7 @@ export const toastError = (
 ) => {
   return toast.error(message, {
     duration,
-    icon: <CircleAlert className=" size-5 text-red-600" />,
+    icon: <CircleAlert className=" text-red-600 size-5" />,
   })
 }
 
@@ -24,6 +24,6 @@ export const toastError = (
 export const toastSuccess = (message: string, duration?: number) => {
   return toast.success(message, {
     duration,
-    icon: <CircleCheck className=" size-5 text-green-600" />,
+    icon: <CircleCheck className=" text-green-600 size-5" />,
   })
 }

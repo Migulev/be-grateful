@@ -36,7 +36,7 @@ export const ProfileAvatar = ({
       </AvatarFallback>
       {/* !dev: hardcoded color */}
       {loading && (
-        <Loader className="absolute animate-spin-slow text-gray-900" />
+        <Loader className="text-gray-900 absolute animate-spin-slow" />
       )}
     </Avatar>
   )

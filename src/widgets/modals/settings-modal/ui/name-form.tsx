@@ -44,7 +44,7 @@ export const NameForm = ({
 
         {/* !dev: hardcode color */}
         <Button
-          className=" mt-2 w-full bg-gray-300 text-gray-900 hover:bg-gray-100"
+          className=" bg-gray-300 text-gray-900 hover:bg-gray-100 mt-2 w-full"
           type="submit"
           disabled={buttonDisabled}
         >

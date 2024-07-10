@@ -1,4 +1,3 @@
-import { ClassValue, clsx } from 'clsx'
 import {
   Children,
   Context,
@@ -11,6 +10,8 @@ import {
   useEffect,
   useState,
 } from 'react'
+
+import { ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 import { WithImageUrl } from '../global-types'

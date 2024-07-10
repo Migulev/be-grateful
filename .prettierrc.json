@@ -1,8 +1,29 @@
 {
-  "plugins": ["prettier-plugin-tailwindcss"],
   "semi": false,
   "singleQuote": true,
   "arrowParens": "avoid",
   "singleAttributePerLine": true,
-  "endOfLine": "lf"
+  "endOfLine": "lf",
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "@ianvs/prettier-plugin-sort-imports"
+  ],
+  "importOrder": [
+    "^(react/(.*)$)|^(react$)",
+    "^(next/(.*)$)|^(next$)",
+    "",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^@/pages(.*)$",
+    "^@/widgets(.*)$",
+    "^@/features(.*)$",
+    "^@/entities(.*)$",
+    "^@/shared(.*)$",
+    "",
+    "^[./]",
+    "",
+    "^@/styles/(.*)$"
+  ],
+  "importOrderMergeDuplicateImports": true,
+  "importOrderCombineTypeAndValueImports": true
 }

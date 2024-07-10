@@ -1,6 +1,6 @@
+import { SignInButton, useLogOut } from '@/features/auth'
 import { ProfileAvatar, UiProfileMenu } from '@/entities/profile'
 import { useSession } from '@/entities/session'
-import { SignInButton, useLogOut } from '@/features/auth'
 import { useSettingsModal } from '@/shared/libs/context/settings-modal-context'
 
 export const AuthButtonOrProfile = () => {

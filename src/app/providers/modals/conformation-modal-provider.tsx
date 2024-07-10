@@ -1,14 +1,14 @@
 import { ReactNode, useState } from 'react'
 
 import {
-  ConfirmationContext,
-  ConfirmationParams,
-} from '@/shared/libs/context/conformation-context'
-import {
   ConfirmModalParams,
   ConformationModal,
   defaultConfirmationParams,
 } from '@/widgets/modals/conformation-modal'
+import {
+  ConfirmationContext,
+  ConfirmationParams,
+} from '@/shared/libs/context/conformation-context'
 
 export const ConformationModalProvider = ({
   children,
