@@ -11,12 +11,12 @@ function App() {
     <AppProviders>
       <AppLoader>
         {/* !dev: color hardcode */}
-        <div className="h-screen overflow-auto bg-gradient-to-r from-cyan-500/90 to-blue-500/90 pb-4 font-app">
+        <div className="from-bgMainLeft to-bgMainRight h-screen overflow-auto bg-gradient-to-r pb-4 font-app">
           <Topbar />
           <Home />
         </div>
-        <PoopUpToasts />
-        <GreetingToast />
+        {/* <PoopUpToasts /> */}
+        {/* <GreetingToast /> */}
       </AppLoader>
     </AppProviders>
   )

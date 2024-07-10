@@ -66,7 +66,7 @@ export const GratitudeInput = ({
       <Button
         type="submit"
         // !dev: color hardcode
-        className="ml-2 bg-blue-600 text-white hover:bg-blue-700"
+        className="ml-2"
         disabled={isPending}
       >
         <Plus className="h-4" />

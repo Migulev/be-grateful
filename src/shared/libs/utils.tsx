@@ -159,3 +159,7 @@ export function getRandomNumber(min: number, max: number): number {
 export function wait(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
+
+export function convertToHsl(cssValue: string) {
+  return 'hsl(' + cssValue + ')'
+}

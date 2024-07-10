@@ -25,10 +25,11 @@ export const GratitudeLine = ({
       )}
     >
       {/* // !dev: color hardcoded */}
-      <div className="flex items-center border-b border-stone-400/70 py-4 pl-8 pr-0 text-lg sm:pr-2">
+      <div className="flex items-center border-b border-[#a8a29e] py-4 pl-8 pr-0 text-lg sm:pr-2">
+        {/* <div className="flex items-center border-b border-stone-400/70 py-4 pl-8 pr-0 text-lg sm:pr-2"> */}
         <p
           // !dev: color hardcoded
-          className=" overflow-hidden break-words  text-stone-600"
+          className=" overflow-hidden break-words text-secondary-foreground"
         >
           {`-  ${title}`}
         </p>

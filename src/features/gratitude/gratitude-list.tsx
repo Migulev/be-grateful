@@ -25,7 +25,7 @@ export const GratitudeList = ({
       // !dev: color hardcoded
       className={cn(
         className,
-        'flex min-h-svh w-full flex-col rounded-lg border-r-[2.5px] border-t border-[#757154] bg-yellow-200 p-6 shadow-lg sm:w-11/12 md:w-9/12',
+        'flex min-h-svh w-full flex-col rounded-lg border-r-[2.5px] border-t border-[#757154] bg-secondary p-6 shadow-lg sm:w-11/12 md:w-9/12',
       )}
     >
       {gratitudeList?.map((gratitude, index) => (

@@ -66,7 +66,7 @@ function ToastsSequence(
           duration: TOAST_DURATION,
           // !dev: color
           style: {
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            backgroundColor: 'red',
             color: 'white',
             border: '1px solid white',
           },

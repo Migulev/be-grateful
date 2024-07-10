@@ -14,7 +14,7 @@ export const Home = () => {
   return (
     <main className="container">
       <Hero />
-      <section className="flex flex-col items-center gap-10">
+      <section className="mt-2 flex flex-col items-center gap-10">
         <GratitudeInput
           placeholder="За что ты сегодня благодарен/а?"
           onCreateAsync={async (gratitudeText: string) => {

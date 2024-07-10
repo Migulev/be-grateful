@@ -7,6 +7,7 @@ export const Topbar = () => {
   return (
     <nav className="container flex items-center justify-between px-8 py-8 md:px-10 md:py-10 lg:px-16 lg:py-16">
       <Logo />
+      <div></div>
       <div className="flex gap-4">
         <ThemeButton />
         <AuthButtonOrProfile />

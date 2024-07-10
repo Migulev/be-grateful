@@ -33,7 +33,7 @@ export const UiProfileMenu = ({
           <Button
             variant={'link'}
             // !dev: hardcode color
-            className="text-red-500"
+            className="text-destructive"
             onClick={lastOption.onFunc}
           >
             {lastOption.label}
