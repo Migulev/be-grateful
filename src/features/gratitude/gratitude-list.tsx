@@ -1,31 +1,33 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { GratitudeLine, gratitudeListQuery } from '@/entities/gratitude'
-import { DurationTW } from '@/shared/global-types'
+import {
+  GratitudeInput,
+  GratitudeLine,
+  gratitudeListQuery,
+} from '@/entities/gratitude'
+import { useSession } from '@/entities/session'
 import { cn } from '@/shared/libs/utils'
 
+import { useCreateGratitude } from './model/use-create-gratitude'
 import { useDeleteGratitude } from './model/use-delete-gratitude'
 
-export const GratitudeList = ({
-  className,
-  optimisticInProgress = false,
-  optimisticDuration,
-}: {
-  className?: string
-  optimisticInProgress?: boolean // is a flag of a request in progress (isPending)
-  optimisticDuration?: DurationTW
-}) => {
+const optimisticAnimationDuration = 700
+
+export const GratitudeList = ({ className }: { className?: string }) => {
   const { data: gratitudeList } = useQuery({
     ...gratitudeListQuery(),
   })
+  const { mutateAsync: createGratitudeAsync, isPending: isCreating } =
+    useCreateGratitude(optimisticAnimationDuration)
   const { mutate: deleteGratitude } = useDeleteGratitude()
+
+  const session = useSession()
 
   return (
     <ul
-      // !dev: color hardcoded
       className={cn(
         className,
-        'flex min-h-svh w-full flex-col rounded-lg border-r-[2.5px] border-t border-[#757154] bg-secondary p-6 shadow-lg sm:w-11/12 md:w-9/12',
+        'flex min-h-svh w-full flex-col rounded border-r-[2.5px] border-t border-accent bg-secondary p-6 shadow-lg sm:w-11/12 md:w-9/12',
       )}
     >
       {gratitudeList?.map((gratitude, index) => (
@@ -33,11 +35,18 @@ export const GratitudeList = ({
           <GratitudeLine
             onDelete={() => deleteGratitude(gratitude.id)}
             title={gratitude.title}
-            isOptimistic={index === 0 && optimisticInProgress}
-            optimisticDuration={optimisticDuration}
+            isOptimistic={index === gratitudeList.length - 1 && isCreating}
+            optimisticDuration={optimisticAnimationDuration}
           />
         </li>
       ))}
+      {/* !todo: render input with gratitude */}
+      <GratitudeInput
+        onCreateAsync={async (gratitudeText: string) => {
+          await createGratitudeAsync(gratitudeText)
+        }}
+        isAuthorized={!!session}
+      />
     </ul>
   )
 }

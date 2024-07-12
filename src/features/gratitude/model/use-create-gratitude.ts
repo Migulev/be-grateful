@@ -30,7 +30,7 @@ export const useCreateGratitude = (optimisticDuration: number) => {
         [gratitude_query_key],
         (cashedData: Gratitude[]) => {
           if (cashedData === undefined) return [optimisticGratitude]
-          return [optimisticGratitude, ...cashedData]
+          return [...cashedData, optimisticGratitude]
         },
       )
 

@@ -25,13 +25,8 @@ export const GratitudeLine = ({
         convertDurationTW(optimisticDuration),
       )}
     >
-      {/* // !dev: color hardcoded */}
-      <div className="flex items-center border-b border-[#a8a29e] py-4 pl-8 pr-0 text-lg sm:pr-2">
-        {/* <div className="flex items-center border-b border-stone-400/70 py-4 pl-8 pr-0 text-lg sm:pr-2"> */}
-        <p
-          // !dev: color hardcoded
-          className=" overflow-hidden break-words text-secondary-foreground"
-        >
+      <div className="flex items-center border-b border-muted py-4 pl-8 pr-0 text-lg sm:pr-2">
+        <p className="overflow-hidden break-words text-secondary-foreground">
           {`-  ${title}`}
         </p>
         <BrowserViewDeleteButton onDelete={onDelete} />
@@ -44,18 +39,12 @@ export const GratitudeLine = ({
 const BrowserViewDeleteButton = ({ onDelete }: { onDelete: () => void }) => {
   return (
     <BrowserView>
-      <div className="group/button absolute -left-5 flex h-full items-center justify-center">
-        <div
-          // !dev: color hardcode
+      <div className="group/button absolute -left-5 flex h-full w-10 items-center justify-center">
+        <X
+          className="size-5 cursor-pointer text-destructive opacity-0 group-hover/button:opacity-100"
           onClick={onDelete}
-          className="group-hover/button:bg-blue-300 flex size-10 cursor-pointer items-center justify-center rounded-md"
-        >
-          <X
-            // !dev: color hardcode
-            className="text-red-700 size-5 opacity-0 group-hover/button:opacity-100"
-          />
-          <EllipsisVertical className="text-stone-600 absolute size-5 opacity-0 group-hover/button:invisible  group-hover/line:opacity-70" />
-        </div>
+        />
+        <EllipsisVertical className="absolute size-5 cursor-pointer opacity-0 group-hover/button:invisible group-hover/line:opacity-50" />
       </div>
     </BrowserView>
   )
@@ -63,28 +52,22 @@ const BrowserViewDeleteButton = ({ onDelete }: { onDelete: () => void }) => {
 
 const MobileViewDeleteButton = ({ onDelete }: { onDelete: () => void }) => {
   const [isOpenDelete, setIsOpenDelete] = useState(false)
-  const refDiv = useRef<HTMLDivElement>(null)
+  const refDiv = useRef<SVGSVGElement>(null)
   useOutsideClick(refDiv, () => setIsOpenDelete(false))
   return (
     <MobileView>
       {!isOpenDelete && (
         <EllipsisVertical
           onClick={() => setIsOpenDelete(true)}
-          className="text-stone-600 absolute -left-5 size-5 cursor-pointer opacity-70"
+          className="absolute -left-3 size-5 cursor-pointer opacity-50"
         />
       )}
       {isOpenDelete && (
-        <div
-          // !dev: color hardcode
+        <X
+          className="absolute -left-3 size-5 cursor-pointer text-destructive"
           onClick={onDelete}
           ref={refDiv}
-          className="bg-blue-300 absolute -left-5 flex size-10 cursor-pointer items-center justify-center rounded-md"
-        >
-          <X
-            // !dev: color hardcode
-            className="text-red-700 size-5"
-          />
-        </div>
+        />
       )}
     </MobileView>
   )

@@ -3,7 +3,7 @@ export const Logo = () => {
     <img
       src="/icon.png"
       alt="logo"
-      className=" size-10 md:size-12 lg:size-14"
+      className="size-12"
       width={60}
       height={60}
     />

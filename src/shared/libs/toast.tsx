@@ -9,21 +9,19 @@ export type ToastPosition =
   | 'top-center'
   | 'bottom-center'
 
-// !dev: color hardcoded
 export const toastError = (
   message = 'что-то пошло не так',
   duration?: number, // ms
 ) => {
   return toast.error(message, {
     duration,
-    icon: <CircleAlert className=" text-red-600 size-5" />,
+    icon: <CircleAlert className="size-5 text-destructive" />,
   })
 }
 
-// !dev: color hardcoded
 export const toastSuccess = (message: string, duration?: number) => {
   return toast.success(message, {
     duration,
-    icon: <CircleCheck className=" text-green-600 size-5" />,
+    icon: <CircleCheck className="size-5 text-success" />,
   })
 }

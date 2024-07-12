@@ -28,20 +28,24 @@ export const ConformationModal = ({
         open
         onOpenChange={onClose}
       >
-        {/* !dev: color hardcoded */}
-        <CredenzaContent className="border-neutral-500 from-cyan-500/90 to-blue-500/90 bg-gradient-to-r px-2 sm:px-10 sm:py-6">
+        <CredenzaContent className="bg-gradient px-2 sm:px-10 sm:py-6">
           <CredenzaHeader>
             <CredenzaTitle>{title}</CredenzaTitle>
           </CredenzaHeader>
           <CredenzaBody>Вы уверены что хотите {description}?</CredenzaBody>
-          <CredenzaFooter className=" mt-3 flex-col-reverse gap-3 md:flex">
+          <CredenzaFooter className="mt-3 flex-col-reverse gap-3 md:flex">
             <Button
               onClick={onClose}
               variant={'destructive'}
             >
               {closeText}
             </Button>
-            <Button onClick={onConfirm}>{confirmText}</Button>
+            <Button
+              onClick={onConfirm}
+              variant={'secondary'}
+            >
+              {confirmText}
+            </Button>
           </CredenzaFooter>
         </CredenzaContent>
       </Credenza>

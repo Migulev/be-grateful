@@ -110,7 +110,7 @@ export function useMediaQuery(query: string) {
 
 // Define the hook type with a generic parameter extending HTMLElement
 export const useOutsideClick = <T extends HTMLElement>(
-  ref: React.RefObject<T>,
+  ref: React.RefObject<T> | React.RefObject<SVGSVGElement>,
   callback: () => void,
 ): void => {
   useEffect(() => {

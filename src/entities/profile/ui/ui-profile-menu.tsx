@@ -19,7 +19,7 @@ export const UiProfileMenu = ({
   return (
     <Popover>
       <PopoverTrigger>{trigger}</PopoverTrigger>
-      <PopoverContent className=" flex w-fit flex-col items-end gap-2 p-2 pr-0">
+      <PopoverContent className="flex w-fit flex-col items-end gap-2 p-2 pr-0">
         {options?.map(option => (
           <Button
             variant={'link'}
@@ -32,7 +32,6 @@ export const UiProfileMenu = ({
         {lastOption && (
           <Button
             variant={'link'}
-            // !dev: hardcode color
             className="text-destructive"
             onClick={lastOption.onFunc}
           >

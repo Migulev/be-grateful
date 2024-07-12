@@ -23,32 +23,48 @@ body {
   }
 }
 
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .bg-gradient {
+    background-image: linear-gradient(
+      to right,
+      var(--bg-main-l),
+      var(--bg-main-r)
+    );
+  }
+}
+
 @layer base {
   :root {
-    --bg-main-l: #06b5d4c9;
-    --bg-main-r: #3b83f6d0;
+    --bg-main-l: #8ad1fdd8;
+    --bg-main-r: #a7c7fbe6;
 
-    --background: #71c6ff;
-    /* --foreground: #342c09; */
-    /* --foreground: #fcf9e0; */
+    --background: #8cc7fc;
+    --foreground: var(--primary);
 
-    --primary: #342c09;
-    /* --primary: #ffd930; */
-    /* --primary-foreground: #0026cf; */
+    --primary: #352107;
     --primary-foreground: #fcf9e0;
 
     --secondary: #fef08a;
     --secondary-foreground: #423e24;
 
     --muted: #c4c4b0;
-    /* --muted: #57534e; */
     --muted-foreground: #6b6b61;
 
-    --accent: #fbfaee;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: #757154;
+    /* --accent-foreground: 222.2 47.4% 11.2%; */
 
     --destructive: rgb(214, 61, 61);
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: var(--primary-foreground);
 
     --card: var(--primary-foreground);
     --card-foreground: var(--primary);
@@ -56,11 +72,12 @@ body {
     --popover: var(--primary-foreground);
     --popover-foreground: var(--primary);
 
-    --border: #fff6ac;
-    --input: var(--background);
+    --border: var(--secondary);
+    --input: var(--secondary);
     --ring: #4e4221;
 
     --radius: 0.5rem;
+    --success: #059669;
   }
 
   .dark {

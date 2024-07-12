@@ -13,7 +13,6 @@ export const AuthButtonOrProfile = () => {
       {session ? (
         <UiProfileMenu
           trigger={<ProfileAvatar profile={session} />}
-          // !dev: hardcode
           options={[
             {
               label: 'настройки',

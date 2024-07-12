@@ -48,7 +48,7 @@ function ToastsSequence(
     setTimeout(() => {
       toast(
         <div className="flex w-full justify-between">
-          <div className=" flex items-center gap-5">
+          <div className="flex items-center gap-5 text-primary">
             <Avatar>
               <AvatarImage
                 src={image?.src}
@@ -56,20 +56,17 @@ function ToastsSequence(
               />
             </Avatar>
             <div className="flex flex-col gap-1">
-              <h4 className=" font-bold capitalize">{poopUpToast.name}</h4>
-              <p className=" capitalize-first">{poopUpToast.title}</p>
+              <h4 className="font-bold capitalize">{poopUpToast.name}</h4>
+              <p className="capitalize-first">{poopUpToast.title}</p>
             </div>
           </div>
-          <p className=" break-normal">now</p>
+          <p className="break-normal">now</p>
         </div>,
         {
           position: position,
           duration: TOAST_DURATION,
-          // !dev: color
           style: {
-            backgroundColor: 'red',
-            color: 'white',
-            border: '1px solid white',
+            backgroundColor: '#FCF9E1',
           },
         },
       )

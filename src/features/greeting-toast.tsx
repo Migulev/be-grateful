@@ -16,19 +16,15 @@ export const GreetingToast = () => {
     if (session && greeting) {
       setTimeout(() => {
         toast(
-          <div className="flex w-full items-center justify-center ">
-            {/* !dev: color hardcoded */}
-            <p className="text-yellow-200 text-center text-lg capitalize-first">
+          <div className="flex w-full items-center justify-center">
+            <p className="text-center text-lg text-primary capitalize-first">
               {greeting?.title}
             </p>
           </div>,
-          // !dev: color hardcoded
           {
             position: 'top-center',
             style: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              color: 'white',
-              border: '1px solid white',
+              backgroundColor: '#FCF9E1',
             },
             duration: 5000,
           },

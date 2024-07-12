@@ -18,7 +18,7 @@ export const gratitudeApi = {
     const { data, error } = await supabase
       .from('gratitudes')
       .select('*')
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending: true })
 
     if (error) throw new SupabaseError()
 

@@ -1,8 +1,5 @@
 import { useRef, useState } from 'react'
 
-import { Plus } from 'lucide-react'
-
-import { Button } from '@/shared/components/ui/button'
 import { Textarea } from '@/shared/components/ui/textarea'
 import { useAuthModal } from '@/shared/libs/context/auth-modal-context'
 import { toastError } from '@/shared/libs/toast'
@@ -12,15 +9,11 @@ import { MAX_GRATITUDE_TEXT_LENGTH } from '../model/rules'
 
 export const GratitudeInput = ({
   className,
-  placeholder,
   onCreateAsync,
-  isPending,
   isAuthorized,
 }: {
   className?: string
-  placeholder: string
   onCreateAsync: (gratitudeText: string) => Promise<void>
-  isPending: boolean
   isAuthorized: boolean
 }) => {
   const [gratitude, setGratitude] = useState('')
@@ -51,27 +44,24 @@ export const GratitudeInput = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className={cn(className, 'flex w-full max-w-xl')}
+      className={cn(className, 'relative flex w-full')}
       onKeyDown={e => {
         if (e.key === 'Enter') handleSubmit(e)
       }}
     >
+      <span className="absolute ml-8 mt-[9px] text-lg text-muted-foreground">
+        -
+      </span>
       <Textarea
+        isInput
+        className="no-scrollbar overflow-y-auto bg-secondary pl-10 text-lg text-muted-foreground ring-offset-secondary focus-visible:ring-1"
         ref={textareaRef}
         onChange={handleInputChange}
         value={gratitude}
-        placeholder={placeholder}
+        placeholder={'...'}
         autoFocus
-        isInput
       />
-      <Button
-        type="submit"
-        // !dev: color hardcode
-        className="ml-2"
-        disabled={isPending}
-      >
-        <Plus className="h-4" />
-      </Button>
+      <span className="sr-only">Введите благодарность</span>
     </form>
   )
 }

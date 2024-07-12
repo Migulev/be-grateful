@@ -17,11 +17,13 @@ export const NameForm = ({
   onSubmit,
   fieldControl,
   nameForm,
+  children,
 }: {
   buttonDisabled: boolean
   onSubmit: () => void
   fieldControl: Control<NameFormSchemaType, unknown>
   nameForm: UseFormReturn<NameFormSchemaType, undefined>
+  children?: React.ReactNode
 }) => {
   return (
     <Form {...nameForm}>
@@ -42,13 +44,13 @@ export const NameForm = ({
           )}
         />
 
-        {/* !dev: hardcode color */}
         <Button
-          className=" bg-gray-300 text-gray-900 hover:bg-gray-100 mt-2 w-full"
+          className="mt-2 w-full"
           type="submit"
           disabled={buttonDisabled}
+          variant="secondary"
         >
-          изменить имя
+          {children}
         </Button>
       </form>
     </Form>

@@ -10,6 +10,10 @@ module.exports = {
   ],
   prefix: '',
   theme: {
+    borderRadius: {
+      DEFAULT: 'calc(var(--radius) - 2px)',
+      full: '50%',
+    },
     colors: ({ colors }) => ({
       black: colors.black,
       white: colors.white,
@@ -18,8 +22,10 @@ module.exports = {
       background: 'var(--background)',
       foreground: 'var(--foreground)',
       border: 'var(--border)',
+      note: 'var(--note-border)',
       input: 'var(--input)',
       ring: 'var(--ring)',
+      success: 'var(--success)',
       primary: {
         DEFAULT: 'var(--primary)',
         foreground: 'var(--primary-foreground)',
@@ -52,11 +58,6 @@ module.exports = {
     fontFamily: { app: ['Rethink'] },
 
     extend: {
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
-      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },

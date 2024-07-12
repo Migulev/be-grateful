@@ -24,8 +24,8 @@ export const ThemeButton = () => {
       >
         {
           <>
-            <Sun className=" size-5 translate-x-0 opacity-100 [transition:opacity_200ms_ease-out,transform_300ms_ease-out]  dark:-translate-x-5 dark:opacity-0" />
-            <Moon className=" absolute size-5 translate-x-5 opacity-0 [transition:opacity_200ms_ease-out,transform_300ms_ease-out] dark:translate-x-0 dark:opacity-100" />
+            <Sun className="size-5 translate-x-0 opacity-100 [transition:opacity_200ms_ease-out,transform_300ms_ease-out] dark:-translate-x-5 dark:opacity-0" />
+            <Moon className="absolute size-5 translate-x-5 opacity-0 [transition:opacity_200ms_ease-out,transform_300ms_ease-out] dark:translate-x-0 dark:opacity-100" />
           </>
         }
       </Button>

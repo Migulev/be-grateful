@@ -34,10 +34,7 @@ export const ProfileAvatar = ({
       <AvatarFallback className={cn({ 'opacity-20': loading })}>
         {getProfileLetters(profile)}
       </AvatarFallback>
-      {/* !dev: hardcoded color */}
-      {loading && (
-        <Loader className="text-gray-900 absolute animate-spin-slow" />
-      )}
+      {loading && <Loader className="absolute animate-spin-slow" />}
     </Avatar>
   )
 }
