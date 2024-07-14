@@ -14,7 +14,7 @@ import { useDeleteGratitude } from './model/use-delete-gratitude'
 const optimisticAnimationDuration = 700
 
 export const GratitudeList = ({ className }: { className?: string }) => {
-  const { data: gratitudeList } = useQuery({
+  const { data: gratitudeList, isPending: isFetchingGratitudeList } = useQuery({
     ...gratitudeListQuery(),
   })
   const { mutateAsync: createGratitudeAsync, isPending: isCreating } =
@@ -40,13 +40,14 @@ export const GratitudeList = ({ className }: { className?: string }) => {
           />
         </li>
       ))}
-      {/* !todo: render input with gratitude */}
-      <GratitudeInput
-        onCreateAsync={async (gratitudeText: string) => {
-          await createGratitudeAsync(gratitudeText)
-        }}
-        isAuthorized={!!session}
-      />
+      {!isFetchingGratitudeList && (
+        <GratitudeInput
+          onCreateAsync={async (gratitudeText: string) => {
+            await createGratitudeAsync(gratitudeText)
+          }}
+          isAuthorized={!!session}
+        />
+      )}
     </ul>
   )
 }
