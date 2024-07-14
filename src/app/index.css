@@ -45,8 +45,8 @@ body {
 
 @layer base {
   :root {
-    --bg-main-l: #8ad1fdd8;
-    --bg-main-r: #a7c7fbe6;
+    --bg-main-l: #74c8fcd8;
+    --bg-main-r: #8fb7f9e6;
 
     --background: #8cc7fc;
     --foreground: var(--primary);
