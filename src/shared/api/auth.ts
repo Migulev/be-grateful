@@ -1,34 +1,16 @@
-import { z } from 'zod'
-
 import { supabase } from '@/shared/libs/supabase'
 
-import { SupabaseError, ValidationError } from '../libs/errors'
-
-const sessionDtoSchema = z.object({
-  id: z.string(),
-  avatar_url: z.string().default(''),
-  email: z.string(),
-  name: z.string().default(''),
-  userName: z.string().optional(),
-  userAvatarUrl: z.string().optional(),
-})
-type SessionDto = z.infer<typeof sessionDtoSchema>
+import { SupabaseError } from '../libs/errors'
 
 export const authApi = {
-  getSession: async (): Promise<SessionDto | undefined> => {
+  getSession: async () => {
     const {
       data: { user },
       error,
     } = await supabase.auth.getUser()
     if (error) throw new SupabaseError()
 
-    const validation = sessionDtoSchema.safeParse({
-      id: user?.id,
-      ...user?.user_metadata,
-    })
-    if (validation.error) throw new ValidationError()
-
-    return validation.data as SessionDto
+    return { id: user?.id, ...user?.user_metadata }
   },
 
   logInWithOtp: async (email: string) => {

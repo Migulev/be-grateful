@@ -1,7 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { Gratitude, gratitude_query_key } from '@/entities/gratitude'
+import {
+  Gratitude,
+  gratitude_query_key,
+  gratitudeSchema,
+} from '@/entities/gratitude'
 import { gratitudeApi } from '@/shared/api/gratitude'
+import { ValidationError } from '@/shared/libs/errors'
 import { toastError } from '@/shared/libs/toast'
 import { generateRandomId } from '@/shared/libs/utils'
 
@@ -46,12 +51,16 @@ export const useCreateGratitude = (optimisticDuration: number) => {
     },
 
     onSuccess: async (data, _, context) => {
+      const validation = gratitudeSchema.safeParse(data)
+      if (validation.error) throw new ValidationError()
+
       setTimeout(() => {
         queryClient.setQueryData(
           [gratitude_query_key],
           (cashedData: Gratitude[]) =>
             cashedData.map(gratitude => {
-              if (gratitude.id === context.optimisticGratitude.id) return data
+              if (gratitude.id === context.optimisticGratitude.id)
+                return validation.data
               return gratitude
             }),
         )
