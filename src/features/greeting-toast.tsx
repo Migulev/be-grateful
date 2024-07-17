@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
@@ -7,13 +7,14 @@ import { greetingQuery } from '@/entities/greeting'
 import { useSession } from '@/entities/session'
 
 export const GreetingToast = () => {
+  const [firstTime, setFirstTime] = useState(true)
   const session = useSession()
   const { data: greeting } = useQuery({
     ...greetingQuery(!!session),
   })
 
   useEffect(() => {
-    if (session && greeting) {
+    if (session && greeting && firstTime) {
       setTimeout(() => {
         toast(
           <div className="flex w-full items-center justify-center">
@@ -30,8 +31,9 @@ export const GreetingToast = () => {
           },
         )
       }, 2000)
+      setFirstTime(false)
     }
-  }, [greeting, session])
+  }, [greeting, session, firstTime])
 
   return <></>
 }

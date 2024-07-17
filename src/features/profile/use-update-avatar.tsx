@@ -25,7 +25,6 @@ export const useUpdateProfileAvatar = () => {
     onSuccess: () => toastSuccess('Аватар обновлен'),
     onError: () => {
       toastError()
-      invalidateSession()
     },
   })
 }
