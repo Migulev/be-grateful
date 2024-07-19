@@ -38,7 +38,7 @@ export const SettingsModal = ({
           <CredenzaTitle>Настройки</CredenzaTitle>
         </CredenzaHeader>
         <div className="mt-2 flex flex-col gap-6">
-          <div className="flex w-full flex-col items-center justify-center gap-2">
+          <div className="flex w-full flex-col items-center justify-center gap-1">
             <ProfileAvatar
               className="size-14"
               profile={profile}
@@ -46,7 +46,7 @@ export const SettingsModal = ({
             />
             <div className="flex gap-6">
               <UploadInputButton
-                className="p-0 text-foreground"
+                className="text-foreground"
                 onChange={handleAvatarUpdate}
                 disabled={isUnderAvatarMutation}
               >
@@ -55,7 +55,7 @@ export const SettingsModal = ({
 
               <Button
                 variant={'link'}
-                className="p-0 text-destructive"
+                className="text-destructive"
                 onClick={() => deleteAvatar()}
                 disabled={isUnderAvatarMutation}
               >
