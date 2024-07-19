@@ -44,18 +44,17 @@ export const SettingsModal = ({
               profile={profile}
               loading={isUnderAvatarMutation}
             />
-            <Button>test button</Button>
             <div className="flex gap-6">
-              <UploadInputButton
+              {/* <UploadInputButton
                 className="text-foreground"
                 onChange={handleAvatarUpdate}
                 disabled={isUnderAvatarMutation}
               >
                 загрузить
-              </UploadInputButton>
+              </UploadInputButton> */}
 
               <Button
-                // variant={'link'}
+                variant={'link'}
                 className="text-destructive"
                 onClick={() => deleteAvatar()}
                 disabled={isUnderAvatarMutation}
