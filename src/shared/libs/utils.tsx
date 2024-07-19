@@ -14,7 +14,7 @@ import {
 import { ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-import { WithImageUrl } from '../global-types'
+import { ObjectWithImageUrl } from '../global-types'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -140,8 +140,8 @@ export function shuffleArray<T>(array: T[]): T[] {
 }
 
 export function preloadImageInObject<T>(
-  obj: WithImageUrl<T>,
-): Promise<WithImageUrl<T>> {
+  obj: ObjectWithImageUrl<T>,
+): Promise<ObjectWithImageUrl<T>> {
   return new Promise((resolve, reject) => {
     const img = new Image()
     img.src = obj.avatarUrl
