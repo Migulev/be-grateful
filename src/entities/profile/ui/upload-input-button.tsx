@@ -17,7 +17,7 @@ export const UploadInputButton = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     return (
-      <div className="relative flex items-center">
+      <>
         <Button
           className={className}
           variant={'link'}
@@ -27,13 +27,13 @@ export const UploadInputButton = React.forwardRef<HTMLInputElement, InputProps>(
           {children}
         </Button>
         <Input
-          className="invisible size-0 border-0 p-0"
+          className="invisible absolute size-0 border-0 p-0"
           type="file"
           ref={inputRef}
           accept={accept}
           {...props}
         />
-      </div>
+      </>
     )
   },
 )

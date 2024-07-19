@@ -45,13 +45,13 @@ export const SettingsModal = ({
               loading={isUnderAvatarMutation}
             />
             <div className="flex gap-6">
-              {/* <UploadInputButton
+              <UploadInputButton
                 className="text-foreground"
                 onChange={handleAvatarUpdate}
                 disabled={isUnderAvatarMutation}
               >
                 загрузить
-              </UploadInputButton> */}
+              </UploadInputButton>
 
               <Button
                 variant={'link'}
