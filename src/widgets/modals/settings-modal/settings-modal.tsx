@@ -55,7 +55,7 @@ export const SettingsModal = ({
               </UploadInputButton>
 
               <Button
-                variant={'link'}
+                // variant={'link'}
                 className="text-destructive"
                 onClick={() => deleteAvatar()}
                 disabled={isUnderAvatarMutation}
