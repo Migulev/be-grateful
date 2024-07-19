@@ -5,7 +5,7 @@ export const Logo = ({ theme }: { theme: Theme }) => {
     <img
       src={theme === 'dark' ? '/icon-dark.png' : '/icon-light.png'}
       alt="logo"
-      className="size-12"
+      className="size-11"
       width={60}
       height={60}
     />
