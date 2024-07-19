@@ -44,6 +44,7 @@ export const SettingsModal = ({
               profile={profile}
               loading={isUnderAvatarMutation}
             />
+            <Button>test button</Button>
             <div className="flex gap-6">
               <UploadInputButton
                 className="text-foreground"
