@@ -38,13 +38,13 @@ export const SettingsModal = ({
           <CredenzaTitle>Настройки</CredenzaTitle>
         </CredenzaHeader>
         <div className="mt-2 flex flex-col gap-6">
-          <div className="flex w-full flex-col items-center justify-center gap-1">
+          <div className="flex w-full items-center justify-center gap-4">
             <ProfileAvatar
               className="size-14"
               profile={profile}
               loading={isUnderAvatarMutation}
             />
-            <div className="flex gap-6">
+            <div className="flex">
               <UploadInputButton
                 className="text-foreground"
                 onChange={handleAvatarUpdate}
