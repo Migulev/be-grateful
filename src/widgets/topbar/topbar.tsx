@@ -8,7 +8,7 @@ export const Topbar = () => {
   const { theme } = useTheme()
 
   return (
-    <nav className="container flex items-center justify-between px-8 py-4 md:px-10 md:py-6 lg:px-16 lg:py-8">
+    <nav className="container flex items-center justify-between px-8 py-5 md:px-10 md:py-6 lg:px-16 lg:py-8">
       <Logo theme={theme} />
       <div></div>
       <div className="flex gap-4">
