@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 import { Toaster } from 'sonner'
 
-import { useTheme } from '@/features/theme'
+import { useTheme } from '@/shared/libs/context/theme-context'
 import { desktop } from '@/shared/libs/device-type/constants'
 import { useMediaQuery } from '@/shared/libs/utils'
 

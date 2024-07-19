@@ -6,6 +6,7 @@ import { usePoopUpToastList } from '@/entities/poop_up'
 import { PoopUpToast } from '@/entities/poop_up/model/types'
 import { useSession } from '@/entities/session'
 import { Avatar, AvatarImage } from '@/shared/components/ui/avatar'
+import { Theme, useTheme } from '@/shared/libs/context/theme-context'
 import { ToastPosition } from '@/shared/libs/toast'
 import { wait } from '@/shared/libs/utils'
 
@@ -17,6 +18,7 @@ const MIN_TOAST_TIMEOUT = 1000
 export const PoopUpToasts = () => {
   const session = useSession()
   const [readyToFetch, setReadyToFetch] = useState(false)
+  const { theme } = useTheme()
 
   useEffect(() => {
     wait(FIRST_TOAST_TIMEOUT).then(() => {
@@ -29,24 +31,42 @@ export const PoopUpToasts = () => {
 
   useEffect(() => {
     if (session || !poopUpToastList) return
-    ToastsSequence(position, poopUpToastList)
-  })
+    const { timeOutIds, toastIds } = ToastsSequence(
+      position,
+      poopUpToastList,
+      theme,
+    )
+    return () => {
+      timeOutIds.forEach(timeOutId => {
+        clearTimeout(timeOutId)
+      })
+      toastIds.forEach(toastId => {
+        toast.dismiss(toastId)
+      })
+    }
+  }, [poopUpToastList, session, theme])
+
   return <></>
 }
 
 function ToastsSequence(
   position: ToastPosition,
   poopUpToastList: PoopUpToast[],
+  theme: Theme,
 ) {
   let timeout = 0
+  const timeOutIds = new Array<NodeJS.Timeout>()
+  const toastIds = new Array<string | number>()
 
   for (let i = 0; i < poopUpToastList.length; i++) {
     const poopUpToast = poopUpToastList[i]
     const image = poopUpToast.image
     timeout += randomTimeout()
 
-    setTimeout(() => {
-      toast(
+    const bgColor = theme === 'dark' ? '#1e293b' : '#F9FAFB'
+
+    const timeOutId = setTimeout(() => {
+      const toastId = toast(
         <div className="flex w-full justify-between">
           <div className="flex items-center gap-5 text-primary">
             <Avatar>
@@ -66,12 +86,16 @@ function ToastsSequence(
           position: position,
           duration: TOAST_DURATION,
           style: {
-            backgroundColor: '#FCF9E1',
+            backgroundColor: bgColor,
           },
         },
       )
+      toastIds.push(toastId)
     }, timeout)
+    timeOutIds.push(timeOutId)
   }
+
+  return { timeOutIds, toastIds }
 }
 
 function randomTimeout() {
