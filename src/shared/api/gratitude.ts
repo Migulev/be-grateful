@@ -1,15 +1,12 @@
 import { supabase } from '@/shared/libs/supabase'
 
-import { SupabaseError } from '../libs/errors'
-
 export const gratitudeApi = {
   getGratitudeList: async () => {
-    const { data: gratitudeList, error } = await supabase
+    const { data: gratitudeList } = await supabase
       .from('gratitudes')
       .select('*')
       .order('created_at', { ascending: true })
-
-    if (error) throw new SupabaseError()
+      .throwOnError()
 
     return gratitudeList
   },
@@ -20,21 +17,19 @@ export const gratitudeApi = {
       title,
     }
 
-    const { data: createdGratitude, error } = await supabase
+    const { data: createdGratitude } = await supabase
       .from('gratitudes')
       .insert([newGratitude])
       .select()
       .single()
-
-    if (error) throw new SupabaseError()
+      .throwOnError()
 
     return createdGratitude
   },
 
   deleteGratitude: async (id: string) => {
-    const { error } = await supabase.from('gratitudes').delete().eq('id', id)
+    await supabase.from('gratitudes').delete().eq('id', id).throwOnError()
 
-    if (error) throw new SupabaseError()
     return
   },
 }

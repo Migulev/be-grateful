@@ -1,19 +1,18 @@
-import { SupabaseError } from '../libs/errors'
 import { supabase } from '../libs/supabase'
 
 export const poopUpApi = {
   getCharactersList: async () => {
-    const { data: poop_up, error } = await supabase
+    const { data: poop_up } = await supabase
       .from('poop-up_characters')
       .select('*')
-    if (error) throw new SupabaseError()
+      .throwOnError()
     return poop_up
   },
   getPhrasesList: async () => {
-    const { data: poop_up_phrase, error } = await supabase
+    const { data: poop_up_phrase } = await supabase
       .from('poop-up_phrases')
       .select('*')
-    if (error) throw new SupabaseError()
+      .throwOnError()
     return poop_up_phrase
   },
 }
