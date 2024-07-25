@@ -7,6 +7,22 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/shared/config/vitest-setup.js'],
+    reporters: ['html'],
+    coverage: {
+      include: ['src/**/*'],
+      exclude: [
+        '**/__tests__/**',
+        '**/*.d.ts',
+        '**/index.ts',
+        '**/main.tsx',
+        '**/app-loader.tsx',
+        '**/shared/components/**',
+        '**/shared/libs/**',
+        '**/shared/config/**',
+        '**/shared/api/**',
+      ],
+      ignoreEmptyLines: true,
+    },
   },
   resolve: {
     alias: {
