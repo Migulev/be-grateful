@@ -9,7 +9,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prettier": "prettier --write .",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage": "vitest --coverage",
+    "ui": "vitest --ui"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.4.2",
