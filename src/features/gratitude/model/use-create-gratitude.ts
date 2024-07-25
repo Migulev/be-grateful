@@ -8,7 +8,7 @@ import {
 import { gratitudeApi } from '@/shared/api/gratitude'
 import { ValidationError } from '@/shared/libs/errors'
 import { toastError } from '@/shared/libs/toast'
-import { generateRandomId } from '@/shared/libs/utils'
+import { generateRandomId } from '@/shared/utils'
 
 const create_gratitude_key = 'create_gratitude'
 

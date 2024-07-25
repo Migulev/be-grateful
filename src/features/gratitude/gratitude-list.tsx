@@ -6,7 +6,7 @@ import {
   gratitudeListQuery,
 } from '@/entities/gratitude'
 import { useSession } from '@/entities/session'
-import { cn } from '@/shared/libs/utils'
+import { cn } from '@/shared/utils'
 
 import { useCreateGratitude } from './model/use-create-gratitude'
 import { useDeleteGratitude } from './model/use-delete-gratitude'

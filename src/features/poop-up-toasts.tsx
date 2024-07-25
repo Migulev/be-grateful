@@ -8,7 +8,7 @@ import { useSession } from '@/entities/session'
 import { Avatar, AvatarImage } from '@/shared/components/ui/avatar'
 import { Theme, useTheme } from '@/shared/libs/context/theme-context'
 import { ToastPosition } from '@/shared/libs/toast'
-import { wait } from '@/shared/libs/utils'
+import { wait } from '@/shared/utils'
 
 const TOAST_DURATION = 5000
 const FIRST_TOAST_TIMEOUT = 5000

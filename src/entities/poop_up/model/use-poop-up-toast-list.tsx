@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 
-import { preloadImageInObject, shuffleArray } from '@/shared/libs/utils'
+import { preloadImageInObject, shuffleArray } from '@/shared/utils'
 
 import { poopUpListQuery } from '../queries'
 import { PoopUpCharacter, PoopUpPhrase, PoopUpToast } from './types'

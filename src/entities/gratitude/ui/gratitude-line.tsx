@@ -4,7 +4,7 @@ import { EllipsisVertical, X } from 'lucide-react'
 
 import { type DurationTW } from '@/shared/global-types'
 import { BrowserView, MobileView } from '@/shared/libs/device-type'
-import { cn, convertDurationTW, useOutsideClick } from '@/shared/libs/utils'
+import { cn, convertDurationTW, useOutsideClick } from '@/shared/utils'
 
 export const GratitudeLine = ({
   title,

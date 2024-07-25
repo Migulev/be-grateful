@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { desktop } from '@/shared/libs/device-type/constants'
-import { cn, useMediaQuery } from '@/shared/libs/utils'
+import { cn, useMediaQuery } from '@/shared/utils'
 
 import {
   Dialog,

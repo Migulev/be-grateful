@@ -1,4 +1,4 @@
-import { createStrictContext, useStrictContext } from '../utils'
+import { createStrictContext, useStrictContext } from '../../utils'
 
 export type AuthModalContextType = {
   setIsOpenAuthModal: (isOpen: boolean) => void

@@ -1,6 +1,6 @@
 import { greetingApi } from '@/shared/api/greeting'
 import { ValidationError } from '@/shared/libs/errors'
-import { getRandomNumber } from '@/shared/libs/utils'
+import { getRandomNumber } from '@/shared/utils'
 
 import { greetingSchema } from './types'
 

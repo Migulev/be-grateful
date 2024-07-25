@@ -4,7 +4,7 @@ import { Toaster } from 'sonner'
 
 import { useTheme } from '@/shared/libs/context/theme-context'
 import { desktop } from '@/shared/libs/device-type/constants'
-import { useMediaQuery } from '@/shared/libs/utils'
+import { useMediaQuery } from '@/shared/utils'
 
 export const ToastProvider = ({ children }: { children?: ReactNode }) => {
   const { theme } = useTheme()

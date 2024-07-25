@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 
 import { Textarea } from '@/shared/components/ui/textarea'
-import { cn, useResizeTextarea } from '@/shared/libs/utils'
+import { cn, useResizeTextarea } from '@/shared/utils'
 
 import useGratitudeInput from './model/use-gratitude-input'
 import useHandleSubmit from './model/use-handle-submit'

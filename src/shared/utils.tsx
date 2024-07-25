@@ -14,7 +14,7 @@ import {
 import { ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-import { ObjectWithImageUrl } from '@/shared/global-types'
+import { ObjectWithImageUrl } from './config/global-types'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

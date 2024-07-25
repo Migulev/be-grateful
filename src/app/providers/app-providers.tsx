@@ -2,7 +2,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import { queryClient } from '@/shared/libs/tanstack-query'
-import { ComposeChildren } from '@/shared/libs/utils'
+import { ComposeChildren } from '@/shared/utils'
 
 import { DeviceTypeProvider } from './device-type-provider'
 import { ModalProviders } from './modals'

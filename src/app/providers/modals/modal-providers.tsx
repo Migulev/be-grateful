@@ -1,4 +1,4 @@
-import { ComposeChildren } from '@/shared/libs/utils'
+import { ComposeChildren } from '@/shared/utils'
 
 import { AuthModalProvider } from './auth-modal-provider'
 import { ConformationModalProvider } from './conformation-modal-provider'
