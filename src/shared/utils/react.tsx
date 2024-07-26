@@ -14,7 +14,7 @@ import {
 import { ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-import { ObjectWithImageUrl } from './global-types'
+import { ObjectWithImageUrl } from '../global-types'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -60,13 +60,13 @@ export function convertDurationTW(duration: number) {
   }
 }
 
-export function formatDate(isoString: string) {
-  const date = new Date(isoString)
-  const day = String(date.getDate()).padStart(2, '0')
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const year = date.getFullYear()
-  return `${day}.${month}.${year}`
-}
+// export function formatDate(isoString: string) {
+//   const date = new Date(isoString)
+//   const day = String(date.getDate()).padStart(2, '0')
+//   const month = String(date.getMonth() + 1).padStart(2, '0')
+//   const year = date.getFullYear()
+//   return `${day}.${month}.${year}`
+// }
 
 export const useResizeTextarea = (
   element: RefObject<HTMLTextAreaElement>,
