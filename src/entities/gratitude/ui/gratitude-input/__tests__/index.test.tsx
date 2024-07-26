@@ -11,6 +11,7 @@ vitest.mock('@/shared/libs/context/auth-modal-context', () => ({
 
 describe('GratitudeInput', () => {
   const onCreateAsyncMock = vitest.fn()
+
   const mockGratitude = 'Test gratitude'
 
   it('renders placeholder correctly and prefix "-" ', async () => {
