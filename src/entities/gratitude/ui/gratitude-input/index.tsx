@@ -34,7 +34,7 @@ export const GratitudeInput = ({
       onKeyDown={e => {
         if (e.key === 'Enter') handleSubmit(e)
       }}
-      role="form"
+      data-testid="form"
     >
       <span className="absolute ml-8 mt-[9px] text-lg text-muted-foreground">
         -
