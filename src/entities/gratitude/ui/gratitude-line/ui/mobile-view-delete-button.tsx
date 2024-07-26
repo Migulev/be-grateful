@@ -19,7 +19,7 @@ export const MobileViewDeleteButton = ({
         <EllipsisVertical
           onClick={() => setIsOpenDelete(true)}
           className="absolute -left-3 size-5 cursor-pointer opacity-50"
-          data-testid="mobile-view-delete-button"
+          role="mobile-view-delete-button"
         />
       )}
       {isOpenDelete && (
@@ -27,7 +27,7 @@ export const MobileViewDeleteButton = ({
           className="absolute -left-3 size-5 cursor-pointer text-destructive"
           onClick={onDelete}
           ref={refDiv}
-          data-testid="x-delete-button"
+          role="x-delete-button"
         />
       )}
     </MobileView>

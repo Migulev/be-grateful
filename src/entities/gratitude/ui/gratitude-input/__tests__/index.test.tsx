@@ -22,7 +22,7 @@ describe('GratitudeInput', () => {
       />,
     )
 
-    const form = screen.getByTestId('form')
+    const form = screen.getByRole('form')
     const textarea = screen.getByRole('textbox')
 
     expect(within(form).getByText('-')).toBeInTheDocument()
@@ -44,7 +44,7 @@ describe('GratitudeInput', () => {
       />,
     )
 
-    const form = screen.getByTestId('form')
+    const form = screen.getByRole('form')
     const textarea = screen.getByRole('textbox')
 
     await act(async () => {
