@@ -7,7 +7,6 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/shared/config/vitest-setup.js'],
-    reporters: ['html'],
     coverage: {
       include: ['src/**/*'],
       exclude: [
