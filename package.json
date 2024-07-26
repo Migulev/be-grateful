@@ -13,6 +13,9 @@
     "coverage": "vitest --coverage",
     "ui": "vitest --ui"
   },
+  "resolutions": {
+    "strip-ansi": "6.0.1"
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.4.2",
     "@radix-ui/react-avatar": "^1.0.4",
