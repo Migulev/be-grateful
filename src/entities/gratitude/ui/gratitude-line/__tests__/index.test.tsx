@@ -64,7 +64,7 @@ describe('GratitudeLine', () => {
         onDelete={() => {}}
       />,
     )
-    expect(screen.getByRole('browser-view-delete-button')).toBeInTheDocument()
+    expect(screen.getByRole('browser-view-delete-button')).matchSnapshot()
   })
 
   it('renders the MobileViewDeleteButton', () => {
@@ -75,6 +75,6 @@ describe('GratitudeLine', () => {
         onDelete={() => {}}
       />,
     )
-    expect(screen.getByRole('mobile-view-delete-button')).toBeInTheDocument()
+    expect(screen.getByRole('mobile-view-delete-button')).matchSnapshot()
   })
 })

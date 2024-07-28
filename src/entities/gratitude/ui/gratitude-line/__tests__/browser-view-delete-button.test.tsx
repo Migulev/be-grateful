@@ -26,7 +26,7 @@ describe('BrowserViewDeleteButton', () => {
     render(<BrowserViewDeleteButton onDelete={mockOnDelete} />)
 
     const deleteButton = screen.getByRole('x-delete-button')
-    expect(deleteButton).toBeInTheDocument()
+    expect(deleteButton).matchSnapshot()
 
     fireEvent.click(deleteButton)
 

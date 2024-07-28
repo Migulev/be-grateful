@@ -1,0 +1,56 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MobileViewDeleteButton > renders the MobileViewDeleteButton and handles delete action 1`] = `
+<svg
+  class="lucide lucide-ellipsis-vertical absolute -left-3 size-5 cursor-pointer opacity-50"
+  fill="none"
+  height="24"
+  role="mobile-view-delete-button"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  viewBox="0 0 24 24"
+  width="24"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <circle
+    cx="12"
+    cy="12"
+    r="1"
+  />
+  <circle
+    cx="12"
+    cy="5"
+    r="1"
+  />
+  <circle
+    cx="12"
+    cy="19"
+    r="1"
+  />
+</svg>
+`;
+
+exports[`MobileViewDeleteButton > renders the MobileViewDeleteButton and handles delete action 2`] = `
+<svg
+  class="lucide lucide-x absolute -left-3 size-5 cursor-pointer text-destructive"
+  fill="none"
+  height="24"
+  role="x-delete-button"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  viewBox="0 0 24 24"
+  width="24"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M18 6 6 18"
+  />
+  <path
+    d="m6 6 12 12"
+  />
+</svg>
+`;

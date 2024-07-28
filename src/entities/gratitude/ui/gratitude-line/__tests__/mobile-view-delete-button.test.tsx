@@ -26,12 +26,12 @@ describe('MobileViewDeleteButton', () => {
     render(<MobileViewDeleteButton onDelete={mockOnDelete} />)
 
     const ellipsisButton = screen.getByRole('mobile-view-delete-button')
-    expect(ellipsisButton).toBeInTheDocument()
+    expect(ellipsisButton).matchSnapshot()
 
     fireEvent.click(ellipsisButton)
 
     const deleteButton = screen.getByRole('x-delete-button')
-    expect(deleteButton).toBeInTheDocument()
+    expect(deleteButton).matchSnapshot()
 
     fireEvent.click(deleteButton)
 
