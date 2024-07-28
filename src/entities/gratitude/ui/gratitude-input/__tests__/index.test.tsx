@@ -25,7 +25,7 @@ describe('GratitudeInput', () => {
     const form = screen.getByRole('form')
     const textarea = screen.getByRole('textbox')
 
-    expect(within(form).getByText('-')).toBeInTheDocument()
+    expect(within(form).getByText('-')).matchSnapshot()
     expect(textarea).toHaveAttribute('placeholder', '...')
 
     await act(async () => {
@@ -33,7 +33,7 @@ describe('GratitudeInput', () => {
     })
 
     const textareaAfterType = await screen.findByDisplayValue(mockGratitude)
-    expect(textareaAfterType).toBeInTheDocument()
+    expect(textareaAfterType).matchSnapshot()
   })
 
   it('handles Enter key press', async () => {
