@@ -7,6 +7,6 @@ export const greetingApi = {
       .select('*')
       .throwOnError()
 
-    return greeting
+    return greeting || []
   },
 }

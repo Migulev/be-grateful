@@ -18,9 +18,14 @@ vi.mock('../model/types')
 
 describe('sessionQuery', () => {
   it('should return session data when valid', async () => {
-    const mockSession = { id: '1', email: 'example@example.com' }
+    const mockSession = {
+      id: '1',
+      email: 'example@example.com',
+      name: 'John Doe',
+      avatarUrl: 'https://example.com/avatar.jpg',
+    }
     ;(authApi.getSession as Mock).mockResolvedValue(mockSession)
-    ;(sessionSchema.safeParse as Mock).mockReturnValue({
+    vi.spyOn(sessionSchema, 'safeParse').mockReturnValue({
       success: true,
       data: mockSession,
     })

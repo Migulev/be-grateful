@@ -7,8 +7,9 @@ import { greetingSchema } from './types'
 const greeting_query_key = 'greetings'
 
 export const greetingQuery = (isEnabled: boolean) => ({
-  queryKey: [greeting_query_key],
+  queryKey: [greeting_query_key, isEnabled],
   queryFn: async () => {
+    if (!isEnabled) return
     const greetingsList = await greetingApi.getGreetingsList()
 
     const randomNumber = getRandomNumber(0, greetingsList.length - 1)
