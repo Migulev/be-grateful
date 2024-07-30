@@ -9,8 +9,9 @@ import {
 const poop_up_list_query_key = 'poop_up_list'
 
 export const poopUpListQuery = (isEnabled: boolean) => ({
-  queryKey: [poop_up_list_query_key],
+  queryKey: [poop_up_list_query_key, isEnabled],
   queryFn: async () => {
+    if (!isEnabled) return
     const [characterList, phrasesList] = await Promise.all([
       poopUpApi.getCharactersList(),
       poopUpApi.getPhrasesList(),
