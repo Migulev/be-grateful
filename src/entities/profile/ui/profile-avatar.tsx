@@ -34,7 +34,12 @@ export const ProfileAvatar = ({
       <AvatarFallback className={cn({ 'opacity-20': loading })}>
         {getProfileLetters(profile)}
       </AvatarFallback>
-      {loading && <Loader className="absolute animate-spin-slow" />}
+      {loading && (
+        <Loader
+          className="absolute animate-spin-slow"
+          role="loader"
+        />
+      )}
     </Avatar>
   )
 }
