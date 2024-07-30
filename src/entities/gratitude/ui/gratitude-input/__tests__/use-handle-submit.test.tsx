@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/react'
+import { FormEvent } from 'react'
 
-import { mockEvent } from '@/shared/utils'
+import { renderHook } from '@testing-library/react'
 
 import useHandleSubmit from '../model/use-handle-submit'
 
@@ -43,3 +43,35 @@ describe('useHandleSubmit', () => {
     expect(setGratitudeMock).toHaveBeenCalledTimes(1)
   })
 })
+
+export const mockEvent = {
+  preventDefault: vitest.fn(),
+  nativeEvent: {
+    bubbles: false,
+    cancelBubble: false,
+    cancelable: false,
+    composed: false,
+    currentTarget: {} as EventTarget,
+    defaultPrevented: false,
+    eventPhase: 0,
+    isTrusted: true,
+    returnValue: true,
+    srcElement: null,
+    target: {} as EventTarget,
+    timeStamp: Date.now(),
+    type: 'submit',
+  },
+  currentTarget: {} as EventTarget & HTMLFormElement,
+  target: {} as EventTarget,
+  bubbles: false,
+  cancelable: false,
+  defaultPrevented: false,
+  eventPhase: 0,
+  isTrusted: true,
+  stopPropagation: vitest.fn(),
+  isDefaultPrevented: vitest.fn(),
+  isPropagationStopped: vitest.fn(),
+  persist: vitest.fn(),
+  timeStamp: Date.now(),
+  type: 'submit',
+} as unknown as FormEvent<HTMLFormElement>

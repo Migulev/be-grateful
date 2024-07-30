@@ -32,6 +32,7 @@ export const UploadInputButton = React.forwardRef<HTMLInputElement, InputProps>(
           ref={inputRef}
           accept={accept}
           {...props}
+          role="upload-input"
         />
       </>
     )
