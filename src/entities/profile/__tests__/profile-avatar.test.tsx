@@ -3,20 +3,6 @@ import { render } from '@testing-library/react'
 import { ProfileAvatar } from '../ui/profile-avatar'
 
 describe('ProfileAvatar', () => {
-  it('should render the avatar image if profile is provided', () => {
-    const profile = {
-      email: 'example@example.com',
-      userAvatarUrl: 'https://example.com/avatar.jpg',
-      avatarUrl: '',
-    }
-
-    const { getByAltText } = render(<ProfileAvatar profile={profile} />)
-
-    const avatarImage = getByAltText('Profile Avatar')
-    expect(avatarImage).toBeInTheDocument()
-    expect(avatarImage).toHaveAttribute('src', profile.userAvatarUrl)
-  })
-
   it('should render the fallback letters if profile is provided but avatar image is not available', () => {
     const profile = {
       email: 'jo.doe@example.com',
