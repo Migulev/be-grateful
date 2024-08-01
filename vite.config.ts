@@ -11,6 +11,7 @@ const vitePWA = VitePWA({
     name: 'gratitude note',
     short_name: 'gratitude note',
     description: 'simple gratitude note app',
+    theme_color: '#1E293C',
     icons: [
       {
         src: '/assets/pwa/pwa-192x192.png',
