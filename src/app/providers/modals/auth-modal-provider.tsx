@@ -1,8 +1,13 @@
-import { ReactNode, useState } from 'react'
+import { lazy, ReactNode, Suspense, useState } from 'react'
 
-import { AuthModal } from '@/widgets/modals/auth-modal'
 import { useSession } from '@/entities/session'
 import { AuthModalContext } from '@/shared/libs/context/auth-modal-context'
+
+const AuthModal = lazy(() =>
+  import('@/widgets/modals/auth-modal').then(module => ({
+    default: module.AuthModal,
+  })),
+)
 
 export const AuthModalProvider = ({ children }: { children?: ReactNode }) => {
   const [isOpenAuthModal, setIsOpenAuthModal] = useState(false)
@@ -12,7 +17,9 @@ export const AuthModalProvider = ({ children }: { children?: ReactNode }) => {
     <AuthModalContext.Provider value={{ setIsOpenAuthModal }}>
       {children}
       {isOpenAuthModal && !session && (
-        <AuthModal onClose={() => setIsOpenAuthModal(false)} />
+        <Suspense fallback={null}>
+          <AuthModal onClose={() => setIsOpenAuthModal(false)} />
+        </Suspense>
       )}
     </AuthModalContext.Provider>
   )

@@ -1,14 +1,16 @@
-import { ReactNode, useState } from 'react'
+import { lazy, ReactNode, Suspense, useEffect, useState } from 'react'
 
-import {
-  ConfirmModalParams,
-  ConformationModal,
-  defaultConfirmationParams,
-} from '@/widgets/modals/conformation-modal'
+import { type ConfirmModalParams } from '@/widgets/modals/conformation-modal'
 import {
   ConfirmationContext,
   ConfirmationParams,
 } from '@/shared/libs/context/conformation-context'
+
+const ConformationModal = lazy(() =>
+  import('@/widgets/modals/conformation-modal').then(module => ({
+    default: module.ConformationModal,
+  })),
+)
 
 export const ConformationModalProvider = ({
   children,
@@ -16,6 +18,18 @@ export const ConformationModalProvider = ({
   children?: ReactNode
 }) => {
   const [modalParams, setModalParams] = useState<ConfirmModalParams>()
+  const [defaultConfirmationParams, setDefaultConfirmationParams] =
+    useState<ConfirmModalParams | null>(null)
+
+  useEffect(() => {
+    async function fetchData() {
+      const loadConformationDefaultParams = (
+        await import('@/widgets/modals/conformation-modal')
+      ).defaultConfirmationParams
+      setDefaultConfirmationParams(loadConformationDefaultParams)
+    }
+    fetchData()
+  }, [])
 
   const closeConfirmation = () => {
     modalParams?.onClose()
@@ -46,7 +60,10 @@ export const ConformationModalProvider = ({
       }}
     >
       {children}
-      {modalParams && <ConformationModal {...modalParams} />}
+      <Suspense fallback={null}>
+        {' '}
+        {modalParams && <ConformationModal {...modalParams} />}
+      </Suspense>
     </ConfirmationContext.Provider>
   )
 }
