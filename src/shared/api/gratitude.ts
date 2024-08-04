@@ -32,7 +32,7 @@ export const gratitudeApi = {
     const { data } = await supabase
       .from('gratitudes')
       .select('created_at')
-      .order('created_at', { ascending: true })
+      .order('created_at', { ascending: false })
       .throwOnError()
     return data
   },

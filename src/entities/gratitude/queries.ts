@@ -47,8 +47,8 @@ export const gratitudeDatesQuery = () => ({
     if (!gratitudeDates) return [separateFromTime(getLocalISOTime())]
 
     const uniqueDates = new Set([
-      ...gratitudeDates.map(date => separateFromTime(date.created_at)),
       separateFromTime(getLocalISOTime()),
+      ...gratitudeDates.map(date => separateFromTime(date.created_at)),
     ])
 
     return Array.from(uniqueDates) as string[]

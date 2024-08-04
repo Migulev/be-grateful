@@ -7,15 +7,19 @@ export const GratitudeTab = ({
   children,
   active = false,
   onClick,
+  className,
 }: {
   children: string
   active?: boolean
   onClick?: () => void
+  className?: string
 }) => {
   return (
     <Button
       variant={'tab'}
-      className={cn('h-[22px] px-4 opacity-50', { 'pr-0 opacity-100': active })}
+      className={cn(className, 'h-[22px] px-4 opacity-50', {
+        'pr-0 opacity-100': active,
+      })}
       onClick={onClick}
     >
       <>
