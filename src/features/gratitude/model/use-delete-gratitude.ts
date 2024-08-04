@@ -11,7 +11,12 @@ export const useDeleteGratitude = () => {
   const { getConfirmation } = useGetConfirmation()
 
   return useMutation({
-    mutationFn: async (gratitudeId: string) => {
+    mutationFn: async ({
+      gratitudeId,
+    }: {
+      gratitudeId: string
+      date: string
+    }) => {
       const conformation = getConfirmation({
         title: 'Удаление',
         description: 'удалить благодарность',
@@ -21,27 +26,47 @@ export const useDeleteGratitude = () => {
       return gratitudeApi.deleteGratitude(gratitudeId)
     },
 
-    onMutate: async id => {
-      await queryClient.cancelQueries({ queryKey: [gratitude_query_key] })
+    onMutate: async variables => {
+      const all_gratitude_query_key = [gratitude_query_key]
+      const date_gratitude_query_key = [gratitude_query_key, variables.date]
 
-      const previousGratitudeList = queryClient.getQueryData([
-        gratitude_query_key,
-      ])
+      await queryClient.cancelQueries({ queryKey: all_gratitude_query_key })
+      await queryClient.cancelQueries({ queryKey: date_gratitude_query_key })
 
-      await queryClient.setQueryData(
-        [gratitude_query_key],
-        (old: Gratitude[]) => old.filter(gratitude => gratitude.id !== id),
+      const previousAllGratitudeList = queryClient.getQueryData(
+        all_gratitude_query_key,
       )
+      const previousDateGratitudeList = queryClient.getQueryData(
+        date_gratitude_query_key,
+      )
+      if (previousAllGratitudeList) {
+        queryClient.setQueryData(all_gratitude_query_key, (old: Gratitude[]) =>
+          old.filter(gratitude => gratitude.id !== variables.gratitudeId),
+        )
+      }
+      if (previousDateGratitudeList) {
+        queryClient.setQueryData(date_gratitude_query_key, (old: Gratitude[]) =>
+          old.filter(gratitude => gratitude.id !== variables.gratitudeId),
+        )
+      }
 
-      return { previousGratitudeList }
+      return { previousAllGratitudeList, previousDateGratitudeList }
     },
 
-    onError: (error, __, context) => {
+    onError: (error, variables, context) => {
+      const all_gratitude_query_key = [gratitude_query_key]
+      const date_gratitude_query_key = [gratitude_query_key, variables.date]
+
       queryClient.setQueryData(
-        [gratitude_query_key],
-        context?.previousGratitudeList,
+        all_gratitude_query_key,
+        context?.previousAllGratitudeList,
+      )
+      queryClient.setQueryData(
+        date_gratitude_query_key,
+        context?.previousDateGratitudeList,
       )
       if (error instanceof UserCancelationError) return
+
       toastError()
     },
 

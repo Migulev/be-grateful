@@ -8,31 +8,35 @@ import {
 import { gratitudeApi } from '@/shared/api/gratitude'
 import { ValidationError } from '@/shared/libs/errors'
 import { toastError } from '@/shared/libs/toast'
-import { generateRandomId } from '@/shared/utils'
+import { generateRandomId, getLocalISOTime } from '@/shared/utils'
 
 const create_gratitude_key = 'create_gratitude'
 
-export const useCreateGratitude = (optimisticDuration: number) => {
+export const useCreateGratitude = (
+  optimisticDuration: number,
+  date?: string,
+) => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationKey: [create_gratitude_key],
-    mutationFn: (text: string) => {
-      return gratitudeApi.createGratitude(text)
+    mutationFn: (title: string) => {
+      return gratitudeApi.createGratitude(title)
     },
-    onMutate: variables => {
+    onMutate: title => {
       const optimisticGratitude: Gratitude = {
         id: generateRandomId(),
-        title: variables,
-        createdAt: new Date().toISOString(),
+        title,
+        createdAt: getLocalISOTime(),
       }
 
       const previousGratitudeList = queryClient.getQueryData<Gratitude[]>([
         gratitude_query_key,
+        date,
       ])
 
       queryClient.setQueryData(
-        [gratitude_query_key],
+        [gratitude_query_key, date],
         (cashedData: Gratitude[]) => {
           if (cashedData === undefined) return [optimisticGratitude]
           return [...cashedData, optimisticGratitude]
@@ -44,7 +48,7 @@ export const useCreateGratitude = (optimisticDuration: number) => {
 
     onError: (_, __, context) => {
       queryClient.setQueryData(
-        [gratitude_query_key],
+        [gratitude_query_key, date],
         context?.previousGratitudeList,
       )
       toastError()
@@ -56,13 +60,20 @@ export const useCreateGratitude = (optimisticDuration: number) => {
 
       setTimeout(() => {
         queryClient.setQueryData(
-          [gratitude_query_key],
+          [gratitude_query_key, date],
           (cashedData: Gratitude[]) =>
             cashedData.map(gratitude => {
               if (gratitude.id === context.optimisticGratitude.id)
                 return validation.data
               return gratitude
             }),
+        )
+        queryClient.setQueryData(
+          [gratitude_query_key],
+          (cashedData: Gratitude[]) => {
+            if (cashedData === undefined) return
+            return [...cashedData, validation.data]
+          },
         )
       }, optimisticDuration)
     },

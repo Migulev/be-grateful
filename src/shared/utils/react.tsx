@@ -60,13 +60,13 @@ export function convertDurationTW(duration: number) {
   }
 }
 
-// export function formatDate(isoString: string) {
-//   const date = new Date(isoString)
-//   const day = String(date.getDate()).padStart(2, '0')
-//   const month = String(date.getMonth() + 1).padStart(2, '0')
-//   const year = date.getFullYear()
-//   return `${day}.${month}.${year}`
-// }
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  const day = String(date.getDate() + 1).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = String(date.getFullYear()).slice(-2)
+  return `${day}/${month}/${year}`
+}
 
 export const useResizeTextarea = (
   element: RefObject<HTMLTextAreaElement>,
@@ -164,3 +164,24 @@ export function wait(ms: number) {
 export function convertToHsl(cssValue: string) {
   return 'hsl(' + cssValue + ')'
 }
+
+export const getLocalISOTime = () => {
+  const now = new Date()
+  const localISOTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+    .toISOString()
+    .slice(0, -1)
+  return localISOTime
+}
+
+export const getLocalISOTimeOfYesterday = () => {
+  const now = new Date()
+  const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000)
+  const localISOTime = new Date(
+    yesterday.getTime() - yesterday.getTimezoneOffset() * 60000,
+  )
+    .toISOString()
+    .slice(0, -1)
+  return localISOTime
+}
+
+export const separateFromTime = (date: string) => date.split('T')[0]

@@ -13,6 +13,8 @@ module.exports = {
     borderRadius: {
       DEFAULT: 'calc(var(--radius) - 2px)',
       full: '50%',
+      none: '0',
+      tab: '35%',
     },
     colors: ({ colors }) => ({
       black: colors.black,

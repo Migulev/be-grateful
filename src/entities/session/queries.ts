@@ -5,7 +5,7 @@ import { ValidationError } from '@/shared/libs/errors'
 
 import { sessionSchema } from './model/types'
 
-const session_query_key = 'session'
+export const session_query_key = 'session'
 
 export const sessionQuery = () => ({
   queryKey: [session_query_key],
