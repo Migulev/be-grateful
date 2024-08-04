@@ -41,7 +41,7 @@ export const GratitudeDateBar = ({
       >
         Все
       </GratitudeTab>
-      <div className="ml-auto flex flex-row-reverse overflow-scroll rounded-t">
+      <div className="ml-auto flex flex-row-reverse overflow-auto rounded-t">
         {uniqueDatesList?.map(date => {
           const today =
             separateFromTime(getLocalISOTime()) === date && 'сегодня'
