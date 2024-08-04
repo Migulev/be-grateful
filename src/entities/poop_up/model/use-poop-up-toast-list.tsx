@@ -7,6 +7,8 @@ import { preloadImageInObject, shuffleArray } from '@/shared/utils'
 import { poopUpListQuery } from '../queries'
 import { PoopUpCharacter, PoopUpPhrase, PoopUpToast } from './types'
 
+const NUMBER_OF_POOP_UP_TOASTS = 3
+
 export const usePoopUpToastList = (isEnabled: boolean) => {
   const [poopUpToastList, setPoopUpToastList] = useState<PoopUpToast[]>()
   const { data } = useQuery({
@@ -25,7 +27,7 @@ export const usePoopUpToastList = (isEnabled: boolean) => {
   ) {
     const shuffledAndSlicedCharacterList = shuffleArray(characterList).slice(
       0,
-      10,
+      NUMBER_OF_POOP_UP_TOASTS,
     )
     const preloadedCharacterList = await preloadImagesInPoopUpList(
       shuffledAndSlicedCharacterList,
