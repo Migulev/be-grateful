@@ -169,7 +169,7 @@ export const getLocalISOTime = () => {
   const now = new Date()
   const localISOTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
     .toISOString()
-    .slice(0, -1)
+    .slice(0, -5)
   return localISOTime
 }
 

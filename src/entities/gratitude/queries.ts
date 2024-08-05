@@ -51,7 +51,7 @@ export const gratitudeDatesQuery = () => ({
       ...gratitudeDates.map(date => separateFromTime(date.created_at)),
     ])
 
-    return Array.from(uniqueDates) as string[]
+    return Array.from(uniqueDates)
   },
   refetchOnWindowFocus: false,
   staleTime: Infinity,
