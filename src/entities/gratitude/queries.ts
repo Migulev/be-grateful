@@ -72,3 +72,11 @@ export const useInvalidateGratitudeDates = () => {
       queryKey: [gratitude_dates_query_key],
     })
 }
+
+export const useResetGratitudeDates = () => {
+  const queryClient = useQueryClient()
+  return () =>
+    queryClient.resetQueries({
+      queryKey: [gratitude_dates_query_key],
+    })
+}
