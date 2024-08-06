@@ -29,7 +29,6 @@ export const GratitudeList = ({
 
   const session = useSession()
   const today = separateFromTime(getLocalISOTime()) === date
-
   const isFetchingGratitudeDates = useIsFetching({
     queryKey: [gratitude_dates_query_key],
   })
