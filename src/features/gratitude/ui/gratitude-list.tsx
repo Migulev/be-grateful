@@ -1,7 +1,4 @@
-import { useIsFetching } from '@tanstack/react-query'
-
 import {
-  gratitude_dates_query_key,
   GratitudeInput,
   GratitudeLine,
   useGratitudeList,
@@ -29,11 +26,8 @@ export const GratitudeList = ({
 
   const session = useSession()
   const today = separateFromTime(getLocalISOTime()) === date
-  const isFetchingGratitudeDates = useIsFetching({
-    queryKey: [gratitude_dates_query_key],
-  })
 
-  const renderInput = !session || today || !!isFetchingGratitudeDates
+  const renderInput = !session || today
 
   return (
     <ul
