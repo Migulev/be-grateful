@@ -15,7 +15,7 @@ export const GreetingToast = () => {
     ...greetingQuery(!!session),
   })
   const { theme } = useTheme()
-  const bgColor = theme === 'dark' ? '#1e293b' : '#F9FAFB'
+  const bgColor = theme === 'dark' ? '#1e293bf1' : '#f9fafbf5'
 
   useEffect(() => {
     if (session && greeting && firstTime) {

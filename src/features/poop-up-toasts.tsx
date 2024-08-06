@@ -63,7 +63,7 @@ function ToastsSequence(
     const image = poopUpToast.image
     timeout += randomTimeout()
 
-    const bgColor = theme === 'dark' ? '#1e293b' : '#F9FAFB'
+    const bgColor = theme === 'dark' ? '#1e293bf1' : '#f9fafbf5'
 
     const timeOutId = setTimeout(() => {
       const toastId = toast(
