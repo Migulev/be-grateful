@@ -28,11 +28,11 @@ export const GratitudeDateBar = ({
   })
 
   useEffect(() => {
-    if (uniqueDatesList && !isActive) {
+    if (uniqueDatesList) {
       const firstDate = uniqueDatesList[0]
       setIsActive(firstDate)
     }
-  }, [isActive, setIsActive, uniqueDatesList])
+  }, [setIsActive, uniqueDatesList])
 
   return (
     <div className="relative">
