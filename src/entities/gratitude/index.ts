@@ -5,6 +5,7 @@ export {
   gratitude_query_key,
   gratitude_dates_query_key,
   useResetGratitude,
+  useInvalidateGratitudeDates,
 } from './queries'
 export { useGratitudeList } from './model/use-gratitude-list'
 export { type Gratitude, gratitudeSchema } from './model/types'

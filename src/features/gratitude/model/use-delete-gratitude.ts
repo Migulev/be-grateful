@@ -1,6 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { Gratitude, gratitude_query_key } from '@/entities/gratitude'
+import {
+  Gratitude,
+  gratitude_query_key,
+  useInvalidateGratitudeDates,
+} from '@/entities/gratitude'
 import { gratitudeApi } from '@/shared/api/gratitude'
 import { useGetConfirmation } from '@/shared/libs/context/conformation-context'
 import { UserCancelationError } from '@/shared/libs/errors'
@@ -9,6 +13,7 @@ import { toastError, toastSuccess } from '@/shared/libs/toast'
 export const useDeleteGratitude = () => {
   const queryClient = useQueryClient()
   const { getConfirmation } = useGetConfirmation()
+  const invalidateGratitudeDates = useInvalidateGratitudeDates()
 
   return useMutation({
     mutationFn: async ({
@@ -70,7 +75,8 @@ export const useDeleteGratitude = () => {
       toastError()
     },
 
-    onSuccess: () => {
+    onSuccess: async () => {
+      await invalidateGratitudeDates()
       toastSuccess('Благодарность удалена')
     },
   })

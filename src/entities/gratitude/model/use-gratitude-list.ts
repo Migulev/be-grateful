@@ -5,7 +5,7 @@ import { Gratitude } from './types'
 
 export const useGratitudeList = (
   date: string | undefined,
-): Gratitude[] | [] => {
+): Gratitude[] | undefined => {
   const fetchAllGratitudeList = date === 'all'
   const fetchGratitudeOnDateList = date !== undefined && date !== 'all'
 
@@ -16,8 +16,8 @@ export const useGratitudeList = (
     ...gratitudeQueryOnDate(fetchGratitudeOnDateList, date),
   })
 
-  if (fetchAllGratitudeList) return allGratitudeList ?? []
-  if (fetchGratitudeOnDateList) return gratitudeOnDateList ?? []
+  if (fetchAllGratitudeList) return allGratitudeList ?? undefined
+  if (fetchGratitudeOnDateList) return gratitudeOnDateList ?? undefined
 
-  return []
+  return undefined
 }
