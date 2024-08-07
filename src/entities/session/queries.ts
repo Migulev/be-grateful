@@ -34,3 +34,11 @@ export const useResetSession = () => {
       queryKey: [session_query_key],
     })
 }
+
+export const useInvalidateSession = () => {
+  const queryClient = useQueryClient()
+  return () =>
+    queryClient.invalidateQueries({
+      queryKey: [session_query_key],
+    })
+}
