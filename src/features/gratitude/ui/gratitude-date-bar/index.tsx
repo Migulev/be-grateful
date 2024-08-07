@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 
@@ -7,7 +7,6 @@ import {
   gratitudeDatesQuery,
   GratitudeTab,
 } from '@/entities/gratitude'
-import { GratitudeCalendar } from '@/entities/gratitude/ui/gratitude-calendar'
 import { useSession } from '@/entities/session'
 import {
   formatDate,
@@ -17,6 +16,12 @@ import {
 } from '@/shared/utils'
 
 import { useOutsideCalendarClick } from './use-outside-calendar-click'
+
+const GratitudeCalendar = lazy(() =>
+  import('@/entities/gratitude/ui/gratitude-calendar').then(module => ({
+    default: module.GratitudeCalendar,
+  })),
+)
 
 export const GratitudeDateBar = ({
   isActive,
@@ -48,13 +53,15 @@ export const GratitudeDateBar = ({
   return (
     <div className="relative">
       {isCalendarOpen && (
-        <GratitudeCalendar
-          datesList={uniqueDatesList || []}
-          isActiveDate={isActive}
-          setIsActiveDate={setIsActive}
-          className="absolute right-3 top-12 z-10"
-          ref={refCalendar}
-        />
+        <Suspense fallback={null}>
+          <GratitudeCalendar
+            datesList={uniqueDatesList || []}
+            isActiveDate={isActive}
+            setIsActiveDate={setIsActive}
+            className="absolute right-3 top-12 z-10"
+            ref={refCalendar}
+          />
+        </Suspense>
       )}
       <div className=" flex items-end gap-5 px-[5px]">
         <GratitudeTab
