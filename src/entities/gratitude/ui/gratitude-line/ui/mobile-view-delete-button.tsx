@@ -11,8 +11,8 @@ export const MobileViewDeleteButton = ({
   onDelete: () => void
 }) => {
   const [isOpenDelete, setIsOpenDelete] = useState(false)
-  const refDiv = useRef<SVGSVGElement>(null)
-  useOutsideClick(refDiv, () => setIsOpenDelete(false))
+  const ref = useRef<SVGSVGElement>(null)
+  useOutsideClick(ref, () => setIsOpenDelete(false))
   return (
     <MobileView>
       {!isOpenDelete && (
@@ -26,7 +26,7 @@ export const MobileViewDeleteButton = ({
         <X
           className="absolute -left-3 size-5 cursor-pointer text-destructive"
           onClick={onDelete}
-          ref={refDiv}
+          ref={ref}
           role="x-delete-button"
         />
       )}
