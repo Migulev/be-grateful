@@ -1,12 +1,15 @@
 import { Loader } from 'lucide-react'
 
-import { cn } from '@/shared/utils'
+import { cn, useAppearance } from '@/shared/utils'
 
 export const GratitudeCalendarFallback = ({
   className,
 }: {
   className?: string
 }) => {
+  const isShown = useAppearance()
+  if (!isShown) return null
+
   return (
     <div
       className={cn(
