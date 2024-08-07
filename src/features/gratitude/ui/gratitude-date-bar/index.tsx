@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 
@@ -8,12 +8,15 @@ import {
   GratitudeTab,
 } from '@/entities/gratitude'
 import { GratitudeCalendar } from '@/entities/gratitude/ui/gratitude-calendar'
+import { useSession } from '@/entities/session'
 import {
   formatDate,
   getLocalISOTime,
   getLocalISOTimeOfYesterday,
   separateFromTime,
 } from '@/shared/utils'
+
+import { useOutsideCalendarClick } from './use-outside-calendar-click'
 
 export const GratitudeDateBar = ({
   isActive,
@@ -34,6 +37,14 @@ export const GratitudeDateBar = ({
     }
   }, [setIsActive, uniqueDatesList])
 
+  const session = useSession()
+
+  const refCalendar = useRef<HTMLDivElement>(null)
+  const refCalendarButton = useRef<HTMLButtonElement>(null)
+  useOutsideCalendarClick(refCalendar, refCalendarButton, () =>
+    setIsCalendarOpen(false),
+  )
+
   return (
     <div className="relative">
       {isCalendarOpen && (
@@ -42,6 +53,7 @@ export const GratitudeDateBar = ({
           isActiveDate={isActive}
           setIsActiveDate={setIsActive}
           className="absolute right-3 top-12 z-10"
+          ref={refCalendar}
         />
       )}
       <div className=" flex items-end gap-5 px-[5px]">
@@ -72,6 +84,8 @@ export const GratitudeDateBar = ({
         <GratitudeCalendarButton
           isActive={isCalendarOpen}
           onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+          disabled={!session}
+          ref={refCalendarButton}
         />
       </div>
     </div>
