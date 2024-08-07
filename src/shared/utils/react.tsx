@@ -6,6 +6,7 @@ import {
   isValidElement,
   ReactNode,
   RefObject,
+  startTransition,
   useContext,
   useEffect,
   useState,
@@ -185,3 +186,37 @@ export const getLocalISOTimeOfYesterday = () => {
 }
 
 export const separateFromTime = (date: string) => date.split('T')[0]
+
+export function useAppearance(
+  options = {} as {
+    delay?: boolean
+    appearanceDelay?: number
+    instantDisplay?: boolean
+    displayTime?: number
+  },
+) {
+  const {
+    delay = true,
+    appearanceDelay = 350,
+    instantDisplay = false,
+    displayTime = 500,
+  } = options
+
+  const [isShown, setIsShown] = useState(instantDisplay)
+
+  useEffect(() => {
+    if (delay) {
+      const timer = setTimeout(() => {
+        startTransition(() => setIsShown(true))
+      }, appearanceDelay)
+      return () => clearTimeout(timer)
+    } else {
+      const timer = setTimeout(() => {
+        startTransition(() => setIsShown(false))
+      }, displayTime)
+      return () => clearTimeout(timer)
+    }
+  }, [appearanceDelay, delay, displayTime])
+
+  return isShown
+}

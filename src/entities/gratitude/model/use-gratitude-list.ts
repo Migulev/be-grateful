@@ -5,19 +5,23 @@ import { Gratitude } from './types'
 
 export const useGratitudeList = (
   date: string | undefined,
-): Gratitude[] | undefined => {
-  const fetchAllGratitudeList = date === 'all'
-  const fetchGratitudeOnDateList = date !== undefined && date !== 'all'
+  session: boolean,
+):
+  | { gratitudeList: Gratitude[] | undefined; isFetching: boolean }
+  | undefined => {
+  const fetchAllGratitudeList = date === 'all' && session
+  const fetchGratitudeOnDateList =
+    date !== undefined && date !== 'all' && session
 
-  const { data: allGratitudeList } = useQuery({
+  const { data: allGratitudeList, isFetching: allFetching } = useQuery({
     ...gratitudeListQuery(fetchAllGratitudeList),
   })
-  const { data: gratitudeOnDateList } = useQuery({
+  const { data: gratitudeOnDateList, isFetching: onDateFetching } = useQuery({
     ...gratitudeQueryOnDate(fetchGratitudeOnDateList, date),
   })
 
-  if (fetchAllGratitudeList) return allGratitudeList ?? undefined
-  if (fetchGratitudeOnDateList) return gratitudeOnDateList ?? undefined
-
-  return undefined
+  if (fetchAllGratitudeList)
+    return { gratitudeList: allGratitudeList, isFetching: allFetching }
+  if (fetchGratitudeOnDateList)
+    return { gratitudeList: gratitudeOnDateList, isFetching: onDateFetching }
 }
