@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 
 import { useResetGratitude, useResetGratitudeDates } from '@/entities/gratitude'
-import { useResetSession } from '@/entities/session'
+import { useRemoveSession, useResetSession } from '@/entities/session'
 import { authApi } from '@/shared/api/auth'
 import { useGetConfirmation } from '@/shared/libs/context/conformation-context'
 import { UserCancelationError } from '@/shared/libs/errors'
@@ -9,6 +9,7 @@ import { toastError } from '@/shared/libs/toast'
 
 export const useLogOut = () => {
   const resetSession = useResetSession()
+  const removeSession = useRemoveSession()
   const resetGratitude = useResetGratitude()
   const resetGratitudeDates = useResetGratitudeDates()
   const { getConfirmation } = useGetConfirmation()
@@ -32,7 +33,7 @@ export const useLogOut = () => {
     },
 
     onSuccess: () => {
-      resetSession()
+      removeSession()
       resetGratitude()
       resetGratitudeDates()
     },

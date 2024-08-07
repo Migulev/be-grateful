@@ -19,18 +19,18 @@ export const sessionQuery = () => ({
   staleTime: Infinity,
 })
 
-export const useResetSession = () => {
+export const useRemoveSession = () => {
   const queryClient = useQueryClient()
   return () =>
-    queryClient.resetQueries({
+    queryClient.removeQueries({
       queryKey: [session_query_key],
     })
 }
 
-export const useInvalidateSession = () => {
+export const useResetSession = () => {
   const queryClient = useQueryClient()
   return () =>
-    queryClient.invalidateQueries({
+    queryClient.resetQueries({
       queryKey: [session_query_key],
     })
 }
