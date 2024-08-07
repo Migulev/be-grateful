@@ -10,7 +10,7 @@ function App() {
   return (
     <AppProviders>
       <AppLoader>
-        <div className="bg-gradient h-screen overflow-auto font-app">
+        <div className="bg-gradient relative h-screen overflow-auto font-app">
           <Topbar />
           <Home />
         </div>

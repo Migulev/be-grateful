@@ -1,6 +1,7 @@
 import { lazy, ReactNode, Suspense, useState } from 'react'
 
 import { useSession } from '@/entities/session'
+import { GlobalSpinner } from '@/shared/components/global-spinner'
 import { SettingsModalContext } from '@/shared/libs/context/settings-modal-context'
 
 const SettingsModal = lazy(() =>
@@ -21,7 +22,7 @@ export const SettingModalProvider = ({
     <SettingsModalContext.Provider value={{ setIsOpenSettingsModal }}>
       {children}
       {session && isOpenSettingsModal && (
-        <Suspense fallback={null}>
+        <Suspense fallback={<GlobalSpinner />}>
           <SettingsModal
             profile={session}
             onClose={() => setIsOpenSettingsModal(false)}

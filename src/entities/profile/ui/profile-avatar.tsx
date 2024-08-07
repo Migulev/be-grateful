@@ -1,10 +1,9 @@
-import { Loader } from 'lucide-react'
-
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from '@/shared/components/ui/avatar'
+import { Spinner } from '@/shared/components/ui/spinner'
 import { cn } from '@/shared/utils'
 
 import { Profile } from '../model/types'
@@ -34,12 +33,7 @@ export const ProfileAvatar = ({
       <AvatarFallback className={cn({ 'opacity-20': loading })}>
         {getProfileLetters(profile)}
       </AvatarFallback>
-      {loading && (
-        <Loader
-          className="absolute animate-spin-slow"
-          role="loader"
-        />
-      )}
+      {loading && <Spinner className="absolute" />}
     </Avatar>
   )
 }

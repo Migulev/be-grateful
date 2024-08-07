@@ -1,6 +1,7 @@
 import { lazy, ReactNode, Suspense, useEffect, useState } from 'react'
 
 import { type ConfirmModalParams } from '@/widgets/modals/conformation-modal'
+import { GlobalSpinner } from '@/shared/components/global-spinner'
 import {
   ConfirmationContext,
   ConfirmationParams,
@@ -60,8 +61,7 @@ export const ConformationModalProvider = ({
       }}
     >
       {children}
-      <Suspense fallback={null}>
-        {' '}
+      <Suspense fallback={<GlobalSpinner />}>
         {modalParams && <ConformationModal {...modalParams} />}
       </Suspense>
     </ConfirmationContext.Provider>

@@ -1,6 +1,7 @@
 import { lazy, ReactNode, Suspense, useState } from 'react'
 
 import { useSession } from '@/entities/session'
+import { GlobalSpinner } from '@/shared/components/global-spinner'
 import { AuthModalContext } from '@/shared/libs/context/auth-modal-context'
 
 const AuthModal = lazy(() =>
@@ -17,7 +18,7 @@ export const AuthModalProvider = ({ children }: { children?: ReactNode }) => {
     <AuthModalContext.Provider value={{ setIsOpenAuthModal }}>
       {children}
       {isOpenAuthModal && !session && (
-        <Suspense fallback={null}>
+        <Suspense fallback={<GlobalSpinner />}>
           <AuthModal onClose={() => setIsOpenAuthModal(false)} />
         </Suspense>
       )}
