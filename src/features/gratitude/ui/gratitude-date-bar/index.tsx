@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import {
   GratitudeCalendarButton,
+  GratitudeCalendarFallback,
   gratitudeDatesQuery,
   GratitudeTab,
 } from '@/entities/gratitude'
@@ -53,15 +54,21 @@ export const GratitudeDateBar = ({
   return (
     <div className="relative">
       {isCalendarOpen && (
-        <Suspense fallback={null}>
-          <GratitudeCalendar
-            datesList={uniqueDatesList || []}
-            isActiveDate={isActive}
-            setIsActiveDate={setIsActive}
-            className="absolute right-3 top-12 z-10"
-            ref={refCalendar}
-          />
-        </Suspense>
+        <div>
+          <Suspense
+            fallback={
+              <GratitudeCalendarFallback className="absolute right-6 top-[60px]" />
+            }
+          >
+            <GratitudeCalendar
+              datesList={uniqueDatesList || []}
+              isActiveDate={isActive}
+              setIsActiveDate={setIsActive}
+              className="absolute right-3 top-12 z-10"
+              ref={refCalendar}
+            />
+          </Suspense>
+        </div>
       )}
       <div className=" flex items-end gap-5 px-[5px]">
         <GratitudeTab
