@@ -60,6 +60,7 @@ export const GratitudeDateBar = ({
         <GratitudeTab
           active={isActive === 'all'}
           onClick={() => setIsActive('all')}
+          disabled={!session}
         >
           Все
         </GratitudeTab>

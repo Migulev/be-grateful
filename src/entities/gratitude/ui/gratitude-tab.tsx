@@ -8,11 +8,13 @@ export const GratitudeTab = ({
   active = false,
   onClick,
   className,
+  disabled,
 }: {
   children: string
   active?: boolean
   onClick?: () => void
   className?: string
+  disabled?: boolean
 }) => {
   return (
     <Button
@@ -21,6 +23,7 @@ export const GratitudeTab = ({
         'pr-0 opacity-100': active,
       })}
       onClick={onClick}
+      disabled={disabled}
     >
       <>
         {children}
