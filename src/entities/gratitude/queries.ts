@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 
 import { gratitudeApi } from '@/shared/api/gratitude'
+import { ONE_HOUR_TIME } from '@/shared/config/constants'
 import { ValidationError } from '@/shared/libs/errors'
 import { getLocalISOTime, separateFromTime } from '@/shared/utils'
 
@@ -18,7 +19,7 @@ export const gratitudeListQuery = (isEnabled: boolean) => ({
     return validation.data
   },
   refetchOnWindowFocus: false,
-  staleTime: Infinity,
+  staleTime: ONE_HOUR_TIME,
   enabled: isEnabled,
 })
 
@@ -35,7 +36,7 @@ export const gratitudeQueryOnDate = (
     return validation.data
   },
   refetchOnWindowFocus: false,
-  staleTime: Infinity,
+  staleTime: ONE_HOUR_TIME,
   enabled: isEnabled,
 })
 
@@ -54,7 +55,7 @@ export const gratitudeDatesQuery = () => ({
     return Array.from(uniqueDates)
   },
   refetchOnWindowFocus: false,
-  staleTime: Infinity,
+  staleTime: ONE_HOUR_TIME,
 })
 
 export const useResetGratitude = () => {
