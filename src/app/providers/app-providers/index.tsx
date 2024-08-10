@@ -4,8 +4,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { queryClient } from '@/shared/libs/tanstack-query'
 import { ComposeChildren } from '@/shared/utils'
 
+import { ModalProviders } from '../modal-providers'
 import { DeviceTypeProvider } from './device-type-provider'
-import { ModalProviders } from './modals'
 import { ThemeProvider } from './theme-provider'
 import { ToastProvider } from './toast-provider'
 
