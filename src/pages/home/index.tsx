@@ -9,7 +9,7 @@ export const Home = () => {
   const [date, setDate] = useState<string>(separateFromTime(getLocalISOTime()))
 
   return (
-    <main className="container rounded pb-10">
+    <main className="pb-10">
       <Hero />
       <div className="mx-auto mt-4 w-full sm:w-11/12 md:w-9/12">
         <GratitudeDateBar

@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 
 import { gratitudeApi } from '@/shared/api/gratitude'
-import { ONE_HOUR_TIME } from '@/shared/config/constants'
+import { ONE_HOUR_TIME } from '@/shared/constants'
 import { ValidationError } from '@/shared/libs/errors'
 import { getLocalISOTime, separateFromTime } from '@/shared/utils'
 

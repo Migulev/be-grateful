@@ -12,7 +12,7 @@ export const GlobalSpinner = () => {
     <div
       onClick={() => setIsShown(false)}
       className={cn(
-        'animate-slide-down absolute left-0 top-0 flex h-16 w-full items-center justify-center rounded-b-full bg-[#ffffff40]',
+        'absolute left-0 top-0 flex h-16 w-full animate-slide-down items-center justify-center rounded-b-full bg-[#ffffff40]',
       )}
     >
       <Spinner />
