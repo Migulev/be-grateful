@@ -6,7 +6,6 @@ import { usePoopUpToastList } from '@/entities/poop_up'
 import { PoopUpToast } from '@/entities/poop_up/model/types'
 import { useSession } from '@/entities/session'
 import { Avatar, AvatarImage } from '@/shared/components/ui/avatar'
-import { Theme, useTheme } from '@/shared/libs/context/theme-context'
 import { ToastPosition } from '@/shared/libs/toast'
 import { wait } from '@/shared/utils'
 
@@ -18,7 +17,6 @@ const MIN_TOAST_TIMEOUT = 1000
 export const PoopUpToasts = () => {
   const session = useSession()
   const [readyToFetch, setReadyToFetch] = useState(false)
-  const { theme } = useTheme()
 
   useEffect(() => {
     wait(FIRST_TOAST_TIMEOUT).then(() => {
@@ -31,11 +29,7 @@ export const PoopUpToasts = () => {
 
   useEffect(() => {
     if (session || !poopUpToastList) return
-    const { timeOutIds, toastIds } = ToastsSequence(
-      position,
-      poopUpToastList,
-      theme,
-    )
+    const { timeOutIds, toastIds } = ToastsSequence(position, poopUpToastList)
     return () => {
       timeOutIds.forEach(timeOutId => {
         clearTimeout(timeOutId)
@@ -44,7 +38,7 @@ export const PoopUpToasts = () => {
         toast.dismiss(toastId)
       })
     }
-  }, [poopUpToastList, session, theme])
+  }, [poopUpToastList, session])
 
   return <></>
 }
@@ -52,7 +46,6 @@ export const PoopUpToasts = () => {
 function ToastsSequence(
   position: ToastPosition,
   poopUpToastList: PoopUpToast[],
-  theme: Theme,
 ) {
   let timeout = 0
   const timeOutIds = new Array<NodeJS.Timeout>()
@@ -62,8 +55,6 @@ function ToastsSequence(
     const poopUpToast = poopUpToastList[i]
     const image = poopUpToast.image
     timeout += randomTimeout()
-
-    const bgColor = theme === 'dark' ? '#1e293bf1' : '#f9fafbf5'
 
     const timeOutId = setTimeout(() => {
       const toastId = toast(
@@ -86,7 +77,7 @@ function ToastsSequence(
           position: position,
           duration: TOAST_DURATION,
           style: {
-            backgroundColor: bgColor,
+            backgroundColor: 'var(--custom-toast)',
           },
         },
       )

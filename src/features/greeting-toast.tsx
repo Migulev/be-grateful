@@ -5,7 +5,6 @@ import { toast } from 'sonner'
 
 import { greetingQuery } from '@/entities/greeting'
 import { useSession } from '@/entities/session'
-import { useTheme } from '@/shared/libs/context/theme-context'
 
 export const GreetingToast = () => {
   const [toastId, setToastId] = useState<string | number>()
@@ -14,8 +13,6 @@ export const GreetingToast = () => {
   const { data: greeting } = useQuery({
     ...greetingQuery(!!session),
   })
-  const { theme } = useTheme()
-  const bgColor = theme === 'dark' ? '#1e293bf1' : '#f9fafbf5'
 
   useEffect(() => {
     if (session && greeting && firstTime) {
@@ -29,7 +26,7 @@ export const GreetingToast = () => {
           {
             position: 'top-center',
             style: {
-              backgroundColor: bgColor,
+              backgroundColor: 'var(--custom-toast)',
             },
             duration: 5000,
           },
@@ -43,7 +40,7 @@ export const GreetingToast = () => {
         toast.dismiss(toastId)
       }
     }
-  }, [greeting, session, firstTime, bgColor, toastId])
+  }, [greeting, session, firstTime, toastId])
 
   return <></>
 }
