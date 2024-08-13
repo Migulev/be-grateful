@@ -7,6 +7,7 @@ import { gratitudeSecondStatsQuery } from '@/entities/gratitude'
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/shared/components/ui/card'
@@ -19,12 +20,25 @@ import {
 import { Label } from '@/shared/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
 
+// interface Stat {
+//   month: string
+//   amount: number
+// }
+
 export const SecondStats = () => {
   const [option, setOption] = useState<6 | 3 | 0>(6)
   const { data: stats } = useQuery({ ...gratitudeSecondStatsQuery() })
 
   const chartData = stats?.slice(option, 12)
-  const chartConfig = {
+
+  // const bestMonth = chartData?.reduce<Stat | null>((acc, curr) => {
+  //   if (!acc || (curr && curr.amount > (acc?.amount ?? 0))) {
+  //     return curr
+  //   }
+  //   return acc
+  // }, null)
+
+  const chartConfig: ChartConfig = {
     amount: {
       label: 'благодарность',
       color: 'var(--secondary-foreground)',
@@ -127,6 +141,11 @@ export const SecondStats = () => {
           </AreaChart>
         </ChartContainer>
       </CardContent>
+      <CardFooter className="flex-col items-start gap-2 text-sm">
+        <div className="flex gap-2 font-medium leading-none">
+          Месяц - самый благодарный месяц ()
+        </div>
+      </CardFooter>
     </Card>
   )
 }
