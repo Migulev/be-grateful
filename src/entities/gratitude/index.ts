@@ -7,6 +7,8 @@ export {
   useResetGratitude,
   useInvalidateGratitudeDates,
   useResetGratitudeDates,
+  gratitudeFirstStatsQuery,
+  gratitudeSecondStatsQuery,
 } from './queries'
 export { useGratitudeList } from './model/use-gratitude-list'
 export { type Gratitude, gratitudeSchema } from './model/types'

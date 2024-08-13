@@ -185,6 +185,17 @@ export const getLocalISOTimeOfYesterday = () => {
   return localISOTime
 }
 
+export const getLocalISOTime_N_DaysBefore = (days: number) => {
+  const now = new Date()
+  const yesterday = new Date(now.getTime() - days * 24 * 60 * 60 * 1000)
+  const localISOTime = new Date(
+    yesterday.getTime() - yesterday.getTimezoneOffset() * 60000,
+  )
+    .toISOString()
+    .slice(0, -1)
+  return localISOTime
+}
+
 export const separateFromTime = (date: string) => date.split('T')[0]
 
 export function useAppearance(
@@ -219,4 +230,38 @@ export function useAppearance(
   }, [appearanceDelay, delay, displayTime])
 
   return isShown
+}
+
+export const getYearMonths = () => {
+  const now = new Date()
+  const currentMonthIndex = now.getMonth() // 0-11, where 0 is January and 11 is December
+  const currentYear = now.getFullYear()
+  const monthNames = [
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь',
+  ]
+
+  const monthsBackward = []
+
+  for (let i = 11; i >= 0; i--) {
+    const monthIndex = (currentMonthIndex - i + 12) % 12
+    const year = currentYear - 1 + Math.floor((12 - i + currentMonthIndex) / 12)
+    monthsBackward.push({
+      monthName: monthNames[monthIndex],
+      monthNumber: monthIndex + 1, // 1-12
+      year: year,
+    })
+  }
+
+  return monthsBackward
 }

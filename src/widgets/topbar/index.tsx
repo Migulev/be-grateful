@@ -11,7 +11,7 @@ export const Topbar = () => {
   const { theme } = useTheme()
 
   return (
-    <nav className="flex items-center justify-between px-8 py-5 md:px-10 md:py-6 lg:px-16 lg:py-8">
+    <nav className="flex items-center justify-between py-5 md:px-10 md:py-6 lg:px-16 lg:py-8">
       <Logo theme={theme} />
       <Link to={ROUTER_PATHS.STATS}>статистика</Link>
       <div className="flex gap-4">

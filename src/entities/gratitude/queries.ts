@@ -3,12 +3,18 @@ import { useQueryClient } from '@tanstack/react-query'
 import { gratitudeApi } from '@/shared/api/gratitude'
 import { ONE_HOUR_TIME } from '@/shared/constants'
 import { ValidationError } from '@/shared/libs/errors'
-import { getLocalISOTime, separateFromTime } from '@/shared/utils'
+import {
+  getLocalISOTime,
+  getYearMonths,
+  separateFromTime,
+} from '@/shared/utils'
 
 import { gratitudeArraySchema } from './model/types'
 
 export const gratitude_query_key = 'gratitudeList'
 export const gratitude_dates_query_key = 'gratitudeDates'
+const gratitude_first_stats_query_key = 'firstStats'
+const gratitude_second_stats_query_key = 'secondStats'
 
 export const gratitudeListQuery = (isEnabled: boolean) => ({
   queryKey: [gratitude_query_key],
@@ -81,3 +87,56 @@ export const useResetGratitudeDates = () => {
       queryKey: [gratitude_dates_query_key],
     })
 }
+
+export const gratitudeFirstStatsQuery = () => ({
+  queryKey: [gratitude_first_stats_query_key],
+  queryFn: async () => {
+    const gratitudeAmountAll = await gratitudeApi.getGratitudesAmountTotal()
+    const gratitudeAmount90 = await gratitudeApi.getGratitudesAmount_N_Days(90)
+    const gratitudeAmount30 = await gratitudeApi.getGratitudesAmount_N_Days(30)
+    const gratitudeAmount7 = await gratitudeApi.getGratitudesAmount_N_Days(7)
+    const gratitudeAmountPrevious30 =
+      await gratitudeApi.getGratitudesAmountForRangeOfPreviousDays(60, 30)
+
+    if (
+      !gratitudeAmountAll ||
+      !gratitudeAmount90 ||
+      !gratitudeAmount30 ||
+      !gratitudeAmount7 ||
+      !gratitudeAmountPrevious30
+    )
+      return {
+        gratitudeAmountAll: 0,
+        gratitudeAmount90: 0,
+        gratitudeAmount30: 0,
+        gratitudeAmount7: 0,
+        gratitudeAmountPrevious30: 0,
+      }
+    return {
+      gratitudeAmountAll,
+      gratitudeAmount90,
+      gratitudeAmount30,
+      gratitudeAmount7,
+      gratitudeAmountPrevious30,
+    }
+  },
+  refetchOnWindowFocus: false,
+})
+
+export const gratitudeSecondStatsQuery = () => ({
+  queryKey: [gratitude_second_stats_query_key],
+  queryFn: async () => {
+    const months = getYearMonths()
+    const results = []
+
+    for (const { monthNumber, year, monthName } of months) {
+      const amount = await gratitudeApi.getGratitudesAmountForMonth(
+        monthNumber,
+        year,
+      )
+      results.push({ monthNumber, year, amount, monthName })
+    }
+
+    return results || []
+  },
+})

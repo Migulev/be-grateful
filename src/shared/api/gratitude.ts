@@ -1,6 +1,10 @@
 import { supabase } from '@/shared/libs/supabase'
 
-import { getLocalISOTime } from '../utils'
+import {
+  getLocalISOTime,
+  getLocalISOTime_N_DaysBefore,
+  separateFromTime,
+} from '../utils'
 
 export const gratitudeApi = {
   getGratitudeList: async () => {
@@ -35,6 +39,53 @@ export const gratitudeApi = {
       .order('created_at', { ascending: false })
       .throwOnError()
     return data
+  },
+
+  getGratitudesAmountTotal: async () => {
+    const { count } = await supabase
+      .from('gratitudes')
+      .select('*', { count: 'exact', head: true })
+      .throwOnError()
+    return count
+  },
+
+  getGratitudesAmount_N_Days: async (days: number) => {
+    const { count } = await supabase
+      .from('gratitudes')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', separateFromTime(getLocalISOTime_N_DaysBefore(days)))
+    return count
+  },
+  getGratitudesAmountForRangeOfPreviousDays: async (
+    startDaysBefore: number,
+    numberOfDays: number,
+  ) => {
+    const { count } = await supabase
+      .from('gratitudes')
+      .select('*', { count: 'exact', head: true })
+      .gte(
+        'created_at',
+        separateFromTime(getLocalISOTime_N_DaysBefore(startDaysBefore)),
+      )
+      .lt(
+        'created_at',
+        separateFromTime(
+          getLocalISOTime_N_DaysBefore(startDaysBefore - numberOfDays),
+        ),
+      )
+    return count
+  },
+
+  getGratitudesAmountForMonth: async (month: number, year: number) => {
+    const nextMonth = month === 12 ? 1 : month + 1
+    const nextYear = month === 12 ? year + 1 : year
+
+    const { count } = await supabase
+      .from('gratitudes')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', `${year}-${month}-01T00:00:00.000Z`)
+      .lt('created_at', `${nextYear}-${nextMonth}-01T00:00:00.000Z`)
+    return count
   },
 
   createGratitude: async (title: string) => {

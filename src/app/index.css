@@ -55,7 +55,7 @@ body {
     --primary-foreground: #fcf9e0;
 
     --secondary: #fef08a;
-    --secondary-foreground: #423e24;
+    --secondary-foreground: #423e24e4;
 
     --muted: #c4c4b0;
     --muted-foreground: #6b6b61;
@@ -66,8 +66,8 @@ body {
     --destructive: #d63d3d;
     --destructive-foreground: var(--primary-foreground);
 
-    --card: var(--primary-foreground);
-    --card-foreground: var(--primary);
+    --card: var(--secondary);
+    --card-foreground: var(--secondary-foreground);
 
     --popover: var(--primary-foreground);
     --popover-foreground: var(--primary);
@@ -99,10 +99,10 @@ body {
     --muted-foreground: #94a3b8;
 
     --accent: #9c9eb4;
-    /* --accent-foreground: hsl(210 40% 98%); */
+    --accent-foreground: #f8fafc;
 
-    --card: rgb(2, 8, 23);
-    --card-foreground: var(--primary);
+    --card: var(--secondary);
+    --card-foreground: var(--secondary-foreground);
 
     --popover: rgb(2, 8, 23);
     --popover-foreground: var(--primary);
