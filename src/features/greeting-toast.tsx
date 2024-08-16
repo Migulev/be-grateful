@@ -28,7 +28,7 @@ export const GreetingToast = () => {
             style: {
               backgroundColor: 'var(--custom-toast)',
             },
-            duration: 5000,
+            duration: 3000,
           },
         )
         setToastId(id)
