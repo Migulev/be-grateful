@@ -30,12 +30,14 @@ export const useLogOut = () => {
       resetSession()
       resetGratitude()
       resetGratitudeDates()
+      window.location.reload()
     },
 
     onSuccess: () => {
       removeSession()
       resetGratitude()
       resetGratitudeDates()
+      window.location.reload()
     },
   })
 
