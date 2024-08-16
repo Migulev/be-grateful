@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts'
@@ -19,24 +19,56 @@ import {
 } from '@/shared/components/ui/chart'
 import { Label } from '@/shared/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
+import { Spinner } from '@/shared/components/ui/spinner'
 
-// interface Stat {
-//   month: string
-//   amount: number
-// }
+const MONTH_OPTION_STORAGE_KEY = 'month-option'
+type MonthOptionType = 'option-one' | 'option-two' | 'option-three'
+
+interface Stat {
+  monthName: string
+  amount: number | null
+}
 
 export const SecondStats = () => {
-  const [option, setOption] = useState<6 | 3 | 0>(6)
+  const [option, setOption] = useState<MonthOptionType>(
+    localStorage.getItem(
+      MONTH_OPTION_STORAGE_KEY,
+    ) as unknown as MonthOptionType,
+  )
+
+  useEffect(() => {
+    localStorage.setItem(MONTH_OPTION_STORAGE_KEY, option)
+  }, [option])
   const { data: stats } = useQuery({ ...gratitudeSecondStatsQuery() })
 
-  const chartData = stats?.slice(option, 12)
+  const chartData = stats?.gratitudeMonthData.slice(
+    option === 'option-one' ? 6 : option === 'option-two' ? 3 : 0,
+    12,
+  )
 
-  // const bestMonth = chartData?.reduce<Stat | null>((acc, curr) => {
-  //   if (!acc || (curr && curr.amount > (acc?.amount ?? 0))) {
-  //     return curr
-  //   }
-  //   return acc
-  // }, null)
+  const findMostAmountMonth = (stats: Stat[]): Stat | null => {
+    if (!stats || stats.length === 0) return null
+
+    return stats.reduce<Stat | null>((acc, curr) => {
+      if (
+        !acc ||
+        (curr.amount !== null &&
+          (acc.amount === null || curr.amount > acc.amount))
+      ) {
+        return curr
+      }
+      return acc
+    }, null)
+  }
+
+  const countTotalAmounts = (stats: Stat[]): number => {
+    return stats.reduce((total, curr) => {
+      return total + (curr.amount ?? 0)
+    }, 0)
+  }
+
+  const bestMonth = findMostAmountMonth(stats?.gratitudeMonthData || [])
+  const totalAmount = countTotalAmounts(chartData || [])
 
   const chartConfig: ChartConfig = {
     amount: {
@@ -45,19 +77,27 @@ export const SecondStats = () => {
     },
   } satisfies ChartConfig
 
+  if (!stats) {
+    return (
+      <Card className="flex size-96 items-center justify-center">
+        <Spinner />
+      </Card>
+    )
+  }
+
   return (
-    <Card className=" min-h-fit w-96">
+    <Card className="min-h-fit w-96">
       <CardHeader>
         <CardTitle>Благодарности по месяцам</CardTitle>
         <RadioGroup
-          defaultValue="option-one"
+          defaultValue={option}
           className="flex pt-1"
         >
           <div className="flex items-center space-x-2">
             <RadioGroupItem
               value="option-one"
               id="option-one"
-              onClick={() => setOption(6)}
+              onClick={() => setOption('option-one')}
             />
             <Label htmlFor="option-one">6 месяцев</Label>
           </div>
@@ -65,7 +105,7 @@ export const SecondStats = () => {
             <RadioGroupItem
               value="option-two"
               id="option-two"
-              onClick={() => setOption(3)}
+              onClick={() => setOption('option-two')}
             />
             <Label htmlFor="option-two">9 месяцев</Label>
           </div>
@@ -73,7 +113,7 @@ export const SecondStats = () => {
             <RadioGroupItem
               value="option-three"
               id="option-three"
-              onClick={() => setOption(0)}
+              onClick={() => setOption('option-three')}
             />
             <Label htmlFor="option-three">12 месяцев</Label>
           </div>
@@ -142,9 +182,15 @@ export const SecondStats = () => {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Месяц - самый благодарный месяц ()
-        </div>
+        <p className="flex gap-2 font-medium leading-none">
+          {bestMonth ? `${bestMonth.monthName}` : ''} - самый благодарный месяц
+          - {bestMonth?.amount || ' '}
+        </p>
+        <p className="flex gap-2 font-medium leading-none">
+          За{' '}
+          {option === 'option-one' ? '6' : option === 'option-two' ? '9' : '12'}{' '}
+          месяцев благодарностей - {totalAmount}
+        </p>
       </CardFooter>
     </Card>
   )

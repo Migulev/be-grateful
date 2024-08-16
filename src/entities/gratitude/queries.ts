@@ -137,6 +137,6 @@ export const gratitudeSecondStatsQuery = () => ({
       results.push({ monthNumber, year, amount, monthName })
     }
 
-    return results || []
+    return { gratitudeMonthData: results }
   },
 })

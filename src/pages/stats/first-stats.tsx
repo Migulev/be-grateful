@@ -16,17 +16,18 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/shared/components/ui/chart'
+import { Spinner } from '@/shared/components/ui/spinner'
 
 export const FirstStats = () => {
-  const { data: firstStats } = useQuery({ ...gratitudeFirstStatsQuery() })
+  const { data: stats } = useQuery({ ...gratitudeFirstStatsQuery() })
   const chartData = [
-    { period: 'за 90 дней', amount: firstStats?.gratitudeAmount90 },
-    { period: 'за 30 дней', amount: firstStats?.gratitudeAmount30 },
-    { period: 'за 7 дней', amount: firstStats?.gratitudeAmount7 },
+    { period: 'за 90 дней', amount: stats?.gratitudeAmount90 },
+    { period: 'за 30 дней', amount: stats?.gratitudeAmount30 },
+    { period: 'за 7 дней', amount: stats?.gratitudeAmount7 },
   ]
 
-  const previous30 = firstStats?.gratitudeAmountPrevious30 || 0
-  const current30 = firstStats?.gratitudeAmount30 || 0
+  const previous30 = stats?.gratitudeAmountPrevious30 || 0
+  const current30 = stats?.gratitudeAmount30 || 0
 
   const twoMonthsDifference =
     previous30 !== 0
@@ -41,6 +42,14 @@ export const FirstStats = () => {
       color: 'var(--primary-foreground)',
     },
   } satisfies ChartConfig
+
+  if (!stats) {
+    return (
+      <Card className="flex size-96 items-center justify-center">
+        <Spinner />
+      </Card>
+    )
+  }
   return (
     <Card className=" min-h-fit w-96">
       <CardHeader>
@@ -102,16 +111,26 @@ export const FirstStats = () => {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Текущий месяц превышает предыдущий на {twoMonthsDifference}%
+        <p className="flex gap-2 font-medium leading-none">
+          <span className="relative">
+            Текущий месяц
+            <span className=" absolute -right-1 text-[8px]">*</span>
+          </span>{' '}
+          превышает предыдущий на {twoMonthsDifference}%
           <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none">
-          Общее количество благодарностей: {firstStats?.gratitudeAmountAll}
-        </div>
-        <div className=" text-[10px] text-muted-foreground">
-          *текущий месяц - 30 дней до сегодня
-        </div>
+        </p>
+        <p className="leading-none">
+          <span className="relative mr-2">
+            Общее <span className=" absolute -right-1 text-[8px]">**</span>
+          </span>
+          количество благодарностей - {stats?.gratitudeAmountAll}
+        </p>
+        <p className=" text-[10px] leading-3 text-muted-foreground">
+          * 30 дней до сегодняшнего дня
+        </p>
+        <p className=" text-[10px] leading-3 text-muted-foreground">
+          ** с момента регистрации
+        </p>
       </CardFooter>
     </Card>
   )
