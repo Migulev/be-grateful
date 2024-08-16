@@ -110,12 +110,13 @@ export const FirstStats = () => {
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <p className="flex gap-2 font-medium leading-none">
-          <span className="relative">
-            Текущий месяц
-            <span className=" absolute -right-1 text-[8px]">*</span>
-          </span>{' '}
+      <CardFooter className="flex-col items-start gap-2  text-sm">
+        <p className="flex gap-2 text-balance font-medium leading-none ">
+          Текущий
+          <span className="relative mr-1">
+            месяц
+            <span className=" absolute left-9 text-[8px]">*</span>
+          </span>
           превышает предыдущий на {twoMonthsDifference}%
           <TrendingUp className="h-4 w-4" />
         </p>
