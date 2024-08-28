@@ -5,11 +5,14 @@ import { profileApi } from '@/shared/api/profile'
 import { env } from '@/shared/config/env'
 import { toastError, toastSuccess } from '@/shared/libs/toast'
 
+import { useI18n } from './i18n'
+
 const avatarBaseUrl = env.VITE_SUPABASE_AVATAR_BASE_URL
 
 export const useUpdateProfileAvatar = () => {
   const session = useSession()
   const invalidateSession = useInvalidateSession()
+  const { t } = useI18n()
 
   return useMutation({
     mutationFn: async (file: File) => {
@@ -22,7 +25,7 @@ export const useUpdateProfileAvatar = () => {
       await profileApi.updateAvatarUrl(avatarBaseUrl + uploadImage?.path)
       await invalidateSession()
     },
-    onSuccess: () => toastSuccess('Аватар обновлен'),
+    onSuccess: () => toastSuccess(t('toast_avatar_updated') as string),
     onError: () => {
       toastError()
     },

@@ -3,7 +3,10 @@ import { ProfileAvatar, UiProfileMenu } from '@/entities/profile'
 import { useSession } from '@/entities/session'
 import { useSettingsModal } from '@/shared/libs/context/settings-modal-context'
 
+import { useI18n } from './i18n'
+
 export const AuthButtonOrProfile = () => {
+  const { t } = useI18n()
   const logOut = useLogOut()
   const session = useSession()
   const { setIsOpenSettingsModal } = useSettingsModal()
@@ -15,11 +18,11 @@ export const AuthButtonOrProfile = () => {
           trigger={<ProfileAvatar profile={session} />}
           options={[
             {
-              label: 'настройки',
+              label: t('settings') as string,
               onFunc: () => setIsOpenSettingsModal(true),
             },
           ]}
-          lastOption={{ label: 'выйти', onFunc: logOut }}
+          lastOption={{ label: t('logout') as string, onFunc: logOut }}
         />
       ) : (
         <SignInButton />

@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import { Textarea } from '@/shared/components/ui/textarea'
 import { cn, useResizeTextarea } from '@/shared/utils'
 
+import { useI18n } from './i18n'
 import useGratitudeInput from './model/use-gratitude-input'
 import useHandleSubmit from './model/use-handle-submit'
 
@@ -15,6 +16,8 @@ export const GratitudeInput = ({
   onCreateAsync: (gratitudeText: string) => Promise<void>
   isAuthorized: boolean
 }) => {
+  const { t } = useI18n()
+
   const [gratitude, setGratitude] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   useResizeTextarea(textareaRef, gratitude)
@@ -48,7 +51,7 @@ export const GratitudeInput = ({
         placeholder={'...'}
         autoFocus
       />
-      <span className="sr-only">Введите благодарность</span>
+      <span className="sr-only">{t('enterGratitude')}</span>
     </form>
   )
 }

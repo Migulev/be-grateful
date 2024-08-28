@@ -8,6 +8,7 @@ import {
 } from '@/shared/components/credenza'
 import { Button } from '@/shared/components/ui/button'
 
+import { useI18n } from './i18n'
 import { useHandleAvatarUpdate } from './model/use-handle-avatar-update'
 import { useHandleNameForm } from './model/use-handle-name-form'
 import { NameForm } from './ui/name-form'
@@ -19,6 +20,8 @@ export const SettingsModal = ({
   onClose: () => void
   profile: Profile
 }) => {
+  const { t } = useI18n()
+
   const { isUpdatingName, nameForm, onNameSubmit } = useHandleNameForm({
     profile,
   })
@@ -35,7 +38,7 @@ export const SettingsModal = ({
     >
       <CredenzaContent className="bg-gradient px-2 sm:px-10 sm:py-6">
         <CredenzaHeader>
-          <CredenzaTitle>Настройки</CredenzaTitle>
+          <CredenzaTitle>{t('title')}</CredenzaTitle>
         </CredenzaHeader>
         <div className="mt-2 flex flex-col gap-6">
           <div className="flex w-full items-center justify-center gap-4">
@@ -50,7 +53,7 @@ export const SettingsModal = ({
                 onChange={handleAvatarUpdate}
                 disabled={isUnderAvatarMutation}
               >
-                загрузить
+                {t('upload')}
               </UploadInputButton>
 
               <Button
@@ -59,7 +62,7 @@ export const SettingsModal = ({
                 onClick={() => deleteAvatar()}
                 disabled={isUnderAvatarMutation}
               >
-                удалить
+                {t('delete')}
               </Button>
             </div>
           </div>
@@ -69,7 +72,7 @@ export const SettingsModal = ({
             fieldControl={nameForm.control}
             nameForm={nameForm}
           >
-            изменить имя
+            {t('name_change')}
           </NameForm>
         </div>
       </CredenzaContent>

@@ -24,15 +24,19 @@ import { Input } from '@/shared/components/ui/input'
 import { Separator } from '@/shared/components/ui/separator'
 import { toastError } from '@/shared/libs/toast'
 
-const emailFormSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: 'поле обязательно' })
-    .email('неверный формат почты'),
-})
-type EmailFormSchemaType = z.infer<typeof emailFormSchema>
+import { useI18n } from './i18n'
 
 export const AuthModal = ({ onClose }: { onClose: () => void }) => {
+  const { t } = useI18n()
+
+  const emailFormSchema = z.object({
+    email: z
+      .string()
+      .min(1, { message: t('zodMinError') as string })
+      .email(t('zodEmailError') as string),
+  })
+  type EmailFormSchemaType = z.infer<typeof emailFormSchema>
+
   const [checkEmailView, setCheckEmailView] = useState(false)
   const [emailProvidedByUser, setEmailProvidedByUser] = useState('')
 
@@ -55,10 +59,7 @@ export const AuthModal = ({ onClose }: { onClose: () => void }) => {
       setCheckEmailView(true)
       setEmailProvidedByUser(formValues.email)
     } catch (error) {
-      toastError(
-        'Что-то пошло не так. Возможно ссылка уже была отправлена на указанную почту',
-        7000,
-      )
+      toastError(t('toastError') as string, 7000)
     }
   }
 
@@ -69,7 +70,7 @@ export const AuthModal = ({ onClose }: { onClose: () => void }) => {
     >
       <CredenzaContent className="bg-gradient px-2 sm:px-10 sm:py-6">
         <CredenzaHeader>
-          <CredenzaTitle>Вход</CredenzaTitle>
+          <CredenzaTitle>{t('title')}</CredenzaTitle>
         </CredenzaHeader>
 
         {!checkEmailView ? (
@@ -86,7 +87,7 @@ export const AuthModal = ({ onClose }: { onClose: () => void }) => {
                     <FormItem>
                       <FormControl>
                         <Input
-                          placeholder="почта@ya.ru"
+                          placeholder={t('emailPlaceholder') as string}
                           {...field}
                         />
                       </FormControl>
@@ -100,7 +101,7 @@ export const AuthModal = ({ onClose }: { onClose: () => void }) => {
                   type="submit"
                   disabled={isLogging}
                 >
-                  Войти через Email
+                  {t('emailSingIn')}
                 </Button>
               </form>
             </Form>
@@ -113,18 +114,12 @@ export const AuthModal = ({ onClose }: { onClose: () => void }) => {
               disabled={isLogging}
               onClick={() => logInWithGoogle()}
             >
-              Войти через GOOGLE
+              {t('googleSingIn')}
               <GoogleIcon />
             </Button>
           </>
         ) : (
-          <>
-            <div>
-              проверьте почту{' '}
-              <span className="underline">{emailProvidedByUser}</span> вам
-              должна прийти ссылка для входа
-            </div>
-          </>
+          <>{t('checkEmail', { emailProvidedByUser })}</>
         )}
       </CredenzaContent>
     </Credenza>

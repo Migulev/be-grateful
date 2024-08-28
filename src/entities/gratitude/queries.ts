@@ -2,6 +2,7 @@ import { useQueryClient } from '@tanstack/react-query'
 
 import { gratitudeApi } from '@/shared/api/gratitude'
 import { ONE_HOUR_TIME } from '@/shared/constants'
+import { Lang } from '@/shared/libs/context/i18n-context'
 import { ValidationError } from '@/shared/libs/errors'
 import {
   getLocalISOTime,
@@ -123,10 +124,10 @@ export const gratitudeFirstStatsQuery = () => ({
   refetchOnWindowFocus: false,
 })
 
-export const gratitudeSecondStatsQuery = () => ({
-  queryKey: [gratitude_second_stats_query_key],
+export const gratitudeSecondStatsQuery = (lang: Lang) => ({
+  queryKey: [gratitude_second_stats_query_key, lang],
   queryFn: async () => {
-    const months = getYearMonths()
+    const months = getYearMonths(lang)
     const results = []
 
     for (const { monthNumber, year, monthName } of months) {

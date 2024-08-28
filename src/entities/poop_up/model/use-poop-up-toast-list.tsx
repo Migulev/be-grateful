@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 
+import { Lang, useLang } from '@/shared/libs/context/i18n-context'
 import { preloadImageInObject, shuffleArray } from '@/shared/utils'
 
 import { poopUpListQuery } from '../queries'
@@ -15,15 +16,18 @@ export const usePoopUpToastList = (isEnabled: boolean) => {
     ...poopUpListQuery(isEnabled),
   })
 
+  const { lang } = useLang()
+
   useEffect(() => {
     if (data) {
-      prepareList(data.characterList, data.phrasesList)
+      prepareList(data.characterList, data.phrasesList, lang)
     }
-  }, [data])
+  }, [data, lang])
 
   async function prepareList(
     characterList: PoopUpCharacter[],
     phrasesList: PoopUpPhrase[],
+    lang: Lang,
   ) {
     const shuffledAndSlicedCharacterList = shuffleArray(characterList).slice(
       0,
@@ -38,11 +42,14 @@ export const usePoopUpToastList = (isEnabled: boolean) => {
 
     for (let i = 0; i < preloadedCharacterList.length; i++) {
       const character = preloadedCharacterList[i]
-      const phrase = shuffledPhrasesList[i][character.gender]
+      const phraseKey = lang + '_' + character.gender
+      const phrase = shuffledPhrasesList[i][phraseKey as keyof PoopUpPhrase]
+      const characterName =
+        lang === 'ru' ? character.ru_name : character.en_name
 
       readyPoopUpToastList.push({
         image: character.image,
-        name: character.name,
+        name: characterName,
         title: phrase,
       })
     }

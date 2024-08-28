@@ -1,3 +1,3 @@
 export { ConformationModal } from './conformation-modal'
-export { defaultConfirmationParams } from './constants'
+export { useDefaultConfirmationParams } from './constants'
 export type { ConfirmModalParams } from './model/types'

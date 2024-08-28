@@ -20,6 +20,9 @@ import {
 import { Label } from '@/shared/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
 import { Spinner } from '@/shared/components/ui/spinner'
+import { useLang } from '@/shared/libs/context/i18n-context'
+
+import { useI18n } from './i18n'
 
 const MONTH_OPTION_STORAGE_KEY = 'month-option'
 type MonthOptionType = 'option-one' | 'option-two' | 'option-three'
@@ -30,6 +33,9 @@ interface Stat {
 }
 
 export const SecondStats = () => {
+  const { t } = useI18n()
+  const { lang } = useLang()
+
   const [option, setOption] = useState<MonthOptionType>(
     localStorage.getItem(
       MONTH_OPTION_STORAGE_KEY,
@@ -39,7 +45,7 @@ export const SecondStats = () => {
   useEffect(() => {
     localStorage.setItem(MONTH_OPTION_STORAGE_KEY, option)
   }, [option])
-  const { data: stats } = useQuery({ ...gratitudeSecondStatsQuery() })
+  const { data: stats } = useQuery({ ...gratitudeSecondStatsQuery(lang) })
 
   const chartData = stats?.gratitudeMonthData.slice(
     option === 'option-one' ? 6 : option === 'option-two' ? 3 : 0,
@@ -72,7 +78,7 @@ export const SecondStats = () => {
 
   const chartConfig: ChartConfig = {
     amount: {
-      label: 'благодарность',
+      label: t('gratitude'),
       color: 'var(--secondary-foreground)',
     },
   } satisfies ChartConfig
@@ -88,7 +94,7 @@ export const SecondStats = () => {
   return (
     <Card className="min-h-fit w-96">
       <CardHeader>
-        <CardTitle>Благодарности по месяцам</CardTitle>
+        <CardTitle>{t('card_title')}</CardTitle>
         <RadioGroup
           defaultValue={option}
           className="flex pt-1"
@@ -99,7 +105,7 @@ export const SecondStats = () => {
               id="option-one"
               onClick={() => setOption('option-one')}
             />
-            <Label htmlFor="option-one">6 месяцев</Label>
+            <Label htmlFor="option-one">{t('months6')}</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem
@@ -107,7 +113,7 @@ export const SecondStats = () => {
               id="option-two"
               onClick={() => setOption('option-two')}
             />
-            <Label htmlFor="option-two">9 месяцев</Label>
+            <Label htmlFor="option-two">{t('months9')}</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem
@@ -115,7 +121,7 @@ export const SecondStats = () => {
               id="option-three"
               onClick={() => setOption('option-three')}
             />
-            <Label htmlFor="option-three">12 месяцев</Label>
+            <Label htmlFor="option-three">{t('months12')}</Label>
           </div>
         </RadioGroup>
       </CardHeader>
@@ -183,13 +189,12 @@ export const SecondStats = () => {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <p className="flex gap-2 font-medium leading-none">
-          {bestMonth ? `${bestMonth.monthName}` : ''} - самый благодарный месяц
-          - {bestMonth?.amount || ' '}
+          {bestMonth?.monthName} - {t('footer_1')} - {bestMonth?.amount}
         </p>
         <p className="flex gap-2 font-medium leading-none">
-          За{' '}
+          {t('footer_2_for')}{' '}
           {option === 'option-one' ? '6' : option === 'option-two' ? '9' : '12'}{' '}
-          месяцев благодарностей - {totalAmount}
+          {t('footer_2')} - {totalAmount}
         </p>
       </CardFooter>
     </Card>

@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { TrendingUp } from 'lucide-react'
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts'
 
 import { gratitudeFirstStatsQuery } from '@/entities/gratitude'
@@ -18,12 +17,15 @@ import {
 } from '@/shared/components/ui/chart'
 import { Spinner } from '@/shared/components/ui/spinner'
 
+import { useI18n } from './i18n'
+
 export const FirstStats = () => {
+  const { t } = useI18n()
   const { data: stats } = useQuery({ ...gratitudeFirstStatsQuery() })
   const chartData = [
-    { period: 'за 90 дней', amount: stats?.gratitudeAmount90 },
-    { period: 'за 30 дней', amount: stats?.gratitudeAmount30 },
-    { period: 'за 7 дней', amount: stats?.gratitudeAmount7 },
+    { period: t('days90'), amount: stats?.gratitudeAmount90 },
+    { period: t('days30'), amount: stats?.gratitudeAmount30 },
+    { period: t('days7'), amount: stats?.gratitudeAmount7 },
   ]
 
   const previous30 = stats?.gratitudeAmountPrevious30 || 0
@@ -36,7 +38,7 @@ export const FirstStats = () => {
 
   const chartConfig = {
     amount: {
-      label: 'благодарность',
+      label: t('gratitude'),
     },
     label: {
       color: 'var(--primary-foreground)',
@@ -53,7 +55,7 @@ export const FirstStats = () => {
   return (
     <Card className=" min-h-fit w-96">
       <CardHeader>
-        <CardTitle>Благодарности за период</CardTitle>
+        <CardTitle>{t('cardTitle')}</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer
@@ -111,26 +113,13 @@ export const FirstStats = () => {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2  text-sm">
-        <p className="flex gap-2 text-balance font-medium leading-none ">
-          Текущий
-          <span className="relative mr-1">
-            месяц
-            <span className=" absolute left-9 text-[8px]">*</span>
-          </span>
-          превышает предыдущий на {twoMonthsDifference}%
-          <TrendingUp className="h-4 w-4" />
-        </p>
-        <p className="leading-none">
-          <span className="relative mr-2">
-            Общее <span className=" absolute -right-1 text-[8px]">**</span>
-          </span>
-          количество благодарностей - {stats?.gratitudeAmountAll}
+        {t('footer_1', { twoMonthsDifference })}
+        {t('footer_2', { gratitudeAmountAll: stats.gratitudeAmountAll })}
+        <p className=" text-[10px] leading-3 text-muted-foreground">
+          * {t('comment_1')}
         </p>
         <p className=" text-[10px] leading-3 text-muted-foreground">
-          * 30 дней до сегодняшнего дня
-        </p>
-        <p className=" text-[10px] leading-3 text-muted-foreground">
-          ** с момента регистрации
+          ** {t('comment_2')}
         </p>
       </CardFooter>
     </Card>

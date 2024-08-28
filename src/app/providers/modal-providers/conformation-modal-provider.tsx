@@ -1,6 +1,9 @@
-import { lazy, ReactNode, Suspense, useEffect, useState } from 'react'
+import { lazy, ReactNode, Suspense, useState } from 'react'
 
-import { type ConfirmModalParams } from '@/widgets/modals/conformation-modal'
+import {
+  useDefaultConfirmationParams,
+  type ConfirmModalParams,
+} from '@/widgets/modals/conformation-modal'
 import { GlobalSpinner } from '@/shared/components/global-spinner'
 import {
   ConfirmationContext,
@@ -19,18 +22,7 @@ export const ConformationModalProvider = ({
   children?: ReactNode
 }) => {
   const [modalParams, setModalParams] = useState<ConfirmModalParams>()
-  const [defaultConfirmationParams, setDefaultConfirmationParams] =
-    useState<ConfirmModalParams | null>(null)
-
-  useEffect(() => {
-    async function fetchData() {
-      const loadConformationDefaultParams = (
-        await import('@/widgets/modals/conformation-modal')
-      ).defaultConfirmationParams
-      setDefaultConfirmationParams(loadConformationDefaultParams)
-    }
-    fetchData()
-  }, [])
+  const defaultConfirmationParams = useDefaultConfirmationParams()
 
   const closeConfirmation = () => {
     modalParams?.onClose()

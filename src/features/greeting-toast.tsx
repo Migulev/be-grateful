@@ -5,6 +5,7 @@ import { toast } from 'sonner'
 
 import { greetingQuery } from '@/entities/greeting'
 import { useSession } from '@/entities/session'
+import { useLang } from '@/shared/libs/context/i18n-context'
 
 export const GreetingToast = () => {
   const [toastId, setToastId] = useState<string | number>()
@@ -14,13 +15,15 @@ export const GreetingToast = () => {
     ...greetingQuery(!!session),
   })
 
+  const { lang } = useLang()
+
   useEffect(() => {
     if (session && greeting && firstTime) {
       setTimeout(() => {
         const id = toast(
           <div className="flex w-full items-center justify-center">
             <p className="text-center text-lg text-primary capitalize-first">
-              {greeting?.title}
+              {greeting[lang]}
             </p>
           </div>,
           {
@@ -40,7 +43,7 @@ export const GreetingToast = () => {
         toast.dismiss(toastId)
       }
     }
-  }, [greeting, session, firstTime, toastId])
+  }, [greeting, session, firstTime, toastId, lang])
 
   return <></>
 }

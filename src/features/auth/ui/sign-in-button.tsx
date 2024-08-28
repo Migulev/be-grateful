@@ -1,6 +1,8 @@
 import { Button, ButtonProps } from '@/shared/components/ui/button'
 import { useAuthModal } from '@/shared/libs/context/auth-modal-context'
 
+import { useI18n } from '../i18n'
+
 export const SignInButton = ({
   className,
   variant,
@@ -10,6 +12,7 @@ export const SignInButton = ({
   variant?: ButtonProps['variant']
   size?: ButtonProps['size']
 }) => {
+  const { t } = useI18n()
   const { setIsOpenAuthModal } = useAuthModal()
   return (
     <Button
@@ -18,7 +21,7 @@ export const SignInButton = ({
       size={size}
       onClick={() => setIsOpenAuthModal(true)}
     >
-      вход
+      {t('sign_in')}
     </Button>
   )
 }

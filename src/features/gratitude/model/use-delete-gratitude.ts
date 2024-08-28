@@ -10,10 +10,13 @@ import { useGetConfirmation } from '@/shared/libs/context/conformation-context'
 import { UserCancelationError } from '@/shared/libs/errors'
 import { toastError, toastSuccess } from '@/shared/libs/toast'
 
+import { useI18n } from './i18n'
+
 export const useDeleteGratitude = () => {
   const queryClient = useQueryClient()
   const { getConfirmation } = useGetConfirmation()
   const invalidateGratitudeDates = useInvalidateGratitudeDates()
+  const { t } = useI18n()
 
   return useMutation({
     mutationFn: async ({
@@ -23,8 +26,8 @@ export const useDeleteGratitude = () => {
       date: string
     }) => {
       const conformation = getConfirmation({
-        title: 'Удаление',
-        description: 'удалить благодарность',
+        title: t('conformation_delete_title') as string,
+        description: t('conformation_delete_description') as string,
       })
       if (!(await conformation)) throw new UserCancelationError()
 
@@ -77,7 +80,7 @@ export const useDeleteGratitude = () => {
 
     onSuccess: async () => {
       await invalidateGratitudeDates()
-      toastSuccess('Благодарность удалена')
+      toastSuccess(t('deletion_toast_success') as string)
     },
   })
 }

@@ -9,6 +9,8 @@ import { Avatar, AvatarImage } from '@/shared/components/ui/avatar'
 import { ToastPosition } from '@/shared/libs/toast'
 import { wait } from '@/shared/utils'
 
+import { useI18n } from './i18n'
+
 const TOAST_DURATION = 5000
 const FIRST_TOAST_TIMEOUT = 5000
 const MAX_TOAST_TIMEOUT = 8000
@@ -58,21 +60,10 @@ function ToastsSequence(
 
     const timeOutId = setTimeout(() => {
       const toastId = toast(
-        <div className="flex w-full justify-between">
-          <div className="flex items-center gap-5 text-primary">
-            <Avatar>
-              <AvatarImage
-                src={image?.src}
-                className="object-cover"
-              />
-            </Avatar>
-            <div className="flex flex-col gap-1">
-              <h4 className="font-bold capitalize">{poopUpToast.name}</h4>
-              <p className="capitalize-first">{poopUpToast.title}</p>
-            </div>
-          </div>
-          <p className="break-normal">now</p>
-        </div>,
+        <ToastJSX
+          poopUpToast={poopUpToast}
+          image={image}
+        />,
         {
           position: position,
           duration: TOAST_DURATION,
@@ -91,4 +82,31 @@ function ToastsSequence(
 
 function randomTimeout() {
   return Math.floor(Math.random() * MAX_TOAST_TIMEOUT) + MIN_TOAST_TIMEOUT
+}
+
+interface ToastJSXProps {
+  poopUpToast: PoopUpToast
+  image: HTMLImageElement
+}
+
+export const ToastJSX: React.FC<ToastJSXProps> = ({ poopUpToast, image }) => {
+  const { t } = useI18n()
+
+  return (
+    <div className="flex w-full justify-between text-primary">
+      <div className="flex items-center gap-5 ">
+        <Avatar>
+          <AvatarImage
+            src={image?.src}
+            className="object-cover"
+          />
+        </Avatar>
+        <div className="flex flex-col gap-1">
+          <h4 className="font-bold capitalize">{poopUpToast.name}</h4>
+          <p className="capitalize-first">{poopUpToast.title}</p>
+        </div>
+      </div>
+      <p className="break-normal">{t('now')}</p>
+    </div>
+  )
 }

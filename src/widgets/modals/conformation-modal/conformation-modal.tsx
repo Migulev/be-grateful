@@ -8,6 +8,7 @@ import {
 } from '@/shared/components/credenza'
 import { Button } from '@/shared/components/ui/button'
 
+import { useI18n } from './i18n'
 import { ConfirmModalParams } from './model/types'
 
 export const ConformationModal = ({
@@ -18,6 +19,8 @@ export const ConformationModal = ({
   onClose,
   onConfirm,
 }: ConfirmModalParams) => {
+  const { t } = useI18n()
+
   return (
     <form
       onKeyDown={e => {
@@ -32,7 +35,9 @@ export const ConformationModal = ({
           <CredenzaHeader>
             <CredenzaTitle>{title}</CredenzaTitle>
           </CredenzaHeader>
-          <CredenzaBody>Вы уверены что хотите {description}?</CredenzaBody>
+          <CredenzaBody>
+            {t('doYouWantTo')} {description}?
+          </CredenzaBody>
           <CredenzaFooter className="mt-3 flex-col-reverse gap-3 md:flex">
             <Button
               onClick={onClose}

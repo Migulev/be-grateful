@@ -16,6 +16,7 @@ import {
   separateFromTime,
 } from '@/shared/utils'
 
+import { useI18n } from './i18n'
 import { useOutsideCalendarClick } from './use-outside-calendar-click'
 
 const GratitudeCalendar = lazy(() =>
@@ -31,6 +32,7 @@ export const GratitudeDateBar = ({
   isActive: string | undefined
   setIsActive: (date: string) => void
 }) => {
+  const { t } = useI18n()
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
   const { data: uniqueDatesList } = useQuery({
     ...gratitudeDatesQuery(),
@@ -76,14 +78,16 @@ export const GratitudeDateBar = ({
           onClick={() => setIsActive('all')}
           disabled={!session}
         >
-          Все
+          {t('all') as string}
         </GratitudeTab>
         <div className="no-scrollbar ml-auto flex flex-row-reverse overflow-auto rounded-t">
           {uniqueDatesList?.map(date => {
             const today =
-              separateFromTime(getLocalISOTime()) === date && 'сегодня'
+              separateFromTime(getLocalISOTime()) === date &&
+              (t('today') as string)
             const yesterday =
-              separateFromTime(getLocalISOTimeOfYesterday()) === date && 'вчера'
+              separateFromTime(getLocalISOTimeOfYesterday()) === date &&
+              (t('yesterday') as string)
 
             return (
               <GratitudeTab

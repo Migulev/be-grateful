@@ -16,6 +16,7 @@ import { ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 import { ObjectWithImageUrl } from '../global-types'
+import { Lang } from '../libs/context/i18n-context'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -232,24 +233,11 @@ export function useAppearance(
   return isShown
 }
 
-export const getYearMonths = () => {
+export const getYearMonths = (lang: Lang) => {
   const now = new Date()
   const currentMonthIndex = now.getMonth() // 0-11, where 0 is January and 11 is December
   const currentYear = now.getFullYear()
-  const monthNames = [
-    'Январь',
-    'Февраль',
-    'Март',
-    'Апрель',
-    'Май',
-    'Июнь',
-    'Июль',
-    'Август',
-    'Сентябрь',
-    'Октябрь',
-    'Ноябрь',
-    'Декабрь',
-  ]
+  const monthNames = getMonthNames(lang)
 
   const monthsBackward = []
 
@@ -264,4 +252,38 @@ export const getYearMonths = () => {
   }
 
   return monthsBackward
+}
+
+const getMonthNames = (lang: Lang) => {
+  const monthNames: { [key: string]: string[] } = {
+    ru: [
+      'Январь',
+      'Февраль',
+      'Март',
+      'Апрель',
+      'Май',
+      'Июнь',
+      'Июль',
+      'Август',
+      'Сентябрь',
+      'Октябрь',
+      'Ноябрь',
+      'Декабрь',
+    ],
+    en: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ],
+  }
+  return monthNames[lang] || monthNames['en']
 }
