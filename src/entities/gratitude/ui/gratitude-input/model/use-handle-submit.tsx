@@ -1,6 +1,5 @@
+import { MAX_GRATITUDE_TEXT_LENGTH } from '@/entities/gratitude/model/rules'
 import { useAuthModal } from '@/shared/libs/context/auth-modal-context'
-
-const MAX_GRATITUDE_TEXT_LENGTH = 100 // Define or import this constant as needed
 
 const useHandleSubmit = (
   isAuthorized: boolean,
