@@ -13,6 +13,14 @@ export const useI18n = createI18nModule({
     en: 'delete',
     ru: 'удалить',
   },
+  greetings: {
+    en: 'Greeting',
+    ru: 'Приветствие',
+  },
+  greeting_tooltip: {
+    en: 'Greeting toast at the opening of the application',
+    ru: 'Приветствие при открытии приложения',
+  },
   name_change: {
     en: 'change name',
     ru: 'изменить имя',

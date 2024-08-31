@@ -52,4 +52,12 @@ export const profileApi = {
     if (error) throw new SupabaseError()
     return updatedUser
   },
+
+  updateGreeting: async (greetingSettings: boolean) => {
+    const { data: updatedUser, error } = await supabase.auth.updateUser({
+      data: { greetingSettings },
+    })
+    if (error) throw new SupabaseError()
+    return updatedUser
+  },
 }

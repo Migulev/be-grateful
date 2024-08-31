@@ -12,7 +12,7 @@ export const GreetingToast = () => {
   const [firstTime, setFirstTime] = useState(true)
   const session = useSession()
   const { data: greeting } = useQuery({
-    ...greetingQuery(!!session),
+    ...greetingQuery(!!session && session?.greetingSettings),
   })
 
   const { lang } = useLang()

@@ -8,6 +8,7 @@ export const sessionSchema = z
     name: z.string().default(''),
     userName: z.string().optional(),
     userAvatarUrl: z.string().optional(),
+    greetingSettings: z.boolean().default(true),
   })
   .transform(({ avatar_url, ...rest }) => ({ avatarUrl: avatar_url, ...rest }))
 

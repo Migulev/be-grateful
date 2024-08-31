@@ -11,6 +11,7 @@ import { Button } from '@/shared/components/ui/button'
 import { useI18n } from './i18n'
 import { useHandleAvatarUpdate } from './model/use-handle-avatar-update'
 import { useHandleNameForm } from './model/use-handle-name-form'
+import { GreetingSwitch } from './ui/greeting-switch'
 import { NameForm } from './ui/name-form'
 
 export const SettingsModal = ({
@@ -66,6 +67,7 @@ export const SettingsModal = ({
               </Button>
             </div>
           </div>
+          <GreetingSwitch />
           <NameForm
             buttonDisabled={isUpdatingName}
             onSubmit={nameForm.handleSubmit(onNameSubmit)}
