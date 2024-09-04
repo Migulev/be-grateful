@@ -22,8 +22,10 @@ import { useI18n } from './i18n'
 export const FirstStats = () => {
   const { t } = useI18n()
   const { data: stats } = useQuery({ ...gratitudeFirstStatsQuery() })
+
   const chartData = [
     { period: t('days90'), amount: stats?.gratitudeAmount90 },
+    { period: t('days60'), amount: stats?.gratitudeAmount60 },
     { period: t('days30'), amount: stats?.gratitudeAmount30 },
     { period: t('days7'), amount: stats?.gratitudeAmount7 },
   ]
@@ -115,11 +117,9 @@ export const FirstStats = () => {
       <CardFooter className="flex-col items-start gap-2  text-sm">
         {t('footer_1', { twoMonthsDifference })}
         {t('footer_2', { gratitudeAmountAll: stats.gratitudeAmountAll })}
+
         <p className=" text-[10px] leading-3 text-muted-foreground">
-          * {t('comment_1')}
-        </p>
-        <p className=" text-[10px] leading-3 text-muted-foreground">
-          ** {t('comment_2')}
+          * {t('comment')}
         </p>
       </CardFooter>
     </Card>

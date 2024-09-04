@@ -94,21 +94,23 @@ export const gratitudeFirstStatsQuery = () => ({
   queryFn: async () => {
     const gratitudeAmountAll = await gratitudeApi.getGratitudesAmountTotal()
     const gratitudeAmount90 = await gratitudeApi.getGratitudesAmount_N_Days(90)
+    const gratitudeAmount60 = await gratitudeApi.getGratitudesAmount_N_Days(60)
     const gratitudeAmount30 = await gratitudeApi.getGratitudesAmount_N_Days(30)
     const gratitudeAmount7 = await gratitudeApi.getGratitudesAmount_N_Days(7)
     const gratitudeAmountPrevious30 =
       await gratitudeApi.getGratitudesAmountForRangeOfPreviousDays(60, 30)
-
     if (
-      !gratitudeAmountAll ||
-      !gratitudeAmount90 ||
-      !gratitudeAmount30 ||
-      !gratitudeAmount7 ||
-      !gratitudeAmountPrevious30
+      gratitudeAmountAll === null ||
+      gratitudeAmount90 === null ||
+      gratitudeAmount60 === null ||
+      gratitudeAmount30 === null ||
+      gratitudeAmount7 === null ||
+      gratitudeAmountPrevious30 === null
     )
       return {
         gratitudeAmountAll: 0,
         gratitudeAmount90: 0,
+        gratitudeAmount60: 0,
         gratitudeAmount30: 0,
         gratitudeAmount7: 0,
         gratitudeAmountPrevious30: 0,
@@ -116,6 +118,7 @@ export const gratitudeFirstStatsQuery = () => ({
     return {
       gratitudeAmountAll,
       gratitudeAmount90,
+      gratitudeAmount60,
       gratitudeAmount30,
       gratitudeAmount7,
       gratitudeAmountPrevious30,

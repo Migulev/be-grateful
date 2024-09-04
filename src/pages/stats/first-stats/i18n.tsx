@@ -11,6 +11,10 @@ export const useI18n = createI18nModule({
     en: 'for 90 days',
     ru: 'за 90 дней',
   },
+  days60: {
+    en: 'for 60 days',
+    ru: 'за 60 дней',
+  },
   days30: {
     en: 'for 30 days',
     ru: 'за 30 дней',
@@ -26,9 +30,9 @@ export const useI18n = createI18nModule({
   footer_1: {
     ru: ({ twoMonthsDifference }: { twoMonthsDifference: number }) => (
       <p className="flex gap-2 text-balance font-medium leading-none ">
-        Текущий
+        Текущие
         <span className="relative -ml-1">
-          месяц
+          30 дней
           <span className=" absolute left-9 text-[8px]">*</span>
         </span>
         превышает предыдущий на {twoMonthsDifference}%
@@ -37,12 +41,7 @@ export const useI18n = createI18nModule({
     ),
     en: ({ twoMonthsDifference }: { twoMonthsDifference: number }) => (
       <p className="flex gap-2 text-balance font-medium leading-none ">
-        The current
-        <span className="relative -ml-1">
-          month
-          <span className=" absolute left-9 text-[8px]">*</span>
-        </span>
-        exceeds the previous by {twoMonthsDifference}%
+        Current 30 days exceeds previous by {twoMonthsDifference}%
         <TrendingUp className="h-4 w-4" />
       </p>
     ),
@@ -59,17 +58,13 @@ export const useI18n = createI18nModule({
     en: ({ gratitudeAmountAll }: { gratitudeAmountAll: number }) => (
       <p className="leading-none">
         <span className="relative mr-2">
-          Total <span className=" absolute -right-1 text-[8px]">**</span>
+          Total <span className=" absolute -right-1 text-[8px]">*</span>
         </span>
         amount of gratitudes - {gratitudeAmountAll}
       </p>
     ),
   },
-  comment_1: {
-    ru: '30 дней до сегодняшнего дня',
-    en: '30 days before today',
-  },
-  comment_2: {
+  comment: {
     ru: 'с момента регистрации',
     en: 'from the moment of registration',
   },

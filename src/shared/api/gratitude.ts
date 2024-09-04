@@ -54,6 +54,7 @@ export const gratitudeApi = {
       .from('gratitudes')
       .select('*', { count: 'exact', head: true })
       .gte('created_at', separateFromTime(getLocalISOTime_N_DaysBefore(days)))
+      .throwOnError()
     return count
   },
   getGratitudesAmountForRangeOfPreviousDays: async (
@@ -73,6 +74,7 @@ export const gratitudeApi = {
           getLocalISOTime_N_DaysBefore(startDaysBefore - numberOfDays),
         ),
       )
+      .throwOnError()
     return count
   },
 
@@ -85,6 +87,7 @@ export const gratitudeApi = {
       .select('*', { count: 'exact', head: true })
       .gte('created_at', `${year}-${month}-01T00:00:00.000Z`)
       .lt('created_at', `${nextYear}-${nextMonth}-01T00:00:00.000Z`)
+      .throwOnError()
     return count
   },
 
