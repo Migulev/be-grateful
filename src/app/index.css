@@ -36,7 +36,7 @@ body {
 
   .bg-gradient {
     background-image: linear-gradient(
-      to right,
+      to bottom right,
       var(--bg-main-l),
       var(--bg-main-r)
     );
