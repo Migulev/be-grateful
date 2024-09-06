@@ -4,13 +4,14 @@ import { SupabaseError } from '../libs/errors'
 
 export const authApi = {
   getSession: async () => {
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.getUser()
+    const { data, error } = await supabase.auth.getSession()
     if (error) throw new SupabaseError()
 
-    return { id: user?.id, ...user?.user_metadata }
+    const { session } = data
+    if (!session) return null
+
+    const { user } = session
+    return { id: user.id, ...user.user_metadata }
   },
 
   logInWithOtp: async (email: string) => {
