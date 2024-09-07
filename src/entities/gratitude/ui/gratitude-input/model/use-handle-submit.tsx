@@ -1,6 +1,8 @@
 import { MAX_GRATITUDE_TEXT_LENGTH } from '@/entities/gratitude/model/rules'
 import { useAuthModal } from '@/shared/libs/context/auth-modal-context'
 
+const LOCAL_STORAGE_KEY = 'input_gratitude'
+
 const useHandleSubmit = (
   isAuthorized: boolean,
   gratitude: string,
@@ -16,8 +18,14 @@ const useHandleSubmit = (
       return
     }
     if (gratitude && gratitude.length <= MAX_GRATITUDE_TEXT_LENGTH) {
-      await onCreateAsync(gratitude)
-      setGratitude('')
+      try {
+        setGratitude('')
+        localStorage.setItem(LOCAL_STORAGE_KEY, gratitude)
+        await onCreateAsync(gratitude)
+      } catch {
+        setGratitude(localStorage.getItem(LOCAL_STORAGE_KEY) || '')
+        localStorage.removeItem(LOCAL_STORAGE_KEY)
+      }
     }
   }
 
