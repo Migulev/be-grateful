@@ -30,12 +30,7 @@ export const useI18n = createI18nModule({
   footer_1: {
     ru: ({ twoMonthsDifference }: { twoMonthsDifference: number }) => (
       <p className="flex gap-2 text-balance font-medium leading-none ">
-        Текущие
-        <span className="relative -ml-1">
-          30 дней
-          <span className=" absolute left-9 text-[8px]">*</span>
-        </span>
-        превышает предыдущий на {twoMonthsDifference}%
+        Текущие 30 дней превышает предыдущий на {twoMonthsDifference}%
         <TrendingUp className="h-4 w-4" />
       </p>
     ),
@@ -50,7 +45,7 @@ export const useI18n = createI18nModule({
     ru: ({ gratitudeAmountAll }: { gratitudeAmountAll: number }) => (
       <p className="leading-none">
         <span className="relative mr-2">
-          Общее <span className=" absolute -right-1 text-[8px]">**</span>
+          Общее <span className=" absolute -right-1 text-[8px]">*</span>
         </span>
         количество благодарностей - {gratitudeAmountAll}
       </p>
