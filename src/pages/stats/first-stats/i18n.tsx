@@ -45,7 +45,7 @@ export const useI18n = createI18nModule({
     ru: ({ gratitudeAmountAll }: { gratitudeAmountAll: number }) => (
       <p className="leading-none">
         <span className="relative mr-2">
-          Общее <span className=" absolute -right-1 text-[8px]">*</span>
+          Общее <span className=" absolute -right-0 text-[8px]">*</span>
         </span>
         количество благодарностей - {gratitudeAmountAll}
       </p>
